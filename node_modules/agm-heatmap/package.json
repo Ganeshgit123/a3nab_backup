@@ -1,0 +1,20 @@
+{
+  "name": "agm-heatmap",
+  "version": "0.0.6",
+  "main": "../../dist/index",
+  "typings": "../../dist/index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VladShaluhin/agm-heatmap.git"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "typescript": "^2.1.4"
+  }
+}
