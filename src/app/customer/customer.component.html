@@ -400,7 +400,7 @@ Order Status : <span class="blue" *ngIf = "item.orderStatus == 'ONGOING'">{{item
 
 </td>
 <td>- -</td>
-<td><span class="red_color"> </span></td>
+<td><span class="red_color"> - {{item.paidByWallet}}</span></td>
 <td>SAR {{item.totalAmount}} <br> 
 <span *ngIf = "item.paytype == 'card'" class="online_btn">Paid Online</span>
 <span *ngIf = "item.paytype == 'cash'" class="cod_btn">C.O.D</span>

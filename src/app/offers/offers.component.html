@@ -229,7 +229,7 @@ _icon.svg'"></li>
 <div class="col-md-12">
 <div class="form-group">
 <label>Offer Description</label>
-<textarea class="form-control" formControlName="description" placeholder="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy" ></textarea>
+<textarea class="form-control" formControlName="description" placeholder="Offer Description" ></textarea>
 <p *ngIf="!addOffers.controls.description.valid && submitted" class="error-val-pro">Please Enter Offer Description</p>
 </div>
 </div>
@@ -238,14 +238,14 @@ _icon.svg'"></li>
 <div class="col-md-6">
 <div class="form-group">
 <label>Coupon Code</label>
-<input type="text" name="" class="form-control" placeholder="code" formControlName="couponCode" >
+<input type="text" name="" class="form-control" placeholder="Coupon Code" formControlName="couponCode" >
 <p *ngIf="!addOffers.controls.couponCode.valid && submitted" class="error-val-pro">Please Enter Coupon code</p>
 </div>
 </div>
 <div class="col-md-6">
 <div class="form-group">
 <label>Discount</label>
-<input type="text" name="" class="form-control" placeholder="100%" formControlName="discount" >
+<input type="text" name="" class="form-control" placeholder="Discount using %   " formControlName="discount" >
 <p *ngIf="!addOffers.controls.discount.valid && submitted" class="error-val-pro">Please Enter Discount</p>
 </div>
 </div>
@@ -262,7 +262,7 @@ _icon.svg'"></li>
 <div class="col-md-6">
 <div class="form-group">
 <label>Max User Count / User</label>
-<input type="text" name="" class="form-control" placeholder="125" formControlName="count" > 
+<input type="text" name="" class="form-control" placeholder="Use Numbers only" formControlName="count" > 
 <p *ngIf="!addOffers.controls.count.valid && submitted" class="error-val-pro">Please Enter Max User Count</p>
 
 </div>
@@ -273,7 +273,7 @@ _icon.svg'"></li>
     <div class="col-md-6">
         <div class="form-group">
             <label>Upto Amount Discount</label>
-            <input type="text" name="" class="form-control" placeholder="100" formControlName="uptoAmount" > 
+            <input type="text" name="" class="form-control" placeholder="Use Numbers only" formControlName="uptoAmount" > 
             <p *ngIf="!addOffers.controls.uptoAmount.valid && submitted" class="error-val-pro">Please Enter Upto Max amount</p>
             
             </div>

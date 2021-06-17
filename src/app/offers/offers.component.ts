@@ -64,18 +64,18 @@ export class OffersComponent implements OnInit {
     this.getofferslist(data)
 
     this.addOffers   = this.formBuilder.group({
-      title: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      couponCode: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      title: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      couponCode: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       trustUser:[this.trustUser],
-      description: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      discount: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      minimumValue: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      count: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      startDate: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      endDate: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      description: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      discount: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      minimumValue: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      count: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      startDate: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      endDate: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       status: [this.status],
       image: [''],
-      uptoAmount: ['', [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      uptoAmount: ['', [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       // offCategoryId: [''],
       // offProductId: [''],
       // StartTime: [''],
@@ -83,10 +83,10 @@ export class OffersComponent implements OnInit {
   });
 
   this.pushNotify   = this.formBuilder.group({
-    title: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-    content: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-    gender:['',[ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-    age: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]]
+    title: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+    content: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+    gender:['',[ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+    age: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]]
 });
   
   let allcate = {
@@ -202,24 +202,24 @@ async onSubmit()
 
 editoffers(offers){
 $('#add_offer_btn').modal('show');
-// console.log("Edit offer",offers)
+console.log("Edit offer",offers)
 this.imagePreview = offers['image']
 
 this.isEdit = true;
 this.id = offers['id']
 this.addOffers   = this.formBuilder.group({
-  title: [offers['title'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+  title: [offers['title'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   image: [''],
-  couponCode: [offers['couponCode'] , [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+  couponCode: [offers['couponCode'] , [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   trustUser: [offers['trustUser']],
-  description: [offers['description'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-  discount: [offers['discount'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-  minimumValue: [offers['minimumValue'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-  count: [offers['count'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-  startDate: [offers['startDate'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-  endDate: [offers['endDate'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+  description: [offers['description'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+  discount: [offers['discount'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+  minimumValue: [offers['minimumValue'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+  count: [offers['count'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+  startDate: [offers['startDate'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+  endDate: [offers['endDate'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   status: [offers['status'], ],
-  uptoAmount: [offers['uptoAmount'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+  uptoAmount: [offers['uptoAmount'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   // offCategoryId: [offers['offCategoryId'],  ],
   // offProductId: [offers['offProductId'],  ]
 })

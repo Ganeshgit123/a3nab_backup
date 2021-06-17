@@ -95,15 +95,15 @@ export class AddStoreComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => this.storeId = params.id);
     this.storeForm   = this.formBuilder.group({
-      storeName: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      managerFname: ['',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      managerLname: ['',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      email: ['',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      storeName: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      managerFname: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      managerLname: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      email: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       mobileNumber: ['',  [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/),Validators.minLength(6), Validators.maxLength(15)]],
-      storeAddress: ['',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      storeAddress: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       storeImage: [''],
-      latitude: ['',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      longitude: ['',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      latitude: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      longitude: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       dueDay: ['',  [Validators.required, Validators.pattern(/\b(0?[1-9]|[12][0-9]|3[01])\b/)]],
       storeRadius: ['',  [Validators.required, Validators.pattern("[+-]?([0-9]*[.])?[0-9]+")]],
       storePercentage: ['',  [Validators.required, Validators.pattern("[+-]?([0-9]*[.])?[0-9]+")]]
@@ -111,26 +111,26 @@ export class AddStoreComponent implements OnInit {
     });
 
     this.storeManager   = this.formBuilder.group({
-      firstName: ['',  [ Validators.required, Validators.pattern(/\S+(?: \S+)*(?!\s).*$/)]],
-      lastName: ['',  [Validators.required, Validators.pattern(/\S+(?: \S+)*(?!\s).*$/)]],
-      storeId: [this.storeId,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      post: ['Store Manager',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      firstName: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      lastName: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      storeId: [this.storeId,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      post: ['Store Manager',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       mobileNumber: ['',  [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/),Validators.minLength(6), Validators.maxLength(15)]]
     });
 
     this.storeStockUpdateFrom   = this.formBuilder.group({
-      vendorId: ['ADD',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      productId: ['',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      storeId: [this.storeId,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      stockType: ['',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      vendorId: ['ADD',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      productId: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      storeId: [this.storeId,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      stockType: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       units: ['',  [ Validators.required, Validators.pattern("[+-]?([0-9]*[.])?[0-9]+")]],
       StockReason: [''],
       expiryDate: [''],
-      currentStock : ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      currentStock : ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
      });
 
     this.addVendor   = this.formBuilder.group({
-      vendorName: ['',  [ Validators.required, Validators.pattern(/\S+(?: \S+)*(?!\s).*$/)]]
+      vendorName: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]]
     });
 
     this.getStoreDetails({storeId:this.storeId, fromDate: this.graphFrom, toDate: this.graphTo, year: 2021})
@@ -229,10 +229,10 @@ export class AddStoreComponent implements OnInit {
     this.isEdit = true;
     this.managerId = item.id
     this.storeManager   = this.formBuilder.group({
-      firstName: [item.firstName,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      lastName: [item.lastName,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      storeId: [this.storeId,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      post: ['Store Manager',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      firstName: [item.firstName,  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      lastName: [item.lastName,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      storeId: [this.storeId,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      post: ['Store Manager',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       mobileNumber: [item.mobileNumber,  [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/),Validators.minLength(6), Validators.maxLength(15)]]
     });
   }
@@ -463,16 +463,16 @@ async upload_btn_file(){
           this.storeImage = response.body.data.storeDetails[0].storeImage
 
           this.storeForm   = this.formBuilder.group({
-            storeName: [response.body.data.storeDetails[0].storeName,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-            managerFname: [response.body.data.storeDetails[0].managerFname,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-            managerLname: [response.body.data.storeDetails[0].managerLname,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-            email: [response.body.data.storeDetails[0].email,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+            storeName: [response.body.data.storeDetails[0].storeName,  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+            managerFname: [response.body.data.storeDetails[0].managerFname,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+            managerLname: [response.body.data.storeDetails[0].managerLname,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+            email: [response.body.data.storeDetails[0].email,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
             mobileNumber: [response.body.data.storeDetails[0].mobileNumber,  [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/),Validators.minLength(6), Validators.maxLength(15)]],
-            storeAddress: [response.body.data.storeDetails[0].storeAddress,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+            storeAddress: [response.body.data.storeDetails[0].storeAddress,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
             storeImage: [''],
-            latitude: [response.body.data.storeDetails[0].latitude,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-            longitude: [response.body.data.storeDetails[0].longitude,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-            dueDay: [response.body.data.storeDetails[0].dueDay,  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+            latitude: [response.body.data.storeDetails[0].latitude,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+            longitude: [response.body.data.storeDetails[0].longitude,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+            dueDay: [response.body.data.storeDetails[0].dueDay,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
             storeRadius: [response.body.data.storeDetails[0].storeRadius,  [Validators.required, Validators.pattern("[+-]?([0-9]*[.])?[0-9]+")]],
             storePercentage: [response.body.data.storeDetails[0].storePercentage,  [Validators.required, Validators.pattern("[+-]?([0-9]*[.])?[0-9]+")]]
 

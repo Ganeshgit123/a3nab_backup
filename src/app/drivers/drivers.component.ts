@@ -56,15 +56,15 @@ export class DriversComponent implements OnInit {
   ngOnInit(): void {
     
     this.addDriver   = this.formBuilder.group({
-      firstName: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      profilePic: ['', [Validators.required]],
-      dob: [this.bsValue,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      lastName: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      email: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      IDNumber: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      gender: ['Male',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      mobileNumber: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      countryCode: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      firstName: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      profilePic: [''],
+      dob: [this.bsValue,  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      lastName: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      email: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      IDNumber: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      gender: ['Male',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      mobileNumber: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      countryCode: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
     })
 
     const obj = { }
@@ -149,15 +149,15 @@ export class DriversComponent implements OnInit {
     this.isEdit = true;
     this.driverId = data['id']
     this.addDriver   = this.formBuilder.group({
-      firstName: [data['firstName'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      firstName: [data['firstName'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       profilePic: [''],
-      dob: [dob,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      lastName: [data['lastName'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      email: [data['email'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      IDNumber: [data['IDNumber'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      gender: [data['gender'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      mobileNumber: [data['mobileNumber'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      countryCode: [data['countryCode'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      dob: [dob,  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      lastName: [data['lastName'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      email: [data['email'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      IDNumber: [data['IDNumber'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      gender: [data['gender'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      mobileNumber: [data['mobileNumber'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      countryCode: [data['countryCode'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
     })
   }
 

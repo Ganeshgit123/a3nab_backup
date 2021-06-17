@@ -270,7 +270,6 @@ Status &nbsp;&nbsp;
 <img class="upload-img" *ngIf="imagePreview" src="{{imagePreview}}"/>
 </label>
 <input formControlName="profilePic" id="file-input" type="file" (change)="uploadImageFile($event)" />
-<p *ngIf="!addDriver.controls.profilePic.valid && submitted" class="error-val-pro">Please select image</p>
 <!-- <img src="assets/img/driver1.png"> -->
 </div>
 <!-- <div class="driv_ppd">
