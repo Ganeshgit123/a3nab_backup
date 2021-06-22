@@ -8,6 +8,10 @@ overflow-y: scroll;
 .car_modal .modal.right .modal-dialog{
 width: 50%;
 }
+.rating-star-point{
+    font-size: 20px;
+    color: #e8b227;
+  }
 
 .upload-img{
 width: 250px;

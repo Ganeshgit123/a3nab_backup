@@ -77,3 +77,11 @@ agm-map {
 .order_graph canvas{
   height: 450px !important;
 }
+all_feed a:hover{
+  background: #C1003A;
+  color:#fff;
+}
+.rating-star-point{
+  font-size: 20px;
+  color: #e8b227;
+}

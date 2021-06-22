@@ -202,16 +202,16 @@ export class SupportComponent implements OnInit {
 
   onSubmit(){
 
-    // var params = {
-    //   url: 'admin/addSupport',
-    //   data: this.supportForm.value
-    // }
+    if(!this.supportForm.valid){
+      this.apiCall.showToast('Please Fill the mandatory field', 'Error', 'errorToastr')
+      return false;
+    }
 
     var params = {
       url: 'admin/addSupportNew ',
       data: this.supportForm.value
     }
-    console.log(">>>",params)
+    // console.log(">>>",params)
     this.apiCall.commonPostService(params).subscribe(
       (response: any) => {
         // console.log(response.body)

@@ -128,7 +128,7 @@ export class OrdersComponent implements OnInit {
   }
 
   onChangeFilter(id, type){
-    const object = { pageNumber: 1, storeStatus: this.storeStatus, orderStatus: this.orderStatus, deliveryTime: this.deliveryTime, orderDate: this.orderDate }
+    const object = { pageNumber: this.page, storeStatus: this.storeStatus, orderStatus: this.orderStatus, deliveryTime: this.deliveryTime, orderDate: this.orderDate }
     if(type === 'Delivery'){
       this.deliveryTime = id
       this.orderStatus = this.orderStatus
@@ -144,11 +144,11 @@ export class OrdersComponent implements OnInit {
     object.orderStatus = this.orderStatus
     object.storeStatus = this.storeStatus
     this.getOrderList(object)
-    // this.onChangeStoreFilterAPICall(object)
+    this.onChangeStoreFilterAPICall(object)
   }
 
   onChangeStoreFilter(value){
-    var object = { orderStatus: this.orderStatus, storeStatus: value, deliveryTime: this.deliveryTime, orderDate: this.orderDate }
+    var object = {pageNumber: this.page,orderStatus: this.orderStatus, storeStatus: value, deliveryTime: this.deliveryTime, orderDate: this.orderDate }
     this.onChangeStoreFilterAPICall(object)
   }
 

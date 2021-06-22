@@ -187,6 +187,7 @@ export class SubCategoryFormComponent implements OnInit {
             // Success
             this.spinner.hide();
             this.submitted = false;
+            this.imagePreview = null;
             this.apiCall.setProductValue('subCategory')
             this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
           } else {
@@ -234,6 +235,7 @@ export class SubCategoryFormComponent implements OnInit {
           // Success
           this.spinner.hide();
           this.submitted = false;
+          this.imagePreview = null;
           this.apiCall.setProductValue('subCategory')
           this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
         } else {

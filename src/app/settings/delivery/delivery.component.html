@@ -15,7 +15,8 @@
 <td *ngFor="let item of dayslot;let i = index">
 <tr class="text-center" *ngFor="let items of item.slot;let ii = index">
 {{items.fromTime}} - {{items.toTime}}<br>
-<span>Max Order : {{items.maxOrder}}</span>
+<span>Max Order : {{items.maxOrder}}</span><br>
+<span>Used Count : {{items.usedCount}}</span>
 <ul class="timeslot_edit" *ngIf = "showAccept == 'true'">
 <li>
 <button type="button" class="add_bnnt" (click)="editTimeSlot(items)"><img src="assets/img/edit_icon.svg" onmouseover="this.src='assets/img/edit_hover_icon.svg'" onmouseout="this.src='assets/img/edit_icon.svg'"></button>

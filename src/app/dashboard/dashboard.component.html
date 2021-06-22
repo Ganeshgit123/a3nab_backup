@@ -114,7 +114,7 @@
 <td class="col_chan">{{order.orderOn}} - {{order.time}}</td>
 <td class="col_chan"><a routerLink="/order-details/{{ order.id }}">{{order.orderIDs}}</a> </td>
 <td class="col_chan"><a routerLink="/customer/{{ order.userId }}">{{order.customerID}}</a></td>
-<td>{{order.grandTotal}}</td>
+<td>SAR {{order.grand}}</td>
 <td>{{order.orderStatus}}</td>
 <td class="driv_btn" *ngIf="order.orderStatus == 'PENDING'">{{order.orderStatus}}</td>
 <td class="col_chan text-center" style="color: #C1003A;" *ngIf="order.orderStatus != 'PENDING'"><a routerLink="/drivers/{{ order.as_driverId }}">{{order.drId}}</a></td>
@@ -489,7 +489,7 @@ chartType="doughnut"
 <div class="tab-pane" id="2c">
 <div class="row">
 <div class="col-md-12">
-    <div #gmap class="map-heat-container" style="height: 300px;"></div>
+<div #gmap class="map-heat-container" style="height: 300px;"></div>
 
 </div>
 </div>
@@ -499,7 +499,7 @@ chartType="doughnut"
 [latitude]="lat" 
 [longitude]="lng"
 (mapReady)="onMapLoad($event)">
-    
+
 <agm-marker *ngFor ="let item of    " 
 [latitude]= "item.latitude"  
 [longitude]="item.longitude" 
@@ -528,8 +528,8 @@ chartType="doughnut"
 <ul class="nav nav-pills">
 <li class="active"><a href="#1d" data-toggle="tab">User Feedback</a></li>
 <li><a href="#2d" data-toggle="tab">App Feedback</a></li>
-<!-- <li><a href="#3d" data-toggle="tab">Driver Feedback</a></li>
-<li class="all_feed"><a href="">View All User Feedbacks</a></li> -->
+<li><a href="#3d" data-toggle="tab">Driver Feedback</a></li>
+<li class="all_feed"><a routerLink="/feedback">View All User Feedbacks</a></li>
 </ul>
 
 <div class="tab-content clearfix">
@@ -539,25 +539,29 @@ chartType="doughnut"
 <table datatable="ng" class="table table-bordered table-striped table_datatable" id="customerTable">
 <thead>
 <tr>
-<!-- <th>Date &amp; Time</th>
+<th>Date</th>
 <th>Store ID</th>
 <th>Order ID</th>
 <th>Customer ID</th>
 <th>Driver ID</th>
-<th>Price</th> -->
+<th>Price</th>
 <th>Driver Rating</th>
 <th>Product Raiting</th>
 <th>Comment</th>
 </tr>
 </thead>
 <tbody>
-<tr *ngFor="let feed of feedback">
-<!-- <td class="col_chan">7/6/20 - 7:43pm</td>
-<td class="col_chan">#Store_ID </td>
-<td class="col_chan">#Order_ID</td>
-<td>#Customer_ID</td>
-<td>#Driver_ID</td>
-<td>SAR 628.00</td> -->
+<tr *ngFor="let feed of userFeedback">
+<td class="col_chan">{{feed.createdDate}}</td>
+<td class="col_chan">
+<tr *ngFor="let items of feed.store;let ii = index">
+<a routerLink="/view-store/{{ items.storeId }}">{{items.storeID}}</a>
+</tr>      
+</td>
+<td class="col_chan"><a routerLink="/order-details/{{ feed.orderId }}">{{feed.orderIDs}}</a></td>
+<td><a routerLink="/customer/{{ feed.userId }}">{{feed.customerID}}</a></td>
+<td><a routerLink="/drivers/{{feed.drIds }}">{{feed.drId}}</a></td>
+<td>SAR {{feed.grand}}</td>
 <td>
 <ngb-rating [(rate)]="feed.driverRating" class="rating-star-point" [readonly]="true" [max]="5"></ngb-rating>
 </td>
@@ -577,35 +581,62 @@ chartType="doughnut"
 <table datatable="ng" class="table table-bordered table-striped table_datatable" id="customerTable">
 <thead>
 <tr>
+<th>Date</th>
+<th>Customer ID</th>
 <th>Application</th>
-<th>Raiting</th>
+<th>Rating</th>
 <th>Comment</th>
 </tr>
 </thead>
 <tbody>
-<tr *ngFor="let appFeed of appFeedback">
-<td>{{appFeed.apps}}</td>
-<td>
-<ngb-rating [(rate)]="appFeed.rating" class="rating-star-point" [readonly]="true" [max]="5"></ngb-rating>
-</td>
-<td>{{appFeed.commemts}}</td>
+<tr *ngFor="let item of applicafeedbacklist;let i = index">
+<td>{{item.createdDate}}</td>
+<td class="red_color"><a routerLink="/customer/{{ item.userId }}">{{item.customerID}}</a></td>
+<td class="dark_font">{{item.apps}}</td>
+<td><ngb-rating [(rate)]="item.rating" class="rating-star-point" [readonly]="true" [max]="5"></ngb-rating></td>
+<td>{{item.commemts}}</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-<!-- <div class="tab-pane" id="3d">
+<div class="tab-pane" id="3d">
 <div class="material-datatables">
-<div id="DataTables_Table_3_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="DataTables_Table_3_length"><label>Show <select name="DataTables_Table_3_length" aria-controls="DataTables_Table_3" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="DataTables_Table_3_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="DataTables_Table_3"></label></div><table datatable="ng" class="table table-bordered table-striped table_datatable ng-isolate-scope dataTable no-footer" id="DataTables_Table_3" role="grid" aria-describedby="DataTables_Table_3_info">
+<div class="table-responsive text-nowrap">
+<table datatable="ng" class="table table-bordered table-striped table_datatable" id="customerTable">
 <thead>
-<tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Date &amp;amp; Time: activate to sort column descending" style="width: 0px;">Date &amp; Time</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Store ID: activate to sort column ascending" style="width: 0px;">Store ID</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending" style="width: 0px;">Order ID</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Customer ID: activate to sort column ascending" style="width: 0px;">Customer ID</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Driver ID: activate to sort column ascending" style="width: 0px;">Driver ID</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 0px;">Price</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Driver Rating: activate to sort column ascending" style="width: 0px;">Driver Rating</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Product Rating: activate to sort column ascending" style="width: 0px;">Product Rating</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Comments: activate to sort column ascending" style="width: 0px;">Comments</th></tr>
+<tr>
+<th>Date</th>
+<th>Store ID</th>
+<th>Order ID</th>
+<th>Customer ID</th>
+<th>Driver ID</th>
+<th>Price</th>
+<th>Difficult to <br> Find Location</th>
+<th>Comment</th>
+</tr>
 </thead>
 <tbody>
-<tr class="odd"><td valign="top" colspan="9" class="dataTables_empty">No data available in table</td></tr></tbody>
-</table><div class="dataTables_info" id="DataTables_Table_3_info" role="status" aria-live="polite">Showing 0 to 0 of 0 entries</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_3_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_3" data-dt-idx="0" tabindex="0" id="DataTables_Table_3_previous">Previous</a><span></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_3" data-dt-idx="1" tabindex="0" id="DataTables_Table_3_next">Next</a></div></div>
+<tr *ngFor="let item of driverFeedback;let i = index">
+<td>{{item.createdDate}}</td>
+<td class="red_color">
+<tr *ngFor="let items of item.store;let ii = index">
+<a routerLink="/view-store/{{ items.storeId }}">{{items.storeID}}</a>
+</tr>  
+</td>
+<td class="red_color"><a routerLink="/order-details/{{ item.orderId }}">{{item.orderIDs}}</a></td>
+<td class="red_color"><a routerLink="/customer/{{ item.userId }}">{{item.customerID}}</a></td>
+<td class="red_color"><a routerLink="/drivers/{{item.drIds }}">{{item.drId}}</a></td>
+<td>SAR {{item.grand}}</td>
+<td>{{item.findLocation}}</td>
+<td>{{item.notes}}</td>
+</tr>
+</tbody>
+</table>
 </div>
-</div> -->
+</div>
+</div>
 </div>
 </div>
 

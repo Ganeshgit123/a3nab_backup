@@ -53,7 +53,7 @@ searchProduct;
 
     this.getCatgoryList();
 
-    const object = { pageNumber: 1 }
+    const object = { pageNumber: 1}
     this.getProductList(object)
     // this.onChangeCategory("", "Category", true)
     // this.callProductFilter(this.statusobject)
@@ -70,20 +70,23 @@ searchProduct;
     }
   }
 
+  nextPage(page){
+    const object = { pageNumber: page,category: this.categoryId,productCategory:this.subCategoryId,subSubCategory:this.subSubCategoryId,fromDate: this.fromDate, toDate: this.toDate}
+    this.getProductList(object)
+  }
+
   valuefrom(event: any) {
     this.fromDate = this.datePipe.transform(event, 'yyyy-MM-dd');
-    this.getProductList({pageNumber: 1, fromDate: this.fromDate, toDate: this.toDate})
+    this.getProductList({pageNumber: this.page, fromDate: this.fromDate, toDate: this.toDate,category: this.categoryId,productCategory:this.subCategoryId,subSubCategory:this.subSubCategoryId})
+    // this.callProductFilter({pageNumber: this.page,fromDate: this.fromDate, toDate: this.toDate})
   }
 
   valueTo(event: any) {
     this.toDate = this.datePipe.transform(event, 'yyyy-MM-dd');
-    this.getProductList({pageNumber: 1, fromDate: this.fromDate, toDate: this.toDate})
+    this.getProductList({pageNumber: this.page, fromDate: this.fromDate, toDate: this.toDate,category: this.categoryId,productCategory:this.subCategoryId,subSubCategory:this.subSubCategoryId})
+    // this.callProductFilter({pageNumber: this.page,fromDate: this.fromDate, toDate: this.toDate})
   }
 
-  nextPage(page){
-    const object = { pageNumber: page}
-    this.getProductList(object)
-  }
 
   pageReload(){
     location.reload()
@@ -156,13 +159,17 @@ searchProduct;
     this.statusobject['productCategory'] = ""
     this.statusobject['subSubCategory'] = ""
     this.statusobject['productId'] = ""
+    this.statusobject['pageNumber'] = this.page
+    this.statusobject['fromDate'] = this.fromDate
+    this.statusobject['toDate'] = this.toDate
     if(id != "Empty"){
-      this.callProductFilter(this.statusobject)
+      this.getProductList(this.statusobject)
     }else{
-    this.getProductList({pageNumber: 1, fromDate: this.fromDate, toDate: this.toDate})
+      console.log("ddd")
+    // this.getProductList({pageNumber: this.page, fromDate: this.fromDate, toDate: this.toDate})
     }
      
-      // console.log("stat",this.statusobject)
+      console.log("stat",this.statusobject)
 
   }
 
@@ -174,8 +181,13 @@ searchProduct;
     this.statusobject['productCategory'] = this.subCategoryId;
     this.statusobject['subSubCategory'] = ""
     this.statusobject['productId'] = ""
-    this.callProductFilter(this.statusobject)
-    // console.log("subcat",this.statusobject)
+    this.statusobject['pageNumber'] = this.page
+    this.statusobject['fromDate'] = this.fromDate
+    this.statusobject['toDate'] = this.toDate
+    this.getProductList(this.statusobject)
+
+    // this.getProductList(this.statusobject)
+    console.log("subcat",this.statusobject)
     var params = {
       url: 'admin/findSubCategory',
       data: {
@@ -254,13 +266,14 @@ searchProduct;
       url: 'admin/adminProducts',
       data: object
     }
+    // console.log("<<<<<",params)
     this.apiCall.commonPostService(params).subscribe(
       (response: any) => {
         if (response.body.error == 'false') {
           this.pages = response.body.pages * 10;
 
           this.productsList = response.body.products
-          console.log(response.body)
+          // console.log(response.body)
         } else {
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
         }
@@ -278,39 +291,42 @@ searchProduct;
     // this.statusobject['productCategory'] = this.subCategoryId;
     // this.statusobject['subSubCategory'] = this.subSubCategoryId
     this.statusobject['productId'] = this.productId
-    this.callProductFilter(this.statusobject)
-    // console.log("kok",this.statusobject)
+    this.statusobject['pageNumber'] = this.page
+    this.statusobject['fromDate'] = this.fromDate
+    this.statusobject['toDate'] = this.toDate
+    this.getProductList(this.statusobject)
+    console.log("kok",this.statusobject)
   }
 
-  callProductFilter(object){
-    // console.log("apicall",object)
-      var params = {
-        url: 'admin/adminProductFilter',
-        data: object
-      }
-      // console.log(params)
-      this.apiCall.commonPostService(params).subscribe(
-        (response: any) => {
-          // console.log(response.body)
-          if (response.body.error == 'false') {
-            this.productsList = response.body.products
-            // console.log(this.productList)
-          } else {
-            this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
-          }
-        },
-        (error) => {
-          console.log('Error', error)
-          this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
-        }
-      )
+  // callProductFilter(object){
+  //   console.log("apicall",object)
+  //     var params = {
+  //       url: 'admin/adminProductFilter',
+  //       data: object
+  //     }
+  //     // console.log(params)
+  //     this.apiCall.commonPostService(params).subscribe(
+  //       (response: any) => {
+  //         // console.log(response.body)
+  //         if (response.body.error == 'false') {
+  //           this.productsList = response.body.products
+  //           // console.log(this.productList)
+  //         } else {
+  //           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
+  //         }
+  //       },
+  //       (error) => {
+  //         console.log('Error', error)
+  //         this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
+  //       }
+  //     )
     
-  }
+  // }
 
   exportList(event : any){
-    var  object = {category:this.categoryId,productCategory: this.subCategoryId,productId:this.productId,subSubCategory:this.subSubCategoryId}
+    var  object = {pageNumber: this.page, fromDate: this.fromDate, toDate: this.toDate,category:this.categoryId,productCategory: this.subCategoryId,productId:this.productId,subSubCategory:this.subSubCategoryId}
     var params = {
-      url: 'admin/adminProductFilter',
+      url: 'admin/adminProducts',
       data: object
     }
     // console.log("exp",params)
@@ -344,6 +360,7 @@ searchProduct;
         obj['productSubCategoryName'] = element.productSubCategoryName
         obj['productName'] = element.productName
         obj['storeName'] = element.storeName
+        obj['storeStock'] = element.storeStock
         obj['sellCount'] = element.sellCount
         obj['qty'] = element.qty
         obj['maxQty'] = element.maxQty
@@ -360,7 +377,7 @@ searchProduct;
         title: 'Product Report',
         useBom: true,
         noDownload: false,
-        headers: ["Category",  "Sub Category", "Sub Sub-Category", "Product Name", "Assigned Store Name", "Sell Count", "Quantity", "Maximum Quantity", "Product Price", "Product Discount"]
+        headers: ["Category",  "Sub Category", "Sub Sub-Category", "Product Name", "Assigned Store Name","Stock Count","Sell Count", "Quantity", "Maximum Quantity", "Product Price", "Product Discount"]
       };
       new  AngularCsv(bulkArray, "Product Report", this.productcsvOption);
     }

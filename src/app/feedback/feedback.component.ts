@@ -22,7 +22,12 @@ export class FeedbackComponent implements OnInit {
   searchpage : Number =1;
   driverpage:any;
   driverfeedpage:Number = 1;
-
+  grand:any = [];
+  subtot : any;
+  subtot1 : any;
+  subtot2 : any;
+  taxtot : any;
+  finalTot : any;
   constructor(
     private apiCall: ApiCallService,
     private config: NgbRatingConfig
@@ -62,7 +67,20 @@ export class FeedbackComponent implements OnInit {
           // console.log(response.body)
           this.appUserFeedbackList = response.body.data.support
           this.pages = response.body.data.page * 10;
-          
+
+          this.appUserFeedbackList.forEach(function (ord,index) {
+            var tt =  ord.totalAmount - ord.discountAmount    
+    
+                 var subtot = tt - ord.couponDiscount
+                var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
+                var subtot2 = subtot1 + ord.fastDelievryCharge
+
+                var subtot3 = subtot2 * (ord.taxValue / 100) 
+                var grandtot = subtot2 + subtot3
+      
+              ord.grand = grandtot
+              // console.log("grand",grandtot);
+          })
         } else {
           // Query Error
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
@@ -113,7 +131,19 @@ export class FeedbackComponent implements OnInit {
           // console.log(response.body)
           this.appdriverFeedbackList = response.body.data.feedback
           this.driverpage = response.body.data.page * 10;
-          
+          this.appdriverFeedbackList.forEach(function (ord,index) {
+            var tt =  ord.totalAmount - ord.discountAmount    
+    
+                 var subtot = tt - ord.couponDiscount
+                var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
+                var subtot2 = subtot1 + ord.fastDelievryCharge
+
+                var subtot3 = subtot2 * (ord.taxValue / 100) 
+                var grandtot = subtot2 + subtot3
+      
+              ord.grand = grandtot
+              // console.log("grand",grandtot);
+          })
         } else {
           // Query Error
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')

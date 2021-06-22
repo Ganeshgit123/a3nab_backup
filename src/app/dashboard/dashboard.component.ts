@@ -79,6 +79,7 @@ export class DashboardComponent implements OnInit {
   showAccept = 'true';
   searchDriver;
   searchStore;
+  hhhcoords = [];
 
   title = 'My first AGM project';
   lat:number;
@@ -87,7 +88,16 @@ export class DashboardComponent implements OnInit {
   hlng:any = [];
   heatlat :any = [];
   heatlng :any = [];
-  hhhcoords = [];
+  markers = [];
+  grand:any = [];
+  subtot : any;
+  subtot1 : any;
+  subtot2 : any;
+  taxtot : any;
+  finalTot : any;
+  userFeedback:any;
+  applicafeedbacklist:any;
+  driverFeedback:any;
 
   map: google.maps.Map;
   heatmapping: google.maps.visualization.HeatmapLayer;
@@ -239,9 +249,46 @@ export class DashboardComponent implements OnInit {
     this.topselling({fromDate: this.graphFrom, toDate: this.graphTo})
     this.heatmap({fromDate: this.heatFrom, toDate: this.heatTo})
     this.callRolePermission()
+    this.userappfeedbacklist()
+    this.applicationfeedbacklist()
+    this.driverfeedbacklist()
 
-    this.mapsApiLoader.load().then(() => {
-      this.initMap();
+    var params1 = {
+      url: 'admin/heatMap',
+      data: ({fromDate:"",toDate:""})
+    }
+
+    this.apiCall.commonPostService(params1).subscribe((result:any)=>{
+      
+      if(result.body.error == "false")
+      {   
+           this.heatcoords = result.body.data.map;
+
+        this.heatcoords.forEach((val,index)=>{
+          
+          delete val.id
+          delete val.addressType
+          delete val.addressPinDetails
+          delete val.landmark
+          delete val.orders
+
+          this.hhhcoords.push(val)
+
+        })
+        this.hhhcoords.filter((item) =>{
+          item.lat = item.latitude
+          item.lng = item.longitude
+          delete item.latitude
+          delete item.longitude
+
+        })
+      }
+
+      this.mapsApiLoader.load().then(() => {
+        this.initMap();
+      });
+   
+   
     });
   }
 
@@ -253,7 +300,106 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  userappfeedbacklist(){
+    var params = {
+      url: 'admin/userappfeedbacklist',
+      data: {}
+    }
+
+    this.apiCall.commonGetService(params).subscribe(
+      (response: any) => {
+        if (response.body.error == 'false') {
+          // Success
+          // console.log(response.body)
+          this.userFeedback = response.body.data.userFeedback
+          this.userFeedback.forEach(function (ord,index) {
+            var tt =  ord.totalAmount - ord.discountAmount    
+    
+                 var subtot = tt - ord.couponDiscount
+                var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
+                var subtot2 = subtot1 + ord.fastDelievryCharge
+
+                var subtot3 = subtot2 * (ord.taxValue / 100) 
+                var grandtot = subtot2 + subtot3
+      
+              ord.grand = grandtot
+              // console.log("grand",grandtot);
+          })
+         
+        } else {
+          // Query Error
+          this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
+        }
+      },
+      (error) => {
+        this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
+        console.log('Error', error)
+      }
+    )
+  }
+
+  applicationfeedbacklist(){
+    var params = {
+      url: 'admin/appfeedbacklist',
+      data: {}
+    }
+
+    this.apiCall.commonGetService(params).subscribe(
+      (response: any) => {
+        if (response.body.error == 'false') {
+          // Success
+          // console.log(response.body)
+          this.applicafeedbacklist = response.body.data.appFeedback
+         
+        } else {
+          // Query Error
+          this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
+        }
+      },
+      (error) => {
+        this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
+        console.log('Error', error)
+      }
+    )
+  }
   
+  driverfeedbacklist(){
+    var params = {
+      url: 'admin/driverfeedbacklist',
+      data: {}
+    }
+
+    this.apiCall.commonGetService(params).subscribe(
+      (response: any) => {
+        if (response.body.error == 'false') {
+          // Success
+          // console.log(response.body)
+          this.driverFeedback = response.body.data.driverFeedback
+          this.driverFeedback.forEach(function (ord,index) {
+            var tt =  ord.totalAmount - ord.discountAmount    
+    
+                 var subtot = tt - ord.couponDiscount
+                var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
+                var subtot2 = subtot1 + ord.fastDelievryCharge
+
+                var subtot3 = subtot2 * (ord.taxValue / 100) 
+                var grandtot = subtot2 + subtot3
+      
+              ord.grand = grandtot
+              // console.log("grand",grandtot);
+          })
+         
+        } else {
+          // Query Error
+          this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
+        }
+      },
+      (error) => {
+        this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
+        console.log('Error', error)
+      }
+    )
+  }
   
   updateOrderStatus(id,status){
     var params = {
@@ -311,8 +457,6 @@ export class DashboardComponent implements OnInit {
       {   
            this.maps = result.body.data.map;
       }
-
-      
     });
   }
 
@@ -333,47 +477,15 @@ export class DashboardComponent implements OnInit {
   }
 
   getPoints() {
-    // create points
-    var params = {
-      url: 'admin/heatMap',
-      data: ({fromDate:"",toDate:""})
-    }
 
-    this.apiCall.commonPostService(params).subscribe((result:any)=>{
-      
-      if(result.body.error == "false")
-      {   
-           this.heatcoords = result.body.data.map;
-           
-          //  console.log("jijij",this.heatcoords)
-        var hhhcoords = [];
-
-          for(var i=0; i<this.heatcoords.length; i++){
-
-           hhhcoords[i] = {"lat": this.heatcoords[i].latitude, "lng": this.heatcoords[i].longitude}
-       console.log("mmmm", hhhcoords)
-
-          }
-          // console.log("cccc",this.hhhcoords)
-      }
-  
-      // this.heatlat.push(coords.latitude);
-      // this.heatlng.push(coords.longitude);
-
-      //  let markers: marker[] = hhhcoords;
-  
-   
     
-    });
+    let markers: marker[] = this.hhhcoords;
+ 
+    // console.log("lolo",markers)
 
-    let markers: marker[] = [
-      { "lat": -23, "lng": -46 }, { "lat": -24, "lng": -53 }, { "lat": -23, "lng": -46 }
-    ];
-      console.log("koko",markers)
-
-  // transforming points
-  return markers.map(point =>
-    new google.maps.LatLng(point.lat, point.lng));
+// transforming points
+return markers.map(point =>
+  new google.maps.LatLng(point.lat, point.lng));
     
   }
 
@@ -420,7 +532,21 @@ export class DashboardComponent implements OnInit {
         // console.log("resssss", resu);
         this.pages = resu.data.total * 10;
            this.dashOrdersList = resu.data.orders;
-      // console.log("pages",this.pages);
+
+          this.dashOrdersList.forEach(function (ord,index) {
+            var tt =  ord.totalAmount - ord.discountAmount    
+    
+                 var subtot = tt - ord.couponDiscount
+                var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
+                var subtot2 = subtot1 + ord.fastDelievryCharge
+
+                var subtot3 = subtot2 * (ord.taxValue / 100) 
+                var grandtot = subtot2 + subtot3
+      
+              ord.grand = grandtot
+              // console.log("grand",grandtot);
+          })
+     
       }else{
         this.apiCall.showToast(resu.message, 'Error', 'errorToastr')
       }

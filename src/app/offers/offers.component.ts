@@ -15,11 +15,10 @@ declare var $:any;
   providers: [DatePipe]
 })
 export class OffersComponent implements OnInit {
-  
+  datePickerConfig:Partial<BsDatepickerConfig>;
   addOffers: FormGroup;
   pushNotify: FormGroup;
-  datePickerConfig:Partial<BsDatepickerConfig>;
-
+ 
    bsValue: Date = new Date();
    bsValue1: Date = new Date();
 
@@ -36,6 +35,7 @@ export class OffersComponent implements OnInit {
    statustog = true;
    status: any = true;
    trustUser: any = false;
+   trust:any;
    offerId: number;
    allcategory: any = [];
    productcategory: any = [];
@@ -53,7 +53,7 @@ export class OffersComponent implements OnInit {
     private formBuilder:FormBuilder,
     private offersservice:OffersService,
     private router:Router,
-    private datepipe : DatePipe,
+    private datePipe : DatePipe,
     private apiCall: ApiCallService,
     ) { }
 
@@ -71,8 +71,8 @@ export class OffersComponent implements OnInit {
       discount: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       minimumValue: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       count: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-      startDate: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-      endDate: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      startDate: [this.bsValue,  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      endDate: [this.bsValue1, [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       status: [this.status],
       image: [''],
       uptoAmount: ['', [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
@@ -134,47 +134,37 @@ add_off_click()
 
 }
 
-async onSubmit()
-{
+async onSubmit(){
+
   this.submitted = true;
   if(!this.addOffers.valid){
     this.apiCall.showToast('Please Fill the mandatory field', 'Error', 'errorToastr')
     return false;
   }
+
+  if(this.isEdit){
+    this.offerEditService(this.addOffers.value)
+    return;
+  }
+
   const formData = new FormData();
   formData.append('uploaded_file', this.fileUpload); 
-  const image = await this.apiCall.imageuploadFunctions(formData);
+    const image = await this.apiCall.imageuploadFunctions(formData);
+
+    const postData = this.addOffers.value
+    postData['image'] = image['uploadUrl']
+    postData['startDate'] = this.datePipe.transform(this.addOffers.value.startDate, 'yyyy-MM-dd');
+    postData['endDate'] = this.datePipe.transform(this.addOffers.value.endDate, 'yyyy-MM-dd');
+    postData['trustUser'] = this.addOffers.value.trustUser ? "true" : "false";
+    postData['status'] = this.addOffers.value.status ? "active" : "inactive";
  
-    this.addOffers.value['image'] = image['uploadUrl'];
-    this.addOffers.value['status'] = this.addOffers.value['status'] ? "active" : "inactive";
-    this.addOffers.value['trustUser'] = this.addOffers.value['trustUser'] ? "true" : "false";
-    this.addOffers.value['startDate'] =  this.datepipe.transform(this.addOffers.value['startDate'], 'yyyy-MM-dd');
-    this.addOffers.value['endDate'] = this.datepipe.transform(this.addOffers.value['endDate'], 'yyyy-MM-dd');
-    // this.addOffers.value['StartTime'] = this.addOffers.value['StartTime'];
-    // this.addOffers.value['EndTime'] = this.addOffers.value['EndTime'];
-
-
-      if(this.isEdit == false)
-      {
+   
         var params = {
           url: 'admin/addNewOffers',
-          data: this.addOffers.value
+          data: postData
         }
-        
-      }
-      else
-      {
-        // console.log("offers id", this.id);
-        var data=this.addOffers.value;
-        data['id']=this.id
-          
-        var params = 
-        {
-          url: 'admin/editOffers',
-          data: data,  
-        }
-
-      }
+        console.log("add",params)
+  
     
     this.apiCall.commonPostService(params).subscribe(
       (response: any) => {
@@ -199,14 +189,64 @@ async onSubmit()
  
 }
 
+async offerEditService(data){
+
+  console.log("edit",data)
+    
+  data['image'] = this.imagePreview
+  data['startDate'] = this.datePipe.transform(data.startDate, 'yyyy-MM-dd');
+  data['endDate'] = this.datePipe.transform(data.endDate, 'yyyy-MM-dd');
+  data['trustUser'] = this.addOffers.value.trustUser ? "true" : "false";
+  data['status'] = this.addOffers.value.status ? "active" : "inactive";
+
+    const formData = new FormData();
+    formData.append('uploaded_file', this.fileUpload); 
+    const image = await this.apiCall.imageuploadFunctions(formData);
+    data['image'] = image['uploadUrl']
+
+  data['id'] = this.id
+
+  var params = {
+    url: 'admin/editOffers',
+    data: data
+  }
+     
+  
+
+  this.apiCall.commonPostService(params).subscribe(
+    (response: any) => {
+      if (response.body.error == 'false') {
+        // Success
+        this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
+        $('#add_offer_btn').modal('hide');
+        this.imagePreview = null;
+        this.ngOnInit();
+      } else {
+        // Query Error
+        this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
+      }
+    },
+    (error) => {
+      this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
+      console.log('Error', error)
+    }
+  )
+
+}
+
 
 editoffers(offers){
 $('#add_offer_btn').modal('show');
-console.log("Edit offer",offers)
+// console.log("Edit offer",offers)
 this.imagePreview = offers['image']
 
 this.isEdit = true;
 this.id = offers['id']
+
+ this.trust = offers['trustUser'] 
+
+//  console.log("tt",this.trust)
+  
 this.addOffers   = this.formBuilder.group({
   title: [offers['title'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   image: [''],
@@ -218,7 +258,7 @@ this.addOffers   = this.formBuilder.group({
   count: [offers['count'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   startDate: [offers['startDate'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   endDate: [offers['endDate'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-  status: [offers['status'], ],
+  status: [this.trust ],
   uptoAmount: [offers['uptoAmount'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   // offCategoryId: [offers['offCategoryId'],  ],
   // offProductId: [offers['offProductId'],  ]
@@ -232,12 +272,14 @@ getofferslist(data){
     url: "admin/getOfferList",
     data: data
   }
-console.log("stat",params)
+// console.log("stat",params)
   this.apiCall.commonPostService(params).subscribe(
     (response: any) => {
       if (response.body.error == 'false') {
         // Success
         this.list_offers = response.body.data.Offers;
+// console.log("list",this.list_offers)
+
          } else {
         // Query Error
         this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')

@@ -68,11 +68,11 @@ Show only active offers &nbsp;&nbsp;
     </li>
 </ul>
 
-<ul>
+<!-- <ul>
 <li class="off_tit">
     Offer Description : {{offers.description}}
 </li>
-</ul>
+</ul> -->
 
 <ul>
 <li>Starts On : {{offers.startDate}}</li>
@@ -80,7 +80,7 @@ Show only active offers &nbsp;&nbsp;
 </ul>
 <ul>
     <li>Ends On : {{offers.endDate}}</li>
-    <li class="rig_sec"><span class="light_color">Use Count :</span> {{offers.count}}</li>
+    <li class="rig_sec"><span class="light_color">Use Count :</span>{{offers.couponUsageCount}} / {{offers.count}}</li>
 </ul>
 
 <ul>
@@ -164,9 +164,11 @@ _icon.svg'"></li>
     <!-- <p class="red_color of_id">#Offer_ID</p> -->
     <div class="form-group">
     <div class="trusty_user">
+        <input type="text" value="{{trust}}">
+
         <label>Make for Trusty User</label>
         <label class="switch">
-        <input type="checkbox" formControlName="trustUser">
+        <input type="checkbox" ng-checked=trust formControlName="trustUser">
 <p *ngIf="!addOffers.controls.trustUser.valid && submitted" class="error-val-pro">Please select Trusty User Status</p>
         <span class="slider"></span>
         </label>
@@ -174,7 +176,7 @@ _icon.svg'"></li>
         </div>
 <div class="form-group">
     <label class="start">Starts On</label><br>
-    <input type="text"  bsDatepicker  placeholder="StartDate" [(bsValue)]="bsValue"  formControlName="startDate" [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}"  class="form-control datepicker"/>
+    <input type="text"  bsDatepicker  placeholder="StartDate" [(bsValue)]="bsValue"  formControlName="startDate" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly  [outsideClick] = "true" class="form-control datepicker"/>
 <!-- <angular2-date-picker class="form-control" id="datetimepicker" [(ngModel)]="date" [settings]="settings"  formControlName="startDate"></angular2-date-picker> -->
     <p *ngIf="!addOffers.controls.startDate.valid && submitted" class="error-val-pro">Please select Start Date</p>
     
@@ -198,7 +200,7 @@ _icon.svg'"></li>
 
 <div class="form-group">
     <label class="end">Ends On</label><br>
-    <input type="text"  bsDatepicker  placeholder="EndDate" [(bsValue)]="bsValue1"  formControlName="endDate" [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}"  class="form-control datepicker"/>    
+    <input type="text"  bsDatepicker  placeholder="EndDate" [(bsValue)]="bsValue1"  formControlName="endDate" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly  [outsideClick] = "true" class="form-control datepicker"/>    
 <!-- <angular2-date-picker class="form-control" id="datetimepicker" [(ngModel)]="date1" [settings]="settings"  formControlName="endDate"></angular2-date-picker> -->
     <p *ngIf="!addOffers.controls.endDate.valid && submitted" class="error-val-pro">Please select End Date</p>
 

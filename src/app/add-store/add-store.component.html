@@ -32,7 +32,7 @@
 <p>Total Earned : <span>SAR {{overAllRevenue}}</span></p>
 </li>
 <li>
-<p>Order Reject Percentage :  <span>{{cancellation}}</span></p>
+<p>Order Reject Percentage :  <span>{{cancellation  | number:'1.2-2'}}</span></p>
 </li>
 </ul>
 <div class="row sto_img">
@@ -333,6 +333,8 @@
 <tr>
 <th>Due Period</th>
 <th>Amount</th>
+<th>Commission Percentage</th>
+<th>Commission Amount</th>
 <th>Status</th>
 <th>Action</th>
 <th>Bill</th>
@@ -342,6 +344,8 @@
 <tr *ngFor="let item of storeDue;let i = index">
 <td class="amt"> {{item.fromDate}} - {{item.toDate}} </td>
 <td class="amt">SAR {{item.paidAmount}}</td>
+<td  class="amt">{{item.commissionperc}} %</td>
+<td  class="amt">SAR {{item.commissionAmt}}</td>
 <td *ngIf="item.status === 'PAID'" class="paid">Paid</td>
 <td *ngIf="item.status !== 'PAID' " class="pend">Pending</td>
 <td>
@@ -409,7 +413,7 @@
 <th>Customer ID</th>
 <th>Price</th>
 <th class="text-center">Payment Type</th>
-<th class="text-center">Commision</th>
+<!-- <th class="text-center">Commision</th> -->
 <th class="text-center">Store Payment</th>
 <th class="text-center">Status</th>
 <!-- <th class="text-center">Store Receipt</th> -->
@@ -418,14 +422,14 @@
 <tbody>
 <tr *ngFor="let item of storeOrder; let i = index">
 <td>{{item.orderOn}}</td>
-<td class="red_mar">{{item.orderIDs}}</td>
-<td class="red_mar">{{item.customerID}}</td>
+<td class="red_mar"><a routerLink="/order-details/{{ item.id }}">{{item.orderIDs}}</a></td>
+<td class="red_mar"><a routerLink="/customer/{{ item.userId }}">{{item.customerID}}</a></td>
 <td>SAR {{item.grandTotal}}</td>
 <td class="text-center">
 <span *ngIf="item.paytype == 'card'" class="online_btn">Paid Online</span>
 <span *ngIf="item.paytype == 'cash'" class="cod_btn">C.O.D</span>
 </td>
-<td class="text-center"></td>
+<!-- <td class="text-center"></td> -->
 <td class="text-center">SAR {{item.totalPrice}}</td>
 <td class="text-center">
 <select class="pend_btn">

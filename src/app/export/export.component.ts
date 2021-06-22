@@ -3,13 +3,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiCallService } from '../services/api-call.service';
 import { AngularCsv } from 'angular7-csv/dist/Angular-csv'
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DatePipe } from '@angular/common';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-export',
   templateUrl: './export.component.html',
-  styleUrls: ['./export.component.css']
+  styleUrls: ['./export.component.css'],
+  providers: [DatePipe]
 })
 export class ExportComponent implements OnInit {
+  datePickerConfig:Partial<BsDatepickerConfig>;
 
   exportForm: FormGroup;
   usercsvOptions:any;
@@ -21,32 +25,25 @@ export class ExportComponent implements OnInit {
   productcsvOption : any;
   supportcsvOption : any;
   showExport = 'true';
- 
-  // data: any = [
-  //   {
-  //     eid: "e101",
-  //     ename: "ravi",
-  //     esal: 1000
-  //   },
-  //   {
-  //     eid: "e102",
-  //     ename: "ram",
-  //     esal: 2000
-  //   },
-  //   {
-  //     eid: "e103",
-  //     ename: "rajesh",
-  //     esal: 3000
-  //   }
-  // ];
+  bsValue: Date = new Date();
+  fromDate = '';
+  toDate = '';
+  currentMonthCheck:any;
+  lastmon:any;
+  last3mon:any;
+  last6mon:any;
+  lastyear:any;
+
 
   constructor(
     private apiCall: ApiCallService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private datePipe: DatePipe,
   ) { }
 
   ngOnInit(): void {
+
     this.exportForm   = this.formBuilder.group({
       users: [false,  [ Validators.required]],
       store: [false,  [ Validators.required]],
@@ -58,8 +55,33 @@ export class ExportComponent implements OnInit {
       vendor: [false,  [ Validators.required]],
     })
 
+
   this.callRolePermission();
 
+  }
+
+  selectAll(event: any){
+        if(event.target.checked==true){
+          this.exportForm.value.users = true;
+          this.exportForm.value.store = true;
+          this.exportForm.value.driver = true;
+          this.exportForm.value.product = true;
+          this.exportForm.value.orders = true;
+          this.exportForm.value.cars = true;
+          this.exportForm.value.support = true;
+          this.exportForm.value.vendor = true;
+        }
+        else{
+          this.exportForm.value.users = false;
+          this.exportForm.value.store = false;
+          this.exportForm.value.driver = false;
+          this.exportForm.value.product = false;
+          this.exportForm.value.orders = false;
+          this.exportForm.value.cars = false;
+          this.exportForm.value.support = false;
+          this.exportForm.value.vendor = false;
+        }
+        console.log("check",this.exportForm.value)
   }
 
   callRolePermission(){
@@ -70,16 +92,33 @@ export class ExportComponent implements OnInit {
     }
   }
 
+  currentMonth(event: any){
+      this.currentMonthCheck = event.target.value;
+      console.log("mon",this.currentMonthCheck)
+  }
+
+  valuefrom(event: any) {
+    this.fromDate = this.datePipe.transform(event, 'yyyy-MM-dd');
+    console.log("valuefrom",this.fromDate)
+ }
+
+  valueTo(event: any) {
+    this.toDate = this.datePipe.transform(event, 'yyyy-MM-dd');
+    console.log("valueTo",this.toDate)
+ }
+
   onSubmit(){
     if(!this.exportForm.valid){
       this.apiCall.showToast('Please Fill the mandatory field', 'Error', 'errorToastr')
       return false;
     }
     this.spinner.show();
-    // console.log(this.exportForm.value)
+    this.exportForm.value.filter = this.currentMonthCheck
+    this.exportForm.value.custom = {fromDate:this.fromDate,toDate:this.toDate}
+    console.log("form",this.exportForm.value)
     var params = {
       url: 'admin/exportData',
-      data: this.exportForm.value
+      data: this.exportForm.value,
     }
     this.apiCall.commonPostService(params).subscribe(
       (response: any) => {

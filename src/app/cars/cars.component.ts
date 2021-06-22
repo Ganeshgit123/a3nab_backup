@@ -3,13 +3,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiCallService } from '../services/api-call.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
+import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 declare var $:any;
 
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.component.html',
   styleUrls: ['./cars.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe,NgbRatingConfig]
 })
 export class CarsComponent implements OnInit {
 datePickerConfig:Partial<BsDatepickerConfig>;
@@ -60,8 +61,9 @@ searchAssign;
   constructor(
     private apiCall: ApiCallService,
     private formBuilder: FormBuilder,
-    private datePipe: DatePipe
-  ) { }
+    private datePipe: DatePipe,
+    private config: NgbRatingConfig
+  ) {config.max = 5; }
 
   ngOnInit(): void {
 

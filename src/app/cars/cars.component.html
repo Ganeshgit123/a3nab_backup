@@ -8,12 +8,12 @@
 <div class="row">
 <div class="col-md-11">
 <div class="search-bar">
-    <form>
-        <label for="searchQuery">
-        <span><img src="assets/img/search_icon.svg" width="18px"></span>
-        </label>
-        <input type="search" id="searchQuery" name="searchQuery" placeholder="search" [(ngModel)]="searchCar"/>
-    </form>
+<form>
+<label for="searchQuery">
+<span><img src="assets/img/search_icon.svg" width="18px"></span>
+</label>
+<input type="search" id="searchQuery" name="searchQuery" placeholder="search" [(ngModel)]="searchCar"/>
+</form>
 </div>
 </div>
 </div>
@@ -68,6 +68,7 @@
 </div>
 </div>
 </section>
+
 <section class="driver_sec">
 <div class="container-fluid">
 <div class="col-md-3" *ngFor="let item of carList | filter:searchCar">
@@ -111,7 +112,6 @@
 </div>
 </div>
 </section>
-
 <section class="assing_dr_sc">
 <div class="modal right fade" id="assign_dri_btn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
 <div class="modal-dialog" role="document">
@@ -129,9 +129,9 @@
 <form class="search-form">
 <div class="input-group search-group">
 <span><img src="assets/img/search_icon.svg"></span>
-<!-- <input type="text" (input)="searchDriver($event.target.value)" class="form-control search-control"> -->
+<input type="text" (input)="searchDriver($event.target.value)" class="form-control search-control">
 
-<input type="text" [(ngModel)]="searchDriverAssign" class="form-control search-control">
+<input type="search" class="form-control search-control">
 </div>
 <!-- /.input-group -->
 </form>
@@ -144,11 +144,11 @@
 <div class="ord_tab">
 <table class="table table-bordered table-striped table_datatable" id="customerTable">
 <tbody>
-<tr *ngFor="let item of driverList | filter:searchDriverAssign">
+<tr *ngFor="let item of driverList">
 <td style="width:30%"><img  style="width: 62px;" src="{{item.profilePic}}"></td>
 <td style="width:80%"><span class="red_color">{{item.drId}}</span><br>
 <span>{{item.firstName}} {{item.lastName}}</span><br>
-<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i><br>
+<ngb-rating [(rate)]="item.rating" class="rating-star-point" [readonly]="true" [max]="5"></ngb-rating>
 <!-- <span class="light_color">Success Rate : 0%</span> -->
 </td>
 <td style="width:10%;text-align: right;">
@@ -174,7 +174,7 @@
 </div>
 <!-- modal-dialog -->
 </div>
-</section>
+</section>    
 <section class="add_driv_sec">
 <div class="modal right fade" id="add_driv_btn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
 <div class="modal-dialog" role="document">

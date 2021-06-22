@@ -370,12 +370,12 @@ Trusty User &nbsp;&nbsp;
 <thead>
 <tr>
 <th>Entry</th>
-<!-- <th>Action</th> -->
+<th>Action</th>
 <th>Stores</th>
 <th>Order</th>
 <th>Wallet Point<br><span class="red_color">Total = {{userPoints}}</span></th>
 <th>Wallet Balance<br><span class="red_color">Total = SAR {{walletAmount}}</span></th>
-<th>Price</th>
+<th class="text-center">Price</th>
 <th>Product Rating</th>
 <th>Driver Rating</th>
 <th>Feedback Note</th>
@@ -385,7 +385,7 @@ Trusty User &nbsp;&nbsp;
 
 <tr *ngFor="let item of userOrderList;let i = index">
 <td>{{item.orderOn}}</td>
-<!-- <td>Place New Order</td> -->
+<td>Place New Order</td>
 <td>
 <p  *ngFor="let store of item.stores" class="red_color">{{store.storeID}}</p> 
 <!-- <br> -->
@@ -396,12 +396,18 @@ Trusty User &nbsp;&nbsp;
 <span class="red_color">{{item.orderIDs}}</span> <br> 
 Order Status : <span class="blue" *ngIf = "item.orderStatus == 'ONGOING'">{{item.orderStatus}}</span> 
 <span class="green" *ngIf = "item.orderStatus == 'COMPLETED'">{{item.orderStatus}}</span>
-<span class="yellow" *ngIf = "item.orderStatus == 'CANCELLED'">{{item.orderStatus}}</span>
-
+<span class="red_color" *ngIf = "item.orderStatus == 'CANCELLED'">{{item.orderStatus}}</span>
+<span class="yellow" *ngIf = "item.orderStatus == 'PENDING'">{{item.orderStatus}}</span>
+<span class="red_color" *ngIf = "item.orderStatus == 'REJECTED'">{{item.orderStatus}}</span>
 </td>
-<td>- -</td>
-<td><span class="red_color"> - {{item.paidByWallet}}</span></td>
-<td>SAR {{item.totalAmount}} <br> 
+
+<td class="text-center"><span class="green" *ngIf = "item.detectedPoint !== 0"> {{item.detectedPoint}}</span>
+    <span class="red_color" *ngIf = "item.detectedPoint == 0">{{item.detectedPoint}}</span></td>
+
+<td class="text-center"><span class="green" *ngIf = "item.pointsAmount !== 0"> {{item.pointsAmount}}</span>
+    <span class="red_color" *ngIf = "item.pointsAmount == 0">{{item.pointsAmount}}</span></td>
+
+<td class="text-center">SAR {{item.grand}} <br> 
 <span *ngIf = "item.paytype == 'card'" class="online_btn">Paid Online</span>
 <span *ngIf = "item.paytype == 'cash'" class="cod_btn">C.O.D</span>
 

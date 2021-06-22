@@ -148,6 +148,7 @@ Map View &nbsp;&nbsp;
                 <span *ngIf = "item.orderStatus == 'CANCELLED'" class="red_color">Cancellation</span>
                 <span *ngIf = "item.orderStatus == 'ACCEPTED'" class="green">Accepted</span>
                 <span *ngIf = "item.orderStatus == 'ONGOING'" class="yellow">Ongoing</span>
+                <span *ngIf = "item.orderStatus == 'REJECTED'" class="red_color">Rejected</span>
             <br>
                 <span>{{item.orderProgress}}</span>
             <br>

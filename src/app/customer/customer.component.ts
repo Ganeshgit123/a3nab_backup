@@ -44,6 +44,7 @@ export class CustomerComponent implements OnInit {
   cancellation: any;
 
   userOrderList:any;
+  storeList:any;
   showMap = false;
   limitValue = 0
   singnupdate = null;
@@ -63,6 +64,15 @@ export class CustomerComponent implements OnInit {
   id : number;
   showExport = 'true';
 showAccept = 'true';
+grand:any = [];
+subtot : any;
+subtot1 : any;
+subtot2 : any;
+taxtot : any;
+finalTot : any;
+stoll:any = [];
+stoid:any;
+
 
   constructor(
     private apiCall: ApiCallService,
@@ -283,6 +293,36 @@ showAccept = 'true';
           if(this.cusID == undefined){
            
             this.userOrderList = response.body.data.orderList
+            
+            // this.userOrderList.forEach((sto,index) => {
+            //   console.log("dd",sto)
+            // });
+           
+            // for(let sto of this.userOrderList){
+            //   for(let stid of sto.stores){
+            //     for(let tidid of stid){
+            //       this.stoid.push(tidid.storeID);
+            //     }
+            //   }
+            //  }
+     
+            //  console.log("stoid",this.stoid)
+
+            this.userOrderList.forEach(function (ord,index) {
+              var tt =  ord.totalAmount - ord.discountAmount    
+      
+                   var subtot = tt - ord.couponDiscount
+                  var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
+                  var subtot2 = subtot1 + ord.fastDelievryCharge
+  
+                  var subtot3 = subtot2 * (ord.taxValue / 100) 
+                  var grandtot = subtot2 + subtot3
+        
+                ord.grand = grandtot
+                // console.log("grand",grandtot);
+            })
+
+            
           }
           // console.log(this.userList)
           if(response.body.data.orderList.length > 0){
@@ -302,16 +342,34 @@ showAccept = 'true';
   }
 
   logexportUserData(data) {
+    // console.log("expotlog",data)
     if(data.length > 0){
       var userArray = []
       data.forEach(element => {
         var obj = {}
+    
+        var stoid = []
+        // element.stores.forEach(sooo => {
+          element.stores.filter((sto)=>{
+            stoid.push(sto.storeID)
+          });
+ 
         obj['orderOn'] = element.orderOn
         obj['orderIDs'] = element.orderIDs
-        obj['grandTotal'] = element.grandTotal
+        obj['orderStatus'] = element.orderStatus
         obj['paytype'] = element.paytype
+        obj['detectedPoint'] = element.detectedPoint
+        obj['pointsAmount'] = element.pointsAmount
+        obj['grand'] = element.grand  
+        obj['productRating'] = element.productRating  
+        obj['driverRating'] = element.driverRating  
+        obj['commemts'] = element.commemts 
+        obj['storeId']=stoid
         userArray.push(obj)
-      })
+      });
+      // })
+      // console.log("expr",userArray)
+
       this.usercsvOptions = {
         fieldSeparator: ',',
         quoteStrings: '"',
@@ -321,10 +379,12 @@ showAccept = 'true';
         title: 'User Report',
         useBom: true,
         noDownload: false,
-        headers: ["Entry", "Order", "Price", "PayType"]
+        headers: ["Entry", "Order", "Order Status", "PayType","Wallet Point","Wallet Balance","Price","Product Rating","Driver Rating","Feedback Note","Stores"]
       };
       new  AngularCsv(userArray, "Customer Report", this.usercsvOptions);
+
     }
+   
   }
 
   onSubmit(){
@@ -370,8 +430,7 @@ showAccept = 'true';
         if (response.body.error == 'false') {
           // console.log(response.body.data.userList)
           this.userList = response.body.data.userList
-
-          // console.log(this.userList)
+                   // console.log(this.userList)
         } else {
           // Query Error
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
@@ -445,7 +504,19 @@ viewUser(id,valueFrom,valueTo){
           
           this.userOrderList = response.body.data.orderList
 
+          this.userOrderList.forEach(function (ord,index) {
+            var tt =  ord.totalAmount - ord.discountAmount    
+    
+                 var subtot = tt - ord.couponDiscount
+                var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
+                var subtot2 = subtot1 + ord.fastDelievryCharge
 
+                var subtot3 = subtot2 * (ord.taxValue / 100) 
+                var grandtot = subtot2 + subtot3
+      
+              ord.grand = grandtot
+              // console.log("grand",grandtot);
+          })
           // console.log(response.body.data.orderList)
         } else {
           // Query Error

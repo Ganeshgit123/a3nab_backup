@@ -125,7 +125,7 @@ export class AddStoreComponent implements OnInit {
       stockType: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       units: ['',  [ Validators.required, Validators.pattern("[+-]?([0-9]*[.])?[0-9]+")]],
       StockReason: [''],
-      expiryDate: [''],
+      expiryDate: [this.bsValue],
       currentStock : ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
      });
 
