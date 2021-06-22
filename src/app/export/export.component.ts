@@ -55,13 +55,12 @@ export class ExportComponent implements OnInit {
       vendor: [false,  [ Validators.required]],
     })
 
-
   this.callRolePermission();
 
   }
 
   selectAll(event: any){
-        if(event.target.checked==true){
+       
           this.exportForm.value.users = true;
           this.exportForm.value.store = true;
           this.exportForm.value.driver = true;
@@ -70,18 +69,23 @@ export class ExportComponent implements OnInit {
           this.exportForm.value.cars = true;
           this.exportForm.value.support = true;
           this.exportForm.value.vendor = true;
-        }
-        else{
-          this.exportForm.value.users = false;
-          this.exportForm.value.store = false;
-          this.exportForm.value.driver = false;
-          this.exportForm.value.product = false;
-          this.exportForm.value.orders = false;
-          this.exportForm.value.cars = false;
-          this.exportForm.value.support = false;
-          this.exportForm.value.vendor = false;
-        }
+   
+
         console.log("check",this.exportForm.value)
+  }
+
+  deselectAll(event:any){
+
+    this.exportForm.value.users = false;
+    this.exportForm.value.store = false;
+    this.exportForm.value.driver = false;
+    this.exportForm.value.product = false;
+    this.exportForm.value.orders = false;
+    this.exportForm.value.cars = false;
+    this.exportForm.value.support = false;
+    this.exportForm.value.vendor = false;
+    console.log("uncheck",this.exportForm.value)
+
   }
 
   callRolePermission(){
@@ -91,6 +95,18 @@ export class ExportComponent implements OnInit {
   
     }
   }
+
+  // prd(event:any){
+     
+  //   console.log("oppp", this.exportForm.value)
+
+  //   if(event.target.checked){
+  //     this.exportForm.value.product == true
+  //   }else{
+  //     this.exportForm.value.product == false
+  //   }
+ 
+  // }
 
   currentMonth(event: any){
       this.currentMonthCheck = event.target.value;
@@ -114,7 +130,7 @@ export class ExportComponent implements OnInit {
     }
     this.spinner.show();
     this.exportForm.value.filter = this.currentMonthCheck
-    this.exportForm.value.custom = {fromDate:this.fromDate,toDate:this.toDate}
+    this.exportForm.value.custom = {st_date:this.fromDate,ed_date:this.toDate}
     console.log("form",this.exportForm.value)
     var params = {
       url: 'admin/exportData',

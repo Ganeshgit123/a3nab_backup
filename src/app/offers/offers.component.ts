@@ -47,6 +47,7 @@ export class OffersComponent implements OnInit {
    showAccept = 'true';
    stat : any;
    searchOffer;
+   searchOrders;
 
   list_offers: any = [];
   constructor(
@@ -263,7 +264,7 @@ this.addOffers   = this.formBuilder.group({
   // offCategoryId: [offers['offCategoryId'],  ],
   // offProductId: [offers['offProductId'],  ]
 })
-
+// console.log("efomrvav",this.addOffers.value)
 
 }
 

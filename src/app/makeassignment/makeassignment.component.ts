@@ -9,10 +9,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class MakeassignmentComponent implements OnInit {
 
+  as_driver_id : any;
   orderList: any;
+  orderedList: any;
+  or_edit: any;
   selection = [];
   orderIds :string [] = [];
   driverList: any;
+
+  merged_order: any;
 
   isShowDriver = false;
   isShowStore = false;
@@ -24,14 +29,17 @@ export class MakeassignmentComponent implements OnInit {
   longitude:any;
   latitude: any;
   dID: number;
-  storeList: any;
+  storeList = [];
+  storeedList: any;
   distance: any;
+  new_check: any;
   originalArray: any;
   drop: any;
   pickup: any;
   total: any;
   driverhtml = false;
-
+  isEdit =  false;
+  orderRouteId: any;
   lat: number = 24.774265;
   lng: number = 46.738586;
 
@@ -47,6 +55,10 @@ export class MakeassignmentComponent implements OnInit {
   previous;
   previous1;
   previous2;
+  searchord;
+  mergeOrder;
+  searchDriv;
+  searchStore;
   constructor(
     private apiCall: ApiCallService,
     private router: Router,
@@ -54,23 +66,111 @@ export class MakeassignmentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.assignOrderList()
-    this.getDriverList()
-    this.callRolePermission()
+    this.getDriverList();
+    this.assignOrderList();
+    
+    this.route.params.subscribe(params => {
+      this.orderRouteId = params['id']
+      if(this.orderRouteId){
+        this.isEdit = true;
+        this.assignedOrderList();
+      } 
+    });
+
+    
+   
+    this.callRolePermission();
+   
   }
 
-  callRolePermission(){
-    if(sessionStorage.getItem('adminRole') !== 'superadmin'){
-      let orderpermission = JSON.parse(sessionStorage.getItem('permission'))
-      // console.log(orderpermission[0].readOpt)
-      this.showAccept = orderpermission[1].writeOpt
-      // console.log(">>>", this.showAccept)
+
+  assignedOrderList(){
+    var params = {
+       url: 'admin/editUnAssignOrderList',
+       data: {orderRoute: this.orderRouteId}
+     }
+     this.apiCall.commonPostService(params).subscribe(
+       (response: any) => {
+        if (response.body.error === 'false') {
+          this.orderedList = response.body.data.orders
+          this.merged_order = this.orderList.concat(this.orderedList);
+          this.orderedList.filter((val) =>{
+              this.as_driver_id = val.as_driverId
+              delete val.as_driverId
+          });
+          this.editDriverList(this.as_driver_id);
+            // this.orderedList = response.body.data.orders[0]
+            // this.storeedList = response.body.data.storeList
+            // response.body.data.orders[0].storeList = response.body.data.storeList
+            // this.or_edit = response.body.data.orders[0]
+            // let dr_id = this.orderedList?.as_driverId
+            
+         } else {
+           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
+         }
+       },
+       (error) => {
+         this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
+       }
+     )
+   }
+
+    checkorder(item){
+      return this.orderedList.includes(item)
     }
-  }
 
-  getSelection(item) {
-    return this.selection.findIndex(s => s.id === item.id) !== -1;
-  }
+    checkdriver(item){
+      if(this.isEdit){
+        return true
+      }
+    }
+
+  assignOrderList(){
+    var params = {
+       url: 'admin/unAssignOrderList',
+       data: {}
+     }
+ 
+     this.apiCall.commonGetService(params).subscribe(
+       (response: any) => {
+         if (response.body.error === 'false') {
+           this.orderList = response.body.data.orders
+           this.originalArray = response.body.data.orders
+           this.markers = response.body.data.orders
+         } else {
+           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
+         }
+       },
+       (error) => {
+         this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
+         //console.log('Error', error)
+       }
+     )
+   }
+ 
+   editDriverList(dr_id){
+
+    this.selection = this.orderedList;
+    if(this.driverList){
+      let dr_da = this.driverList?.filter((value)=>{
+       if(value.id == dr_id){
+        return value
+       }
+      });
+    
+    this.driverName = dr_da[0].firstName
+    this.driverID = dr_da[0].drId
+    this.driverImage = dr_da[0].profilePic
+    this.driverOrders = dr_da[0].totalOrderDelivered
+    this.latitude = dr_da[0].latitude
+    this.longitude = dr_da[0].longitude
+    this.dID = dr_da[0].id
+    const object = { latitude: this.latitude, longitude: this.longitude, driverId: this.dID, orderId: JSON.stringify(this.selection), edit:true }
+    this.changeOrder(object)
+    this.driverhtml = true;
+    }
+   }
+
 
   getDriverList(){
     const object  = { driverActive: 1, isComplete: 1 }
@@ -79,17 +179,11 @@ export class MakeassignmentComponent implements OnInit {
       url: 'admin/getDriverList',
       data: object
     }
-
     this.apiCall.commonPostService(params).subscribe(
       (response: any) => {
-        // console.log(response.body)
         if (response.body.error === 'false') {
-          // Success
-          // console.log(response.body)
           this.driverList = response.body.data.driver
-          // this.markerDriver = response.body.data.driver
         } else {
-          // Query Error
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
         }
       },
@@ -99,6 +193,128 @@ export class MakeassignmentComponent implements OnInit {
       }
     )
   }
+
+
+  callRolePermission(){
+    if(sessionStorage.getItem('adminRole') !== 'superadmin'){
+      let orderpermission = JSON.parse(sessionStorage.getItem('permission'))
+      this.showAccept = orderpermission[1].writeOpt
+    }
+  }
+
+  getSelection(item) {
+    return this.selection.findIndex(s => s.id === item.id) !== -1;
+  }
+
+  changeHandler(item: any, event: KeyboardEvent) {
+    const id = item.id;
+
+    const index = this.selection.findIndex(u => u.id === id);
+    if (index === -1) {
+      item.isnew = true
+      this.selection = [...this.selection, item];
+    } else {
+      item.isnew = false
+      this.selection = this.selection.filter(user => user.id !== item.id)
+    }
+    
+    
+    if(this.selection.length > 0){
+      this.isShowDriver = true
+      this.selection = this.selection.filter((item)=>{
+        return item.isnew
+      })
+      const object = { latitude: this.latitude, longitude: this.longitude, driverId: this.dID, orderId: JSON.stringify(this.selection) }
+      this.changeOrder(object)
+    } else {
+      this.distance = []
+      this.storeList = []
+      this.latitude = null
+      this.longitude = null
+      this.dID = null
+      this.isShowDriver = false
+    }
+  }
+
+
+  changeOrder(object){
+    if(this.isEdit){
+      object.edit = true
+    }
+    var params = {
+      url: 'admin/findDriverAssignOrder',
+      data: object
+    }
+    
+    if(this.latitude && this.longitude && this.dID) {
+      this.apiCall.commonPostService(params).subscribe(
+        (response: any) => {
+          if (response.body.error === 'false') {
+            console.log("0th---->", response.body.data);
+            this.storeList = response.body.data.store
+            this.drop = response.body.data.drop
+            this.pickup = response.body.data.pickup
+            this.total = response.body.data.total
+            this.distance = response.body.data.distance  
+                 
+          } else {
+            this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
+          }
+        },
+        (error) => {
+          this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
+          console.log('Error', error)
+        }
+      )
+    } 
+  }
+  
+
+
+  selectDriver(values:any,data){ 
+    this.driverName = data.firstName
+    this.driverID = data.drId
+    this.driverImage = data.profilePic
+    this.driverOrders = data.totalOrderDelivered
+    this.latitude = data.latitude
+    this.longitude = data.longitude
+    this.dID = data.id
+    if(values.currentTarget.checked === true){
+      this.driverhtml = true;
+      this.isShowStore = true;
+    if(this.latitude && this.longitude && this.dID) {
+    const object = { latitude: this.latitude, longitude: this.longitude, driverId: this.dID, orderId: JSON.stringify(this.selection) }
+    var params = {
+      url: 'admin/findDriverAssignOrder',
+      data: object
+    }
+    this.apiCall.commonPostService(params).subscribe(
+      (response: any) => {
+        if (response.body.error === 'false') {
+          this.storeList = response.body.data.store
+          this.drop = response.body.data.drop
+          this.pickup = response.body.data.pickup
+          this.total = response.body.data.total
+          this.distance = response.body.data.distance
+          this.markers1 = response.body.data.distance
+        } else {
+          this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
+        }
+      },
+      (error) => {
+        this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
+        console.log('Error', error)
+      }
+    )
+    }
+    }  else {
+      this.driverhtml = false;
+      this.isShowStore = false;
+     }
+}
+
+
+
 
   clickedMarker(infowindow){
     if (this.previous) {
@@ -121,124 +337,65 @@ export class MakeassignmentComponent implements OnInit {
       this.previous2 = infowindow2;
   }
 
-  changeHandler(item: any, event: KeyboardEvent) {
-    const id = item.id;
 
-    const index = this.selection.findIndex(u => u.id === id);
-    if (index === -1) {
-      // ADD TO SELECTION
-      // this.selection.push(item);
-      this.selection = [...this.selection, item];
-    } else {
-      // REMOVE FROM SELECTION
-      this.selection = this.selection.filter(user => user.id !== item.id)
-      // this.markers = this.selection
-      // this.selection.splice(index, 1)
-    }
-    
-    
-    if(this.selection.length > 0){
-      this.isShowDriver = true
-      const object = { latitude: this.latitude, longitude: this.longitude, driverId: this.dID, orderId: JSON.stringify(this.selection) }
+ 
 
-      this.changeOrder(object)
-    } else {
-      this.distance = []
-      this.storeList = []
-      this.latitude = null
-      this.longitude = null
-      this.dID = null
-      this.isShowDriver = false
-    }
-    // console.log(this.selection)
-  }
 
   listOrderChanged(data){
-    // console.log(data)
     this.distance = data
   }
 
   searchOrders(value){
     this.orderList
-    // console.log(this.orderList)
-    // console.log(value)
     var orderIDs = '#Ord'+value
 
     var sortOrder = this.originalArray.filter(function(item) {
       return item.orderIDs.toLowerCase().indexOf(orderIDs.toLowerCase()) >= 0
      })
      this.orderList = sortOrder
-    //  console.log(this.selection)
   }
 
   searchDrivers(value){
-
   }
 
-  changeOrder(object){
-    var params = {
-      url: 'admin/findDriverAssignOrder',
-      data: object
-    }
-    if(this.latitude && this.longitude && this.dID) {
-      this.apiCall.commonPostService(params).subscribe(
-        (response: any) => {
-          // console.log(response.body)
-          if (response.body.error === 'false') {
-            // Success
-            // console.log(response.body)
-            this.storeList = response.body.data.store
-            this.drop = response.body.drop
-            this.pickup = response.body.pickup
-            this.total = response.body.total
-            this.distance = response.body.data.distance
-      
-          } else {
-            // Query Error
-            this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
-          }
-        },
-        (error) => {
-          this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
-          console.log('Error', error)
-        }
-      )
-    } 
-  }
-  
+
   driverAssign(){
-    // console.log(this.distance)
     if(this.distance.length > 0 && this.latitude && this.longitude && this.dID){
-      console.log(this.distance)
-
       const object = {}
-      object['driverId'] = this.dID
-      object['longitude'] = this.longitude
-      object['latitude'] = this.latitude
-
-      object['pickup'] = this.pickup
-      object['drop'] = this.drop
-      object['total'] = this.total
-      object['route'] = JSON.stringify(this.distance)
-      console.log("???",object)
-
-      // return;
-
-      var params = {
-        url: 'admin/assignOrder',
-        data: object
+      if(this.isEdit){
+        object['id'] = this.orderRouteId
+        object['driverId'] = this.dID
+        object['longitude'] = this.longitude
+        object['latitude'] = this.latitude
+        object['pickup'] = this.pickup
+        object['drop'] = this.drop
+        object['total'] = this.total
+        object['route'] = JSON.stringify(this.distance)
+        var params = {
+          url: 'admin/editassignOrder',
+          data: object
+        }
+      }else{
+        object['driverId'] = this.dID
+        object['longitude'] = this.longitude
+        object['latitude'] = this.latitude
+        object['pickup'] = this.pickup
+        object['drop'] = this.drop
+        object['total'] = this.total
+        object['route'] = JSON.stringify(this.distance)
+        var params = {
+          url: 'admin/assignOrder',
+          data: object
+        }
       }
 
       this.apiCall.commonPostService(params).subscribe(
         (response: any) => {
-          // console.log(response.body)
           if (response.body.error === 'false') {
-            // Success
             this.ngOnInit();
             this.router.navigateByUrl('/assignment');
             this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
           } else {
-            // Query Error
             this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
           }
         },
@@ -253,88 +410,7 @@ export class MakeassignmentComponent implements OnInit {
     }
   }
 
-  selectDriver(values:any,data){
 
- 
-    this.driverName = data.firstName
-    this.driverID = data.drId
-    this.driverImage = data.profilePic
-    this.driverOrders = data.totalOrderDelivered
-    this.latitude = data.latitude
-    this.longitude = data.longitude
-    this.dID = data.id
-    // console.log(data)
-    if(values.currentTarget.checked === true){
-
-      this.driverhtml = true;
-      this.isShowStore = true;
-
-    if(this.latitude && this.longitude && this.dID) {
-    const object = { latitude: this.latitude, longitude: this.longitude, driverId: this.dID, orderId: JSON.stringify(this.selection) }
-
-    var params = {
-      url: 'admin/findDriverAssignOrder',
-      data: object
-    }
-    this.apiCall.commonPostService(params).subscribe(
-      (response: any) => {
-        console.log(">>>",response.body)
-        if (response.body.error === 'false') {
-          // Success
-          // console.log(response.body)
-          this.storeList = response.body.data.store
-          this.drop = response.body.data.drop
-          this.pickup = response.body.data.pickup
-          this.total = response.body.data.total
-          this.distance = response.body.data.distance
-          this.markers1 = response.body.data.distance
-        } else {
-          // Query Error
-          this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
-        }
-      },
-      (error) => {
-        this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
-        console.log('Error', error)
-      }
-    )
-    }
-    }  else {
-      this.driverhtml = false;
-      this.isShowStore = false;
-      
-     }
- 
-
-  }
-
-  assignOrderList(){
-   var params = {
-      url: 'admin/unAssignOrderList',
-      data: {}
-    }
-
-    this.apiCall.commonGetService(params).subscribe(
-      (response: any) => {
-        // console.log(response.body)
-        if (response.body.error === 'false') {
-          // Success
-          // console.log(response.body)
-          this.orderList = response.body.data.orders
-          this.originalArray = response.body.data.orders
-          this.markers = response.body.data.orders
-          // console.log(this.timeList)
-        } else {
-          // Query Error
-          this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
-        }
-      },
-      (error) => {
-        this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
-        console.log('Error', error)
-      }
-    )
-  }
   pageReload() {
     this.ngOnInit();
     window.location.reload();

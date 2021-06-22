@@ -32,7 +32,7 @@ showAccept = 'true';
 
   
   ngOnInit(): void {
-    
+
     this.categoryForm = this.formBuilder.group({
       categoryName: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       categoryImage: ['',  [Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
@@ -55,6 +55,7 @@ showAccept = 'true';
         } else {
           this.isEdit = false
           this.categoryForm.reset();
+          this.imagePreview= null;
           this.categoryForm.get('managerPrice').setValue(false);
           this.categoryForm.get('isComingSoon').setValue(false);
         }

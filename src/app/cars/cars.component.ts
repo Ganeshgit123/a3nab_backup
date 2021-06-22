@@ -312,15 +312,16 @@ searchAssign;
 }
 
 editCars(data){
+  console.log("edit",data)
   $('#add_driv_btn').modal('show');
     this.imagePreview = data['carImage']
-    var expirationDate = new Date(data['expirationDate']);
+    // var expirationDate = new Date(data['expirationDate']);
     this.isEdit = true;
     this.carId = data['id']
     this.addCar   = this.formBuilder.group({
       licenseNumber: [data['licenseNumber'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
       carImage: [''],
-      expirationDate: [expirationDate,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      expirationDate: [data['expirationDate'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
       startingMileage: [data['startingMileage'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
       carModel: [data['carModel'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
     })
@@ -328,7 +329,7 @@ editCars(data){
 
 async carEditService(data){
   data['carImage'] = this.imagePreview
-  data['expirationDate'] = this.datePipe.transform(data.expirationDate, 'yyyy-MM-dd');
+  data['expirationDate'] = this.datePipe.transform(data['expirationDate'], 'yyyy-MM-dd');
 
     const formData = new FormData();
     formData.append('uploaded_file', this.fileUpload); 
@@ -341,7 +342,7 @@ async carEditService(data){
     url: 'admin/editCar',
     data: data
   }
-
+console.log("efefe",params)
   this.apiCall.commonPostService(params).subscribe(
     (response: any) => {
       if (response.body.error == 'false') {

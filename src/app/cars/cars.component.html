@@ -12,7 +12,7 @@
 <label for="searchQuery">
 <span><img src="assets/img/search_icon.svg" width="18px"></span>
 </label>
-<input type="search" id="searchQuery" name="searchQuery" placeholder="search" [(ngModel)]="searchCar"/>
+<input type="search" id="searchQuery" name="searchQuery" placeholder="search" [(ngModel)]="searchCar" [ngModelOptions]="{standalone: true}" />
 </form>
 </div>
 </div>
@@ -371,7 +371,7 @@
 <form class="search-form">
 <div class="input-group search-group">
 <span><img src="assets/img/search_icon.svg"></span>
-<input type="text" class="form-control search-control" [(ngModel)]="searchAssign">
+<input type="text" class="form-control search-control" [(ngModel)]="searchAssign" [ngModelOptions]="{standalone: true}" > 
 </div>
 <!-- /.input-group -->
 </form>
@@ -451,7 +451,7 @@ End Date :
 <form class="search-form">
 <div class="input-group search-group">
 <span><img src="assets/img/search_icon.svg"></span>
-<input type="text" class="form-control search-control" [(ngModel)]="searchMaintainList">
+<input type="text" class="form-control search-control" [(ngModel)]="searchMaintainList" [ngModelOptions]="{standalone: true}" >
 </div>
 <!-- /.input-group -->
 </form>

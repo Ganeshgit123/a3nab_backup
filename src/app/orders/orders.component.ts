@@ -144,11 +144,12 @@ export class OrdersComponent implements OnInit {
     object.orderStatus = this.orderStatus
     object.storeStatus = this.storeStatus
     this.getOrderList(object)
-    this.onChangeStoreFilterAPICall(object)
+    // this.onChangeStoreFilterAPICall(object)
+    // console.log("cef",object)
   }
 
   onChangeStoreFilter(value){
-    var object = {pageNumber: this.page,orderStatus: this.orderStatus, storeStatus: value, deliveryTime: this.deliveryTime, orderDate: this.orderDate }
+    var object = {orderStatus: this.orderStatus, storeStatus: value, deliveryTime: this.deliveryTime, orderDate: this.orderDate }
     this.onChangeStoreFilterAPICall(object)
   }
 

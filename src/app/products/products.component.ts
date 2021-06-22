@@ -37,6 +37,7 @@ searchSubSubcategory;
 searchproduct;
 togstatus: any;
 besttog:any;
+imagePreview= null;
 
   constructor(
     private apiCall: ApiCallService
@@ -171,7 +172,7 @@ besttog:any;
       url: 'admin/getProductList',
       data: object
     }
-    console.log("pddsdf",object)
+    // console.log("pddsdf",object)
     this.apiCall.commonPostService(params).subscribe(
       (response: any) => {
         if (response.body.error === 'false') {
@@ -230,9 +231,12 @@ besttog:any;
   }
 
   openCategoryTab(data){
+
     const item = {}
     item['isEdit'] = false
+    this.imagePreview = null;
     this.apiCall.categoryValue(item)
+
     if(data == 'category'){
       this.showCategoryTab = true;
       this.showSubCategoryTab = false;
@@ -245,12 +249,14 @@ besttog:any;
       this.showSubCategoryTab = true;
       this.showSubSubCategoryTab = false;
       this.showProductsTab = false;
+      this.imagePreview = null;
 
     } else if(data == 'subSubCategory'){
       this.showSubSubCategoryTab = true;
       this.showProductsTab = false;
       this.showCategoryTab = false;
       this.showSubCategoryTab = false;
+      this.imagePreview = null;
 
     } else if(data == 'products'){
 

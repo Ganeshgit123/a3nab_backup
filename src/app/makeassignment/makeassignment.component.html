@@ -30,7 +30,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <div class="col-md-2 right_cont">
 <!-- <ul>
 <li>
-    <a (click)="pageReload()" > <i class="fa fa-refresh"></i> </a>
+<a (click)="pageReload()" > <i class="fa fa-refresh"></i> </a>
 </li>
 </ul> -->
 </div>
@@ -90,7 +90,12 @@ Show Off Duty Drivers &nbsp;&nbsp;
 </div>
 </div>
 <div class="row">
-<div class="col-md-4 dri_sec">
+
+
+
+
+<div class="col-md-4 dri_sec" *ngIf = "!isEdit" >
+
 <div class="card">
 <div class="card-header">
 <div class="two_col">
@@ -100,20 +105,19 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <form class="search-form">
 <div class="input-group search-group">
 <span><img src="assets/img/search_icon.svg"></span>
-<input type="text" (input)="searchOrders($event.target.value)" class="form-control search-control topSearch">
+<input type="search" [(ngModel)]="searchord" [ngModelOptions]="{standalone: true}" class="form-control search-control topSearch">
+<!-- <input type="text" (input)="searchOrders($event.target.value)" class="form-control search-control topSearch"> -->
 </div>
-<!-- /.input-group -->
+<!-- /.input-group -->  
 </form>
 </div>
 <div class="ord_tab">
 <table class="table table-bordered table-striped table_datatable" id="customerTable">
 <tbody>
-<tr *ngFor="let item of orderList;let i = index">
+<tr *ngFor="let item of orderList | filter:searchord;let i = index">
 <td><span class="red_color">{{item.orderIDs}}</span><br>
 <span *ngFor="let store of item.storeList" class="light_color">{{store.storeName}},</span><br>
-<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span><br>
-<span class="ligi_li_color" *ngIf = "item.fastDelivery == 1">Fast Delivery : Yes</span>
-<span class="ligi_li_color" *ngIf = "item.fastDelivery == 0">Fast Delivery : No</span>
+<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span>
 <!-- <span class="ligi_li_color">Latitude : {{item.latitude}} Longitude : {{item.longitude}}</span> -->
 </td>
 <td>
@@ -128,9 +132,96 @@ Show Off Duty Drivers &nbsp;&nbsp;
 </div>
 </div>
 </div>
+
 </div>
 
-<div class="col-md-4 dri_sec" *ngIf = "isShowDriver">
+<div class="col-md-4 dri_sec" *ngIf = "isEdit" >
+
+<div class="card">
+<div class="card-header">
+<div class="two_col">
+<h4 class="card-title">Order</h4>
+</div>
+<div class="two_col1">
+<form class="search-form">
+<div class="input-group search-group">
+<span><img src="assets/img/search_icon.svg"></span>
+<input type="text" [(ngModel)]="mergeOrder" [ngModelOptions]="{standalone: true}" class="form-control search-control topSearch">
+
+<!-- <input type="text" (input)="searchOrders($event.target.value)" class="form-control search-control topSearch"> -->
+</div>
+<!-- /.input-group -->
+</form>
+</div>
+<div class="ord_tab">
+<table class="table table-bordered table-striped table_datatable" id="customerTable">
+<tbody>
+<tr *ngFor="let item of merged_order | filter:mergeOrder;let i = index">
+<td><span class="red_color">{{item.orderIDs}}</span><br>
+<span *ngFor="let store of item.storeList" class="light_color">{{store.storeName}},</span><br>
+<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span>
+<!-- <span class="ligi_li_color">Latitude : {{item.latitude}} Longitude : {{item.longitude}}</span> -->
+</td>
+<td>
+<div class="mycheckbox">
+<!-- <input type="text" value="{{checkorder(item)}}"> 
+[checked]="checkorder(item)"
+-->
+<input type="checkbox" name="{{item.orderIDs}}" id="{{item.orderIDs}}" [checked]="checkorder(item)" [disabled]="checkorder(item)"  (change)="changeHandler(item, $event)"/>
+
+<label for="{{item.orderIDs}}"></label>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- <div class="col-md-4 dri_sec" *ngIf="isEdit" >
+<div class="card">
+<div class="card-header">
+<div class="two_col">
+<h4 class="card-title">Order</h4>
+</div>
+<div class="two_col1">
+<form class="search-form">
+<div class="input-group search-group">
+<span><img src="assets/img/search_icon.svg"></span>
+<input type="text" (input)="searchOrders($event.target.value)" class="form-control search-control topSearch">
+</div>
+</form>
+</div>
+<div class="ord_tab">
+<table class="table table-bordered table-striped table_datatable" id="customerTable">
+<tbody>
+
+<tr >
+<td><span class="red_color">{{orderedList?.orderIDs}}</span><br>
+<span class="light_color">{{storeedList?.storeName}}</span><br>
+<span class="ligi_li_color">Delivery : {{orderedList?.fromTime}} - {{orderedList?.toTime}}</span>
+</td>
+<td>
+<div class="mycheckbox">
+<input type="checkbox" [checked]="isEdit"/>
+<label for=""></label>
+</div>
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+</div> -->
+
+
+<div class="col-md-4 dri_sec" *ngIf = "isShowDriver || isEdit">
 <div class="card">
 <div class="card-header">
 <div class="two_col">
@@ -140,7 +231,9 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <form class="search-form">
 <div class="input-group search-group">
 <span><img src="assets/img/search_icon.svg"></span>
-<input (input)="searchDrivers($event.target.value)" type="text" class="form-control search-control">
+
+<input [(ngModel)]="searchDriv" [ngModelOptions]="{standalone: true}" type="text" class="form-control search-control">
+<!-- <input (input)="searchDrivers($event.target.value)" type="text" class="form-control search-control"> -->
 </div>
 <!-- /.input-group -->
 </form>
@@ -150,7 +243,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
 
 <table class="table table-bordered table-striped table_datatable" id="customerTable">
 <tbody>
-<tr *ngFor="let item of driverList;let i = index">
+<tr *ngFor="let item of driverList | filter:searchDriv;let i = index">
 <td style="width:30%"><img src="{{item.profilePic}}"></td>
 <td style="width:40%"><span>{{item.firstName}}</span><br>
 <span class="red_color">{{item.drId}}</span><br>
@@ -158,7 +251,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
 </td>
 <td style="width:30%;text-align: right;">
 <div class="mycheckbox">
-<input type="checkbox" name="optradio" class="form-check-input"  id="{{item.id}}" (change)="selectDriver($event,item)"   value="{{item.id}}">
+<input type="checkbox" name="optradio" class="form-check-input" [checked]="item.id == as_driver_id" id="{{item.id}}" [disabled]="checkdriver(item)" (change)="selectDriver($event,item)"   value="{{item.id}}">
 <label for="{{item.id}}"></label>
 </div>
 </td>
@@ -171,7 +264,13 @@ Show Off Duty Drivers &nbsp;&nbsp;
 </div>
 
 
-<div class="col-md-4 dri_sec" *ngIf = "isShowStore">
+
+
+
+
+
+
+<div class="col-md-4 dri_sec" *ngIf = "isShowStore || isEdit"  >
 <div class="card">
 <div class="card-header">
 <div class="two_col">
@@ -181,7 +280,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <form class="search-form">
 <div class="input-group search-group">
 <span><img src="assets/img/search_icon.svg"></span>
-<input type="text" class="form-control search-control">
+<input type="text" [(ngModel)]="searchStore" [ngModelOptions]="{standalone: true}" class="form-control search-control">
 </div>
 <!-- /.input-group -->
 </form>
@@ -189,7 +288,10 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <div class="ord_tab">
 <table class="table table-bordered table-striped table_datatable" id="customerTable">
 <tbody>
-<tr *ngFor="let item of storeList;let i = index" >
+<!-- <div *ngFor="let item of storeList;let i = index">
+<input type="text" value="{{item}}">
+</div> -->
+<tr *ngFor="let item of storeList | filter:searchStore;let i = index" >
 <td style="width:30%"><img src="{{item.storeImage}}"></td>
 <td style="width:40%"><span>{{item.storeName}}</span><br>
 <span class="red_color">{{item.storeID}}</span><br>
@@ -204,6 +306,13 @@ Show Off Duty Drivers &nbsp;&nbsp;
 </div>
 </div>
 </div>
+
+
+
+
+
+
+
 </div>
 </div>
 <div class="col-md-3">
@@ -237,7 +346,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
 </div> -->
 <p class="assing_route text-center">Assignment Route</p>
 <div class="row">
-    <div class="col-md-12">
+<div class="col-md-12">
 <div class="ass_sss">
 <ngx-sortable [items]="distance" (listSorted)="listOrderChanged($event)">
 <ng-template let-item>
@@ -271,5 +380,10 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <br>
 </div>
 </div>
+
+
+
+
+
 </div>
 </div>

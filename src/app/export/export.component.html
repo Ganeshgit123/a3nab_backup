@@ -81,11 +81,17 @@ type="ball-scale-multiple">
 <div class="col-md-6">
 <ul>
 <li>
-<button type="button" class="float_cash_btn" >
-    <input type="checkbox" (change)="selectAll($event)">
-    <label>Select All </label>
+<button type="button" class="float_cash_btn" (click)="selectAll($event)">Select All
+    <!-- <input type="checkbox" (change)="selectAll($event)">
+    <label> Select All</label> -->
 </button>
 </li>
+<li style="padding-left: 30px;">
+    <button type="button" class="float_cash_btn" (click)="deselectAll($event)">Deselect All
+        <!-- <input type="checkbox" (change)="selectAll($event)">
+        <label>Deselect All </label> -->
+    </button>
+    </li>
 </ul>
 </div>
 <div class="col-md-6 right_cont">
@@ -101,7 +107,7 @@ type="ball-scale-multiple">
 </div>
 <div class="selec_sec">
 <div class="mycheckbox">
-<input type="checkbox" formControlName="product" [checked]="exportForm.value.product == true" id="products" />
+<input type="checkbox" formControlName="product" [checked]="exportForm.value.product" id="products" />
 <label for="products">Products</label>
 </div>
 </div>

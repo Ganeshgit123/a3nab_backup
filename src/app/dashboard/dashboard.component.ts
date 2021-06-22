@@ -98,7 +98,13 @@ export class DashboardComponent implements OnInit {
   userFeedback:any;
   applicafeedbacklist:any;
   driverFeedback:any;
-
+  iosappRating:any;
+  iosversion:any;
+  iosReviews:any;
+  androidinstalls;any;
+  androidratings:any;
+  androidreviews:any;
+  androidversion :any;
   map: google.maps.Map;
   heatmapping: google.maps.visualization.HeatmapLayer;
 
@@ -206,6 +212,14 @@ export class DashboardComponent implements OnInit {
            this.feedback = resu.data.feedback;
            this.appFeedback = resu.data.appFeedback;
            this.notification = resu.data.notification;
+           this.iosappRating = resu.data.app_st.contentRating;
+           this.iosversion = resu.data.app_st.version;
+           this.iosReviews = resu.data.app_st.reviews;
+           this.androidinstalls = resu.data.google_st.installs;
+           this.androidratings = resu.data.google_st.ratings;
+           this.androidreviews = resu.data.google_st.reviews;
+           this.androidversion = resu.data.app_st.version;
+
            
            this.orderChart = resu.data.ordersAndRevenueGraph;
 

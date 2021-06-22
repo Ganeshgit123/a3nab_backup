@@ -54,6 +54,7 @@ export class SubCategoryFormComponent implements OnInit {
         } else {
           this.isEdit = false;
           this.subCategoryForm.reset();
+          this.imagePreview= null;
           this.subCategoryForm.get('managerPrice').setValue(false);
           this.subCategoryForm.get('isComingSoon').setValue(false);
           this.subCategoryForm.get('isSubcate').setValue(false);

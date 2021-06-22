@@ -87,9 +87,9 @@ this.dropdownSettings = {
       console.log(err);
     });
 
-    console.log('subCateID', this.subCategoryId)
-    console.log('mainCateID', this.mainCateId)
-    console.log('subsubCateID', this.subSubCate)
+    // console.log('subCateID', this.subCategoryId)
+    // console.log('mainCateID', this.mainCateId)
+    // console.log('subsubCateID', this.subSubCate)
 
     this.productForm = this.formBuilder.group({
       productName: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
@@ -169,7 +169,7 @@ this.dropdownSettings = {
   }
 
   public editProducts(data){
-    console.log(">>>>",data)
+    // console.log(">>>>",data)
     // return;
     var relCategory = null
     var relProCategory = null
@@ -569,7 +569,7 @@ this.dropdownSettings = {
     productObject['relProCategory'] = this.productForm.value.relProCategory
     productObject['relsubCategory'] = this.productForm.value.relsubCategory
     productObject['relatedProducts'] = JSON.stringify(this.finalFilterProduct)
-    console.log("pfofo",productObject['relatedProducts'])
+    // console.log("pfofo",productObject['relatedProducts'])
     // return
     productObject['images'] = JSON.stringify(this.proImages)
        
@@ -662,7 +662,7 @@ this.dropdownSettings = {
     data['relatedProducts'] = JSON.stringify(this.finalFilterProduct)
 
     
-    console.log("relo",data['relatedProducts']) 
+    // console.log("relo",data['relatedProducts']) 
     data['id'] = this.productId
 
     // console.log("upd",data)
@@ -706,7 +706,7 @@ this.dropdownSettings = {
   }
 
   deleteRelatedProduct(value){
-    console.log("dele",value)
+    // console.log("dele",value)
     var object = { id: value}
     let params = {
       url: "admin/deleteReleatedProduct",
