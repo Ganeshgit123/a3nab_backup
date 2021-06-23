@@ -44,6 +44,7 @@ export class ExportComponent implements OnInit {
 
   ngOnInit(): void {
 
+
     this.exportForm   = this.formBuilder.group({
       users: [false,  [ Validators.required]],
       store: [false,  [ Validators.required]],
@@ -71,7 +72,7 @@ export class ExportComponent implements OnInit {
           this.exportForm.value.vendor = true;
    
 
-        console.log("check",this.exportForm.value)
+        // console.log("check",this.exportForm.value.product)
   }
 
   deselectAll(event:any){
@@ -84,7 +85,7 @@ export class ExportComponent implements OnInit {
     this.exportForm.value.cars = false;
     this.exportForm.value.support = false;
     this.exportForm.value.vendor = false;
-    console.log("uncheck",this.exportForm.value)
+    // console.log("uncheck",this.exportForm.value)
 
   }
 
@@ -110,17 +111,17 @@ export class ExportComponent implements OnInit {
 
   currentMonth(event: any){
       this.currentMonthCheck = event.target.value;
-      console.log("mon",this.currentMonthCheck)
+      // console.log("mon",this.currentMonthCheck)
   }
 
   valuefrom(event: any) {
     this.fromDate = this.datePipe.transform(event, 'yyyy-MM-dd');
-    console.log("valuefrom",this.fromDate)
+    // console.log("valuefrom",this.fromDate)
  }
 
   valueTo(event: any) {
     this.toDate = this.datePipe.transform(event, 'yyyy-MM-dd');
-    console.log("valueTo",this.toDate)
+    // console.log("valueTo",this.toDate)
  }
 
   onSubmit(){
@@ -129,9 +130,16 @@ export class ExportComponent implements OnInit {
       return false;
     }
     this.spinner.show();
-    this.exportForm.value.filter = this.currentMonthCheck
-    this.exportForm.value.custom = {st_date:this.fromDate,ed_date:this.toDate}
-    console.log("form",this.exportForm.value)
+
+    if(this.currentMonthCheck !== "" ){
+      this.exportForm.value.filter = this.currentMonthCheck
+    }
+
+    if(this.fromDate !== "" && this.toDate !== ""){
+      this.exportForm.value.custom = {st_date:this.fromDate,ed_date:this.toDate}
+    }
+  
+    // console.log("form",this.exportForm.value)
     var params = {
       url: 'admin/exportData',
       data: this.exportForm.value,
@@ -144,7 +152,7 @@ export class ExportComponent implements OnInit {
           if(response.body.data.users.length > 0){
             this.exportUserData(response.body.data.users)
           }
-
+         
           if(response.body.data.store.length > 0){
             this.exportStoreData(response.body.data.store)
           }
@@ -166,8 +174,9 @@ export class ExportComponent implements OnInit {
           }
           if(response.body.data.product.length > 0){
             this.exportProductsData(response.body.data.product)
+            // console.log("ddd",response.body.data.product)
           }
-
+         
           if(response.body.data.support.length > 0){
             this.exportSupportData(response.body.data.support)
           }
@@ -378,6 +387,7 @@ export class ExportComponent implements OnInit {
   }
 
   exportProductsData(data){
+    // console.log("data",data)
     if(data.length > 0){
       var bulkArray = []
       data.forEach(element => {

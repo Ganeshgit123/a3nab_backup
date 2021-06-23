@@ -622,6 +622,8 @@ this.dropdownSettings = {
           this.productImages = []          
           // console.log("??",this.productImages)
           this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
+          this.ngOnInit;
+          this.finalFilterProduct = null
           // this.router.navigateByUrl('/product-stats');
         } else {
           this.spinner.hide();
@@ -637,6 +639,7 @@ this.dropdownSettings = {
   }
   
   async updateProducts(data){
+    // console.log("dfeef",data)
     data['images'] = JSON.stringify(this.proImages)
       
       if(this.productImages != data['images']){
@@ -690,6 +693,8 @@ this.dropdownSettings = {
           this.proImages = []
           this.productImages = []  
           this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
+          this.ngOnInit;
+          this.finalFilterProduct = null
           // this.router.navigateByUrl('/product-stats');
         } else {
           this.spinner.hide();
