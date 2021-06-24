@@ -21,6 +21,8 @@ export class CustomerComponent implements OnInit {
   page =1;
   bsValue = null;
   trustUserForm : FormGroup;
+  walletUpdateForm: FormGroup;
+
 
   walletAmount: number;
   amount: number;
@@ -72,7 +74,9 @@ taxtot : any;
 finalTot : any;
 stoll:any = [];
 stoid:any;
-
+custmId:any;
+CustmIDs:any;
+isEdit = false;
 
   constructor(
     private apiCall: ApiCallService,
@@ -97,6 +101,12 @@ stoid:any;
       packageValue: [0,  [Validators.required, Validators.pattern("[+-]?([0-9]*[.])?[0-9]+")]],
       id: ['',  [Validators.required, Validators.pattern("[+-]?([0-9]*[.])?[0-9]+")]],
     })
+
+    this.walletUpdateForm   = this.formBuilder.group({
+      walletAmount: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]]
+    });
+
+    
     // this.viewUser({id: this.id,fromDate: this.valueFrom, toDate: this.valueTo})
     this.callRolePermission();
   }
@@ -388,6 +398,12 @@ stoid:any;
   }
 
   onSubmit(){
+
+    if(this.isEdit){
+      this.walletEdit(this.walletUpdateForm.value)
+      return;
+    }
+
     var params = {
       url: 'admin/trustUserActive',
       data: this.trustUserForm.value
@@ -479,6 +495,7 @@ viewUser(id,valueFrom,valueTo){
 
           
           this.trustUserForm.get('id').setValue(response.body.data.users.id)
+          this.custmId = response.body.data.users.id
           this.customerID = response.body.data.users.customerID
           this.firstName = response.body.data.users.firstName
           this.lastName = response.body.data.users.lastName
@@ -529,6 +546,56 @@ viewUser(id,valueFrom,valueTo){
       }
     )
   }
+
+
+editWallet(){
+  $('#edit_btn').modal('show');
+  this.isEdit = true;
+  this.custmId = this.custmId
+  this.CustmIDs = this.customerID
+
+  var walletAmt =  this.walletAmount
+
+  this.walletUpdateForm   = this.formBuilder.group({
+    walletAmount: [walletAmt,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]]
+  });
+
+  // console.log("fir",this.custmId)
+  // console.log("sec",this.CustmIDs)
+  // console.log("thri",walletAmt)
+}
+
+async walletEdit(data){
+  
+  data['customer_id'] = this.custmId
+
+  data['customerID'] = this.CustmIDs
+
+  var params = {
+    url: 'admin/updateWalletAmount',
+    data: data
+  }
+
+  this.apiCall.commonPostService(params).subscribe(
+    (response: any) => {
+      if (response.body.error == 'false') {
+        // Success
+        this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
+        $('#edit_btn').modal('hide');
+        $('#cust_btn').modal('hide');
+        
+        this.ngOnInit();
+      } else {
+        // Query Error
+        this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
+      }
+    },
+    (error) => {
+      this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
+      console.log('Error', error)
+    }
+  )
+}
 
 }
 

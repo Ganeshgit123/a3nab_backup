@@ -84,3 +84,10 @@ opacity: 0.5;
   .main-panel, .perfect-scrollbar-on .main-panel, .sidebar .sidebar-wrapper, .perfect-scrollbar-on .sidebar .sidebar-wrapper{
     overflow-x: hidden;
   }
+  .edit_btn{
+    border: none;
+    background: transparent;
+  }
+  .modal .modal-header .right_side_icon li{
+    padding: 6px 4px;
+  }
