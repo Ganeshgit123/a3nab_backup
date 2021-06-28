@@ -42,6 +42,7 @@ searchValue : any;
 status :any;
 searchDriverAssign;
 
+
 originalArray: any;
 
 zoom: number = 5;

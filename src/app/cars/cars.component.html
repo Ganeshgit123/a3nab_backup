@@ -129,9 +129,8 @@
 <form class="search-form">
 <div class="input-group search-group">
 <span><img src="assets/img/search_icon.svg"></span>
-<input type="text" (input)="searchDriver($event.target.value)" class="form-control search-control">
-
-<input type="search" class="form-control search-control">
+<input type="text" [(ngModel)]="searchDriverAssign" [ngModelOptions]="{standalone: true}" class="form-control search-control">
+<!-- <input type="text" (input)="searchDriver($event.target.value)" class="form-control search-control"> -->
 </div>
 <!-- /.input-group -->
 </form>
@@ -144,7 +143,7 @@
 <div class="ord_tab">
 <table class="table table-bordered table-striped table_datatable" id="customerTable">
 <tbody>
-<tr *ngFor="let item of driverList">
+<tr *ngFor="let item of driverList | filter:searchDriverAssign">
 <td style="width:30%"><img  style="width: 62px;" src="{{item.profilePic}}"></td>
 <td style="width:80%"><span class="red_color">{{item.drId}}</span><br>
 <span>{{item.firstName}} {{item.lastName}}</span><br>

@@ -46,6 +46,7 @@ export class DriversComponent implements OnInit {
   fname : any;
   lname : any;
 
+
   constructor(
     private apiCall: ApiCallService,
     private formBuilder: FormBuilder,
@@ -70,8 +71,8 @@ export class DriversComponent implements OnInit {
     const obj = { }
 
     this.getDriverList(obj)
-    this.callRolePermission()
 
+    this.callRolePermission()
   }
 
   callRolePermission(){
@@ -162,10 +163,12 @@ export class DriversComponent implements OnInit {
   }
 
   onchangeDriver(values:any){
+    console.log("changevalue",values)
+
     if(values.currentTarget.checked === true){
-     var driverActive = '1' 
+     var driverActive = '0' 
     } else {
-      var driverActive = '0'
+      var driverActive = '1'
     }
     const object = { driverActive: driverActive }
     this.getDriverList(object)
