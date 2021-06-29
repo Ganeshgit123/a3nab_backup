@@ -601,6 +601,7 @@ this.dropdownSettings = {
   }
 
   saveProductService(object){
+    console.log("img",object)
     var params = {
       url: 'admin/addProduct',
       data: object

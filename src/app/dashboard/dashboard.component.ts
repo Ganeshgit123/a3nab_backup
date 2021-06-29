@@ -4,16 +4,17 @@ import { ApiCallService } from '../services/api-call.service';
 import { ActivatedRoute } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { ChartOptions, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { DatePipe } from '@angular/common';
 import {} from '@agm/core/services/google-maps-types';
 import { MapsAPILoader } from '@agm/core';
+import {columnlabelChart,ChartType,OrdersGraph,genderDonutChart,ageDonutChart,payDonutChart,
+  grossRevGraph,netRevGraph,registerUsers} from './data';
 
 
 declare var $:any;
 declare var google: any;
-
 
 
 @Component({
@@ -75,6 +76,9 @@ export class DashboardComponent implements OnInit {
   heatFrom = ''
   heatTo = ''
 
+  graphlinefromDate = '';
+  graphlinetoDate = '';
+
   notibtn: any;
   showAccept = 'true';
   searchDriver;
@@ -108,8 +112,14 @@ export class DashboardComponent implements OnInit {
   map: google.maps.Map;
   heatmapping: google.maps.visualization.HeatmapLayer;
 
-  // private map: google.maps.Map = null;
-  // private heatmapping: google.maps.visualization.HeatmapLayer = null;
+  columnlabelChart: ChartType;
+  OrdersGraph: ChartType;
+  genderDonutChart: ChartType;
+  ageDonutChart: ChartType;
+  payDonutChart: ChartType;
+  grossRevGraph: ChartType;
+  netRevGraph: ChartType;
+  registerUsers: ChartType;
 
   constructor(private formBuilder:FormBuilder,
     private apiCall: ApiCallService,private route: ActivatedRoute,
@@ -301,9 +311,19 @@ export class DashboardComponent implements OnInit {
       this.mapsApiLoader.load().then(() => {
         this.initMap();
       });
-   
-   
     });
+    this.fetchGraphData();
+  }
+
+  fetchGraphData(){
+    this.columnlabelChart = columnlabelChart;
+    this.OrdersGraph = OrdersGraph;
+    this.genderDonutChart = genderDonutChart;
+    this.ageDonutChart = ageDonutChart;
+    this.payDonutChart = payDonutChart;
+    this.grossRevGraph = grossRevGraph;
+    this.netRevGraph = netRevGraph;
+    this.registerUsers = registerUsers;
   }
 
   callRolePermission(){
@@ -313,6 +333,17 @@ export class DashboardComponent implements OnInit {
       this.showAccept = orderpermission[0].writeOpt
     }
   }
+
+
+  valuefrom(event: any) {
+    this.graphlinefromDate = this.datePipe.transform(event, 'yyyy-MM-dd');
+    // console.log("valuefrom",this.fromDate)
+ }
+
+  valueTo(event: any) {
+    this.graphlinetoDate = this.datePipe.transform(event, 'yyyy-MM-dd');
+    // console.log("valueTo",this.toDate)
+ }
 
   userappfeedbacklist(){
     var params = {

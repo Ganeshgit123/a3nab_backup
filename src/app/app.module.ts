@@ -56,6 +56,7 @@ import { AngularDateTimePickerModule} from 'angular2-datetimepicker';
 import {NgxPrintModule} from 'ngx-print';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -125,6 +126,7 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger', // set defaults here
     }),
+    NgApexchartsModule,
   ],
   exports: [AngularDateTimePickerModule],
   providers: [AuthGuard, RoleGuardService,GoogleMapsAPIWrapper],

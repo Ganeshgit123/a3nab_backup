@@ -45,7 +45,7 @@
 <div class="card">
 <div class="card-header">
 <h5 class="card-title">iOS 
-    <!-- <a>852 Live Users</a> -->
+<!-- <a>852 Live Users</a> -->
 </h5>
 </div>
 <div class="card-content">
@@ -62,9 +62,9 @@
 <h5 class="card-title">Android  <a>{{androidinstalls}}</a> installs</h5>
 </div>
 <div class="card-content">
-    <p class="category">Version <span> {{androidversion}}</span></p>
-    <p class="update">Content Rating <span>{{androidratings}}</span></p>
-    <p class="category">Reviews <span> {{androidreviews}}</span></p>
+<p class="category">Version <span> {{androidversion}}</span></p>
+<p class="update">Content Rating <span>{{androidratings}}</span></p>
+<p class="category">Reviews <span> {{androidreviews}}</span></p>
 <!-- <p class="update">Daily Update <span class="green">-34</span></p> -->
 </div>
 </div>
@@ -166,50 +166,36 @@
 <div class="row">
 <div class="col-md-6">
 <div class="card">
-<div id="exTab1" class="container-fluid">	
-<ul class="nav nav-pills">
-<li class="active">
-<a href="#1a" data-toggle="tab">Orders Graph</a>
+
+<ul class="variable_filter_ul">
+<li>
+<label>Variable 1 Range : </label>
+<select>
+<option value="last_week">Last Week</option>
+<option value="last_month">Last Month</option>
+<option value="last_quarter">Last Quarter</option>
+<option value="last_year">Last Year</option>
+<option value="start_date">Start Date</option>
+</select>
 </li>
-<li><a href="#2a" data-toggle="tab">Revenue Graph</a>
+<li>
+<label>Variable 2 Range : </label>
+<select>
+<option value="cur_week">Current Week</option>
+<option value="cur_month">Current Month</option>
+<option value="cur_quarter">Current Quarter</option>
+<option value="cur_year">Current Year</option>
+<option value="end_date">End Date</option>
+</select>
 </li>
 </ul>
 
-<div class="tab-content clearfix">
-<div class="tab-pane active" id="1a">
-<div class="row">
-<div class="col-md-12">
-<canvas baseChart 
-[datasets]="lineChartData"
-[labels]="lineChartLabels"
-[options]="lineChartOptions"
-[legend]="lineChartLegend"
-[chartType]="lineChartType"
-[plugins]="lineChartPlugins">
-</canvas>
-<br>	
-</div>
-</div>
-</div>
-<div class="tab-pane" id="2a">
-<div class="row">
-<div class="col-md-12">
-<canvas baseChart 
-[datasets]="revenueChartData"
-[labels]="revenueChartLabels"
-[options]="lineChartOptions"
-[legend]="lineChartLegend"
-[chartType]="ChartType"
-[plugins]="lineChartPlugins">
-</canvas>
-<br>	
-</div>
-</div>
-</div>
-
-</div>
-</div>
-
+<apx-chart class="apex-charts" dir="ltr" [series]="columnlabelChart.series" [chart]="columnlabelChart.chart"
+[plotOptions]="columnlabelChart.plotOptions" [yaxis]="columnlabelChart.yaxis"
+[title]="columnlabelChart.title" [stroke]="columnlabelChart.stroke" 
+[dataLabels]="columnlabelChart.dataLabels" [xaxis]="columnlabelChart.xaxis"
+[legend]="columnlabelChart.legend" [colors]="columnlabelChart.colors" [fill]="columnlabelChart.fill">
+</apx-chart>
 </div>
 </div>
 
@@ -299,44 +285,285 @@
 <div id="exTab1" class="container-fluid">	
 <ul class="nav nav-pills">
 <li class="active">
-<a href="#5a" data-toggle="tab">Age Graph</a>
+<a href="#ordgraph" data-toggle="tab">Order Graph</a>
 </li>
-<li><a href="#6a" data-toggle="tab">Gender Graph</a>
+<li><a href="#grossrev" data-toggle="tab">Gross Revenue Graph</a>
+</li>
+<li><a href="#netrev" data-toggle="tab">Net Revenue Graph</a>
+</li>
+<li><a href="#regusers" data-toggle="tab">Registered Users</a>
 </li>
 </ul>
 
 <div class="tab-content clearfix">
-<div class="tab-pane active" id="5a">
+<div class="tab-pane active" id="ordgraph">
+<div class="row">
+<div class="col-md-6">
+  <apx-chart class="apex-charts" dir="ltr" [series]="OrdersGraph.series" [chart]="OrdersGraph.chart"
+  [dataLabels]="OrdersGraph.dataLabels" [stroke]="OrdersGraph.stroke"
+  [colors]="OrdersGraph.colors" [xaxis]="OrdersGraph.xaxis" [grid]="OrdersGraph.grid"
+  [tooltip]="OrdersGraph.tooltip" [plotOptions]="OrdersGraph.plotOptions"
+  [fill]="OrdersGraph.fill" [markers]="OrdersGraph.markers" [legend]="OrdersGraph.legend"
+  [yaxis]="OrdersGraph.yaxis" [tooltip]="OrdersGraph.tooltip"></apx-chart>
+</div>
+<div class="col-md-2">
+<canvas baseChart [datasets]="genderDonutChart.datasets" chartType="doughnut" [options]="genderDonutChart.options"
+[labels]="genderDonutChart.labels" [legend]="genderDonutChart.legend">
+</canvas>
+<p class="text-center" style="color: #C1003A;">Customer Gender</p>
+</div>
+<div class="col-md-2">
+<canvas baseChart [datasets]="ageDonutChart.datasets" chartType="doughnut" [options]="ageDonutChart.options"
+[labels]="ageDonutChart.labels" [legend]="ageDonutChart.legend">
+</canvas>
+<p class="text-center" style="color: #2196F3;">Customer Age</p>
+</div>
+<div class="col-md-2">
+<canvas baseChart [datasets]="payDonutChart.datasets" chartType="doughnut" [options]="payDonutChart.options"
+[labels]="payDonutChart.labels" [legend]="payDonutChart.legend">
+</canvas>
+<p class="text-center" style="color: #62CA55;">Payment Type</p>
+</div>
+</div>
 <div class="row">
 <div class="col-md-12">
-<canvas
-baseChart
-chartType="bar"
-[datasets]="ageChartData"
-[labels]="ageChartLabels"
-[options]="chartOptions"
-[legend]="true">
-</canvas>
-<br>	
+<div class="custom_filt_bord">
+<div class="radiogroup">
+  <ul>
+  <li>
+  <label class="control control-radio" for="1">
+  <input type="radio" id="1" name="filt" value="current">
+  <span>Current Month</span>
+  <div class="control-indicator"></div>
+  </label>
+  </li>
+  <li>
+    <label class="control control-radio" for="1">
+    <input type="radio" id="2" name="filt" value="current">
+    <span>Last Month</span>
+    <div class="control-indicator"></div>
+    </label>
+    </li>
+    <li>
+      <label class="control control-radio" for="1">
+      <input type="radio" id="2" name="filt" value="current">
+      <span>Last Quarter</span>
+      <div class="control-indicator"></div>
+      </label>
+      </li>
+      <li>
+        <input type="text" bsDatepicker  placeholder="Start Date" (bsValueChange) ="valuefrom($event)"  [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
+    </li>
+    <li>
+        <input type="text" bsDatepicker  placeholder="End Date" (bsValueChange) ="valueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
+    </li>
+  </ul>
 </div>
 </div>
 </div>
-<div class="tab-pane" id="6a">
-<div class="row">
-<div class="col-md-12">
-<canvas
-baseChart
-chartType="doughnut"
-[data]="genderChartData"
-[labels]="genderChartLabels"
-[options]="chartOptions"
-[legend]="true">
-</canvas>
-<br>	
 </div>
 </div>
-</div>
-
+<div class="tab-pane" id="grossrev">
+  <div class="row">
+  <div class="col-md-6">
+    <apx-chart class="apex-charts" dir="ltr" [series]="grossRevGraph.series" [chart]="grossRevGraph.chart"
+    [dataLabels]="grossRevGraph.dataLabels" [stroke]="grossRevGraph.stroke"
+    [colors]="grossRevGraph.colors" [xaxis]="grossRevGraph.xaxis" [grid]="grossRevGraph.grid"
+    [tooltip]="grossRevGraph.tooltip" [plotOptions]="grossRevGraph.plotOptions"
+    [fill]="grossRevGraph.fill" [markers]="grossRevGraph.markers" [legend]="grossRevGraph.legend"
+    [yaxis]="grossRevGraph.yaxis" [tooltip]="grossRevGraph.tooltip"></apx-chart>
+  </div>
+  <div class="col-md-2">
+  <canvas baseChart [datasets]="genderDonutChart.datasets" chartType="doughnut" [options]="genderDonutChart.options"
+  [labels]="genderDonutChart.labels" [legend]="genderDonutChart.legend">
+  </canvas>
+  <p class="text-center" style="color: #C1003A;">Customer Gender</p>
+  </div>
+  <div class="col-md-2">
+  <canvas baseChart [datasets]="ageDonutChart.datasets" chartType="doughnut" [options]="ageDonutChart.options"
+  [labels]="ageDonutChart.labels" [legend]="ageDonutChart.legend">
+  </canvas>
+  <p class="text-center" style="color: #2196F3;">Customer Age</p>
+  </div>
+  <div class="col-md-2">
+  <canvas baseChart [datasets]="payDonutChart.datasets" chartType="doughnut" [options]="payDonutChart.options"
+  [labels]="payDonutChart.labels" [legend]="payDonutChart.legend">
+  </canvas>
+  <p class="text-center" style="color: #62CA55;">Payment Type</p>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-md-12">
+  <div class="custom_filt_bord">
+  <div class="radiogroup">
+    <ul>
+    <li>
+    <label class="control control-radio" for="1">
+    <input type="radio" id="1" name="filt" value="current">
+    <span>Current Month</span>
+    <div class="control-indicator"></div>
+    </label>
+    </li>
+    <li>
+      <label class="control control-radio" for="1">
+      <input type="radio" id="2" name="filt" value="current">
+      <span>Last Month</span>
+      <div class="control-indicator"></div>
+      </label>
+      </li>
+      <li>
+        <label class="control control-radio" for="1">
+        <input type="radio" id="2" name="filt" value="current">
+        <span>Last Quarter</span>
+        <div class="control-indicator"></div>
+        </label>
+        </li>
+        <li>
+          <input type="text" bsDatepicker  placeholder="Start Date" (bsValueChange) ="valuefrom($event)"  [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
+      </li>
+      <li>
+          <input type="text" bsDatepicker  placeholder="End Date" (bsValueChange) ="valueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
+      </li>
+    </ul>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="tab-pane" id="netrev">
+    <div class="row">
+    <div class="col-md-6">
+      <apx-chart class="apex-charts" dir="ltr" [series]="netRevGraph.series" [chart]="netRevGraph.chart"
+      [dataLabels]="netRevGraph.dataLabels" [stroke]="netRevGraph.stroke"
+      [colors]="netRevGraph.colors" [xaxis]="netRevGraph.xaxis" [grid]="netRevGraph.grid"
+      [tooltip]="netRevGraph.tooltip" [plotOptions]="netRevGraph.plotOptions"
+      [fill]="netRevGraph.fill" [markers]="netRevGraph.markers" [legend]="netRevGraph.legend"
+      [yaxis]="netRevGraph.yaxis" [tooltip]="netRevGraph.tooltip"></apx-chart>
+    </div>
+    <div class="col-md-2">
+    <canvas baseChart [datasets]="genderDonutChart.datasets" chartType="doughnut" [options]="genderDonutChart.options"
+    [labels]="genderDonutChart.labels" [legend]="genderDonutChart.legend">
+    </canvas>
+    <p class="text-center" style="color: #C1003A;">Customer Gender</p>
+    </div>
+    <div class="col-md-2">
+    <canvas baseChart [datasets]="ageDonutChart.datasets" chartType="doughnut" [options]="ageDonutChart.options"
+    [labels]="ageDonutChart.labels" [legend]="ageDonutChart.legend">
+    </canvas>
+    <p class="text-center" style="color: #2196F3;">Customer Age</p>
+    </div>
+    <div class="col-md-2">
+    <canvas baseChart [datasets]="payDonutChart.datasets" chartType="doughnut" [options]="payDonutChart.options"
+    [labels]="payDonutChart.labels" [legend]="payDonutChart.legend">
+    </canvas>
+    <p class="text-center" style="color: #62CA55;">Payment Type</p>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md-12">
+    <div class="custom_filt_bord">
+    <div class="radiogroup">
+      <ul>
+      <li>
+      <label class="control control-radio" for="1">
+      <input type="radio" id="1" name="filt" value="current">
+      <span>Current Month</span>
+      <div class="control-indicator"></div>
+      </label>
+      </li>
+      <li>
+        <label class="control control-radio" for="1">
+        <input type="radio" id="2" name="filt" value="current">
+        <span>Last Month</span>
+        <div class="control-indicator"></div>
+        </label>
+        </li>
+        <li>
+          <label class="control control-radio" for="1">
+          <input type="radio" id="2" name="filt" value="current">
+          <span>Last Quarter</span>
+          <div class="control-indicator"></div>
+          </label>
+          </li>
+          <li>
+            <input type="text" bsDatepicker  placeholder="Start Date" (bsValueChange) ="valuefrom($event)"  [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
+        </li>
+        <li>
+            <input type="text" bsDatepicker  placeholder="End Date" (bsValueChange) ="valueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
+        </li>
+      </ul>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="tab-pane" id="regusers">
+      <div class="row">
+      <div class="col-md-6">
+        <apx-chart class="apex-charts" dir="ltr" [series]="registerUsers.series" [chart]="registerUsers.chart"
+        [dataLabels]="registerUsers.dataLabels" [stroke]="registerUsers.stroke"
+        [colors]="registerUsers.colors" [xaxis]="registerUsers.xaxis" [grid]="registerUsers.grid"
+        [tooltip]="registerUsers.tooltip" [plotOptions]="registerUsers.plotOptions"
+        [fill]="registerUsers.fill" [markers]="registerUsers.markers" [legend]="registerUsers.legend"
+        [yaxis]="registerUsers.yaxis" [tooltip]="registerUsers.tooltip"></apx-chart>
+      </div>
+      <div class="col-md-2">
+      <canvas baseChart [datasets]="genderDonutChart.datasets" chartType="doughnut" [options]="genderDonutChart.options"
+      [labels]="genderDonutChart.labels" [legend]="genderDonutChart.legend">
+      </canvas>
+      <p class="text-center" style="color: #C1003A;">Customer Gender</p>
+      </div>
+      <div class="col-md-2">
+      <canvas baseChart [datasets]="ageDonutChart.datasets" chartType="doughnut" [options]="ageDonutChart.options"
+      [labels]="ageDonutChart.labels" [legend]="ageDonutChart.legend">
+      </canvas>
+      <p class="text-center" style="color: #2196F3;">Customer Age</p>
+      </div>
+      <div class="col-md-2">
+      <canvas baseChart [datasets]="payDonutChart.datasets" chartType="doughnut" [options]="payDonutChart.options"
+      [labels]="payDonutChart.labels" [legend]="payDonutChart.legend">
+      </canvas>
+      <p class="text-center" style="color: #62CA55;">Payment Type</p>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col-md-12">
+      <div class="custom_filt_bord">
+      <div class="radiogroup">
+        <ul>
+        <li>
+        <label class="control control-radio" for="1">
+        <input type="radio" id="1" name="filt" value="current">
+        <span>Current Month</span>
+        <div class="control-indicator"></div>
+        </label>
+        </li>
+        <li>
+          <label class="control control-radio" for="1">
+          <input type="radio" id="2" name="filt" value="current">
+          <span>Last Month</span>
+          <div class="control-indicator"></div>
+          </label>
+          </li>
+          <li>
+            <label class="control control-radio" for="1">
+            <input type="radio" id="2" name="filt" value="current">
+            <span>Last Quarter</span>
+            <div class="control-indicator"></div>
+            </label>
+            </li>
+            <li>
+              <input type="text" bsDatepicker  placeholder="Start Date" (bsValueChange) ="valuefrom($event)"  [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
+          </li>
+          <li>
+              <input type="text" bsDatepicker  placeholder="End Date" (bsValueChange) ="valueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
+          </li>
+        </ul>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
 </div>
 </div>
 

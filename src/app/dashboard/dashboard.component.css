@@ -75,7 +75,7 @@ agm-map {
   display: none;
 }
 .order_graph canvas{
-  height: 450px !important;
+  height: 320px !important;
 }
 all_feed a:hover{
   background: #C1003A;
@@ -84,4 +84,69 @@ all_feed a:hover{
 .rating-star-point{
   font-size: 20px;
   color: #e8b227;
+}
+.variable_filter_ul{
+  padding-left: 30px;
+}
+.variable_filter_ul li{
+  display: inline-block;
+  list-style: none;
+  border: 2px solid #E1E1E1;
+  border-radius: 10px;
+  color: transparent;
+  padding: 5px 10px;
+  margin: 20px 0;
+}
+.variable_filter_ul li label{
+  color: #12303C40;
+}
+.variable_filter_ul select{
+  border:none ! important;
+  color: #000;
+  font-size: 14px;
+  background: transparent;
+  font-weight: 700;
+  }
+  .variable_filter_ul li:nth-child(2){
+    float: right;
+    margin-right: 30px;
+  }
+  .custom_filt_bord{
+    background: #FAFAFA;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+.custom_filt_bord ul li{
+  display: inline-block;
+  padding-right: 20px;
+
+}
+.custom_filt_bord .control span{
+  color: #C4CBCE;
+  padding-right: 10px;
+  padding-left: 8px;
+}
+.custom_filt_bord input[type='radio']:checked {
+  background: #C1003A ! important; 
+  border: 2px solid #C1003A !important;
+}
+.custom_filt_bord .control input:checked ~ span {
+  color: #C1003A !important;;
+}
+.custom_filt_bord input[type='radio'] {
+  -webkit-appearance:none;
+  width:12px;
+  height:12px;
+  background: transparent;
+  border: 2px solid #C4CBCE;
+  border-radius:50%;
+  outline:none;
+  }
+  
+  .custom_filt_bord input[type='radio']:focus{
+  display: none;
+  }
+
+.custom_filt_bord select{
+  color: #C4CBCE !important;
 }

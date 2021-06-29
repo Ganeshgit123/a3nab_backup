@@ -57,7 +57,6 @@ export class SupportComponent implements OnInit {
     const  data = { pageNumber: 1, category: 'ALL', status: this.supportStatus }
 
     this.getSupportList(data)
-    
     let params = {
       url: "admin/getSupportCategoryList"
     }  
@@ -123,14 +122,13 @@ export class SupportComponent implements OnInit {
       (response: any) => {
         if (response.body.error == 'false') {
           // Success
-
+          this.pages = response.body.data.page * 10;
           this.supportTotal = response.body.data.supportCount.total
           this.supportPending = response.body.data.supportCount.pending
           this.supportEscalate = response.body.data.supportCount.escalate
           this.resolved = response.body.data.supportCount.resolved
 
           this.supportList = response.body.data.support
-
           // console.log(response.body)
           
         } else {
@@ -304,7 +302,7 @@ export class SupportComponent implements OnInit {
       (response: any) => {
         if (response.body.error == 'false') {
           // Success
-
+          this.pages = response.body.data.page * 10;
           this.supportTotal = response.body.data.supportCount.total
           this.supportPending = response.body.data.supportCount.pending
           this.supportEscalate = response.body.data.supportCount.escalate

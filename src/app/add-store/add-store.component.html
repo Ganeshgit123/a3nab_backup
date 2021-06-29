@@ -150,22 +150,6 @@
 <div class="col-md-8">
 
 <div class="card">
-<div class="row">
-<div class="col-md-2"></div>
-<div class="col-md-4">
-<div class="form-group">
-<input type="text" bsDatepicker placeholder="From Date" (bsValueChange)="graphvalueFrom($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="form-group">
-<input type="text" bsDatepicker placeholder="To Date" (bsValueChange)="graphvalueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
-</div>
-</div>
-<div class="col-md-2"></div>
-</div>
-
 <div id="exTab1">
 <ul class="nav nav-pills">
 <li class="active"><a href="#1a" data-toggle="tab">Order</a></li>
@@ -175,44 +159,139 @@
 </ul>
 <div class="tab-content clearfix">
 <div class="tab-pane active" id="1a">
-<div class="chart">
-<canvas baseChart [datasets]="orderChartData" [labels]="orderChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-</canvas>
-<!-- <canvas id="bar" class="chart chart-bar" chart-data="gender_data" chart-labels="gender_labels" chart-options="options" chart-colors="colorsgender"></canvas> -->
+<div class="row">
+<div class="col-md-12">
+<apx-chart class="apex-charts" dir="ltr" [series]="storeOrderGraph.series" [chart]="storeOrderGraph.chart"
+[dataLabels]="storeOrderGraph.dataLabels" [stroke]="storeOrderGraph.stroke"
+[colors]="storeOrderGraph.colors" [xaxis]="storeOrderGraph.xaxis" [grid]="storeOrderGraph.grid"
+[tooltip]="storeOrderGraph.tooltip" [plotOptions]="storeOrderGraph.plotOptions"
+[fill]="storeOrderGraph.fill" [markers]="storeOrderGraph.markers" [legend]="storeOrderGraph.legend"
+[yaxis]="storeOrderGraph.yaxis" [tooltip]="storeOrderGraph.tooltip"></apx-chart>
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+<div class="custom_filt_bord">
+<div class="radiogroup">
+<ul>
+<li>
+<label class="control control-radio" for="1">
+<input type="radio" id="1" name="filt" value="current">
+<span>Current Month</span>
+<div class="control-indicator"></div>
+</label>
+</li>
+<li>
+<input type="text" bsDatepicker placeholder="From Date" (bsValueChange)="graphvalueFrom($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
+</li>
+<li>
+<input type="text" bsDatepicker placeholder="To Date" (bsValueChange)="graphvalueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="tab-pane" id="2a">
-<div class="chart">
-<canvas baseChart [datasets]="revenueChartData" [labels]="revenueChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-</canvas>
-<!-- <canvas id="bar" class="chart chart-bar" chart-data="gender_data" chart-labels="gender_labels" chart-options="options" chart-colors="colorsgender"></canvas> -->
-</div>
+    <div class="row">
+        <div class="col-md-12">
+        <apx-chart class="apex-charts" dir="ltr" [series]="revenueGraph.series" [chart]="revenueGraph.chart"
+        [dataLabels]="revenueGraph.dataLabels" [stroke]="revenueGraph.stroke"
+        [colors]="revenueGraph.colors" [xaxis]="revenueGraph.xaxis" [grid]="revenueGraph.grid"
+        [tooltip]="revenueGraph.tooltip" [plotOptions]="revenueGraph.plotOptions"
+        [fill]="revenueGraph.fill" [markers]="revenueGraph.markers" [legend]="revenueGraph.legend"
+        [yaxis]="revenueGraph.yaxis" [tooltip]="revenueGraph.tooltip"></apx-chart>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-md-12">
+        <div class="custom_filt_bord">
+        <div class="radiogroup">
+        <ul>
+        <li>
+        <label class="control control-radio" for="1">
+        <input type="radio" id="1" name="filt" value="current">
+        <span>Current Month</span>
+        <div class="control-indicator"></div>
+        </label>
+        </li>
+        <li>
+        <input type="text" bsDatepicker placeholder="From Date" (bsValueChange)="graphvalueFrom($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
+        </li>
+        <li>
+        <input type="text" bsDatepicker placeholder="To Date" (bsValueChange)="graphvalueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
+        </li>
+        </ul>
+        </div>
+        </div>
+        </div>
+        </div>
 </div>
 <div class="tab-pane" id="3a">
-<div class="chart">
-<!-- <canvas baseChart 
-[datasets]="barChartData"
-[labels]="barChartLabels"
-[options]="barChartOptions"
-[plugins]="barChartPlugins"
-[legend]="barChartLegend"
-[chartType]="barChartType">
-</canvas> -->
-<!-- <canvas id="bar" class="chart chart-bar" chart-data="gender_data" chart-labels="gender_labels" chart-options="options" chart-colors="colorsgender"></canvas> -->
-</div>
+    <div class="row">
+        <div class="col-md-12">
+        <apx-chart class="apex-charts" dir="ltr" [series]="netRevenueGraph.series" [chart]="netRevenueGraph.chart"
+        [dataLabels]="netRevenueGraph.dataLabels" [stroke]="netRevenueGraph.stroke"
+        [colors]="netRevenueGraph.colors" [xaxis]="netRevenueGraph.xaxis" [grid]="netRevenueGraph.grid"
+        [tooltip]="netRevenueGraph.tooltip" [plotOptions]="netRevenueGraph.plotOptions"
+        [fill]="netRevenueGraph.fill" [markers]="netRevenueGraph.markers" [legend]="netRevenueGraph.legend"
+        [yaxis]="netRevenueGraph.yaxis" [tooltip]="netRevenueGraph.tooltip"></apx-chart>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-md-12">
+        <div class="custom_filt_bord">
+        <div class="radiogroup">
+        <ul>
+        <li>
+        <label class="control control-radio" for="1">
+        <input type="radio" id="1" name="filt" value="current">
+        <span>Current Month</span>
+        <div class="control-indicator"></div>
+        </label>
+        </li>
+        <li>
+        <input type="text" bsDatepicker placeholder="From Date" (bsValueChange)="graphvalueFrom($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
+        </li>
+        <li>
+        <input type="text" bsDatepicker placeholder="To Date" (bsValueChange)="graphvalueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
+        </li>
+        </ul>
+        </div>
+        </div>
+        </div>
+        </div>
 </div>
 <div class="tab-pane" id="4a">
-<div class="chart">
-<!-- <canvas baseChart 
-[datasets]="barChartData"
-[labels]="barChartLabels"
-[options]="barChartOptions"
-[plugins]="barChartPlugins"
-[legend]="barChartLegend"
-[chartType]="barChartType">
-</canvas> -->
-<!-- <canvas id="bar" class="chart chart-bar" chart-data="gender_data" chart-labels="gender_labels" chart-options="options" chart-colors="colorsgender"></canvas> -->
-</div>
+    <ul class="variable_filter_ul">
+        <li>
+        <label>Variable 1 Range : </label>
+        <select>
+            <option value="last_month">Last Month</option>
+        <option value="last_week">Last Week</option>
+        <option value="last_quarter">Last Quarter</option>
+        <option value="last_year">Last Year</option>
+        <option value="custom_option">Custom</option>
+        </select>
+        </li>
+        <li>
+            <input type="text" bsDatepicker placeholder="From Date" (bsValueChange)="graphvalueFrom($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
+            </li>
+            <li>
+            <input type="text" bsDatepicker placeholder="To Date" (bsValueChange)="graphvalueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
+            </li>
+    </ul>
+    <div class="row">
+        <div class="col-md-12">
+          <apx-chart class="apex-charts" dir="ltr" [series]="growthChart.series" [chart]="growthChart.chart"
+          [dataLabels]="growthChart.dataLabels" [stroke]="growthChart.stroke"
+          [colors]="growthChart.colors" [xaxis]="growthChart.xaxis" [grid]="growthChart.grid"
+          [tooltip]="growthChart.tooltip" [plotOptions]="growthChart.plotOptions"
+          [fill]="growthChart.fill" [markers]="growthChart.markers" [legend]="growthChart.legend"
+          [yaxis]="growthChart.yaxis" [tooltip]="growthChart.tooltip"></apx-chart>
+        </div>
+        </div>
 </div>
 </div>
 </div>

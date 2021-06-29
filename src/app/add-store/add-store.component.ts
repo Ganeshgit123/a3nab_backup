@@ -3,9 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiCallService } from '../services/api-call.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { ChartOptions,  ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { DatePipe } from '@angular/common';
+import {ChartType,storeOrderGraph,revenueGraph,netRevenueGraph,growthChart} from './data';
 declare var $:any;
 
 @Component({
@@ -66,11 +67,16 @@ export class AddStoreComponent implements OnInit {
   limitValue = 0;
   status = 'ALL';
 
+  storeOrderGraph: ChartType;
+  revenueGraph: ChartType;
+  netRevenueGraph: ChartType;
+  growthChart: ChartType;
+
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
   public orderChartLabels: Label[] = [];
-  public barChartType: ChartType = 'bar';
+  // public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
 
@@ -143,6 +149,14 @@ export class AddStoreComponent implements OnInit {
     this.getVendorList(this.storeId)
     this.getCatgoryList();
     
+    this.fetchGraphData();
+  }
+
+  fetchGraphData(){
+    this.storeOrderGraph = storeOrderGraph;
+    this.revenueGraph = revenueGraph;
+    this.netRevenueGraph = netRevenueGraph;
+    this.growthChart = growthChart;
   }
 
   graphvalueFrom(event: any){
@@ -158,17 +172,17 @@ export class AddStoreComponent implements OnInit {
 
   valuefrom(event: any) {
     this.fromDate = this.datePipe.transform(event, 'yyyy-MM-dd');
-    this.storeOrdersList({storeId:this.storeId, fromDate: this.fromDate, toDate: this.toDate,pageNumber: 1, limit: this.limitValue})
+    this.storeOrdersList({storeId:this.storeId, fromDate: this.fromDate, toDate: this.toDate,pageNumber: this.page, limit: this.limitValue})
   }
 
   valueTo(event: any) {
     this.toDate = this.datePipe.transform(event, 'yyyy-MM-dd');
-    this.storeOrdersList({storeId:this.storeId, fromDate: this.fromDate, toDate: this.toDate,pageNumber: 1, limit: this.limitValue})
+    this.storeOrdersList({storeId:this.storeId, fromDate: this.fromDate, toDate: this.toDate,pageNumber: this.page, limit: this.limitValue})
   }
 
   onChangeCategory(id){
     this.categoryId = id
-    this.storeProductList({storeId: this.storeId, categoryId: this.categoryId,pageNumber: 1, status: this.status,limit: this.limitValue })
+    this.storeProductList({storeId: this.storeId, categoryId: this.categoryId,pageNumber: this.page, status: this.status,limit: this.limitValue })
   }
 
   getCatgoryList(){
@@ -261,7 +275,7 @@ export class AddStoreComponent implements OnInit {
   }
 
   nextPage(page){
-    const object = {storeId:this.storeId, pageNumber: page, limit: this.limitValue}
+    const object = {storeId:this.storeId, pageNumber: page, limit: this.limitValue,fromDate: this.fromDate, toDate: this.toDate}
     this.storeOrdersList(object)
   }
   stoProductPage(pagno){
@@ -273,7 +287,8 @@ export class AddStoreComponent implements OnInit {
     this.limitValue = value
     this.pages = 0
     this.page = 0
-    const object = {storeId:this.storeId, pageNumber: 1, limit: this.limitValue}
+    const object = {storeId:this.storeId, pageNumber: this.page, limit: this.limitValue,fromDate: this.fromDate, toDate: this.toDate}
+
     this.storeOrdersList(object)  
   }
 
@@ -378,20 +393,23 @@ uploadBillFile(event, item){
     reader.readAsDataURL(event.target.files[0]); 
     this.fileBillUpload = event.target.files[0]
     this.billObject = item
+
+
 }
 
 async upload_btn_file(){
-  // console.log(this.billObject)
-  // console.log(this.fileBillUpload)
+  console.log("bill",this.billObject)
+  console.log("fie",this.fileBillUpload)
 
   if(this.fileBillUpload){
     const formData = new FormData();
     formData.append('uploaded_file', this.fileBillUpload); 
     const image = await this.apiCall.imageuploadFunctions(formData);
-    // this.billObject['document'] = image['uploadUrl']
-    // console.log(this.billObject)
+    this.billObject['document'] = image['uploadUrl']
+    // console.log("bbbb",this.billObject)
 
-    const uploadObject = { id: this.billObject['storeId'],  document: image['uploadUrl'] }
+    const uploadObject = { id: this.billObject['id'],  document: this.billObject['document']}
+
     console.log(">>>>",uploadObject)
 
     var params = {
