@@ -87,6 +87,7 @@ all_feed a:hover{
 }
 .variable_filter_ul{
   padding-left: 30px;
+  margin-bottom: 0;
 }
 .variable_filter_ul li{
   display: inline-block;
@@ -95,7 +96,7 @@ all_feed a:hover{
   border-radius: 10px;
   color: transparent;
   padding: 5px 10px;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
 }
 .variable_filter_ul li label{
   color: #12303C40;
@@ -149,4 +150,9 @@ all_feed a:hover{
 
 .custom_filt_bord select{
   color: #C4CBCE !important;
+}
+.date_range li{
+  list-style: none;
+  display: inline-block;
+  margin: 0 20px;
 }

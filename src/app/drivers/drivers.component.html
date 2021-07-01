@@ -23,8 +23,8 @@
 <li style="padding-left: 10px;">
 Show Off Duty Drivers &nbsp;&nbsp; 
 <label class="switch">
-<input type="checkbox" (change)="onchangeDriver($event)">
-<!-- <input type="checkbox"> -->
+<input [ngModel]="test" [checked]="test"  type="checkbox" (change)="onchangeDriver($event,test)">
+
 <span class="slider"></span>
 </label>
 </li>

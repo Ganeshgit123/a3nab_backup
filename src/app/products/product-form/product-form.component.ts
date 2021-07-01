@@ -572,6 +572,8 @@ this.dropdownSettings = {
     // console.log("pfofo",productObject['relatedProducts'])
     // return
     productObject['images'] = JSON.stringify(this.proImages)
+    // console.log("pfofo",productObject['images'])
+    // console.log("qty",productObject['maxQty'])
        
     if(this.isEdit){
       this.updateProducts(productObject)
@@ -579,6 +581,7 @@ this.dropdownSettings = {
     }
 
     this.proImages = []
+
    
     var imgLength = this.productImages.length;
     for (var i = 0; i < this.productImages.length; i++) { 
@@ -592,16 +595,17 @@ this.dropdownSettings = {
         // console.log('final Call')
         // console.log(productObject)
         productObject['images'] = JSON.stringify(this.proImages)
-        this.saveProductService(productObject);
       }
+      
     }
 
+    this.saveProductService(productObject);
 
 
   }
 
   saveProductService(object){
-    console.log("img",object)
+    // console.log("saved",object)
     var params = {
       url: 'admin/addProduct',
       data: object

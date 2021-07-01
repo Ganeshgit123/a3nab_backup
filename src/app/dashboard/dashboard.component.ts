@@ -79,6 +79,9 @@ export class DashboardComponent implements OnInit {
   graphlinefromDate = '';
   graphlinetoDate = '';
 
+  graphCustomFrom = '';
+  graphCustomTo = '';
+
   notibtn: any;
   showAccept = 'true';
   searchDriver;
@@ -332,6 +335,15 @@ export class DashboardComponent implements OnInit {
       // console.log(orderpermission[0].read)
       this.showAccept = orderpermission[0].writeOpt
     }
+  }
+
+  graphvalueFrom(event: any){
+    this.graphCustomFrom= this.datePipe.transform(event, 'yyyy-MM-dd');
+
+  }
+
+  graphvalueTo(event: any){
+    this.graphCustomTo = this.datePipe.transform(event, 'yyyy-MM-dd');
   }
 
 

@@ -171,8 +171,8 @@
 <li>
 <label>Variable 1 Range : </label>
 <select>
+  <option value="last_month">Last Month</option>
 <option value="last_week">Last Week</option>
-<option value="last_month">Last Month</option>
 <option value="last_quarter">Last Quarter</option>
 <option value="last_year">Last Year</option>
 <option value="start_date">Start Date</option>
@@ -181,15 +181,21 @@
 <li>
 <label>Variable 2 Range : </label>
 <select>
-<option value="cur_week">Current Week</option>
 <option value="cur_month">Current Month</option>
+<option value="cur_week">Current Week</option>
 <option value="cur_quarter">Current Quarter</option>
 <option value="cur_year">Current Year</option>
-<option value="end_date">End Date</option>
 </select>
 </li>
 </ul>
-
+<ul class="date_range">
+  <li>
+    <input type="text" bsDatepicker placeholder="From Date" (bsValueChange)="graphvalueFrom($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
+    </li>
+    <li>
+      <input type="text" bsDatepicker placeholder="To Date" (bsValueChange)="graphvalueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
+      </li>
+</ul>
 <apx-chart class="apex-charts" dir="ltr" [series]="columnlabelChart.series" [chart]="columnlabelChart.chart"
 [plotOptions]="columnlabelChart.plotOptions" [yaxis]="columnlabelChart.yaxis"
 [title]="columnlabelChart.title" [stroke]="columnlabelChart.stroke" 

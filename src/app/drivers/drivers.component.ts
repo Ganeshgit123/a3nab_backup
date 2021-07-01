@@ -45,7 +45,7 @@ export class DriversComponent implements OnInit {
   longitude : any;
   fname : any;
   lname : any;
-
+  test : boolean = true;
 
   constructor(
     private apiCall: ApiCallService,
@@ -73,6 +73,9 @@ export class DriversComponent implements OnInit {
     this.getDriverList(obj)
 
     this.callRolePermission()
+
+    this.test = false;
+
   }
 
   callRolePermission(){
@@ -162,8 +165,16 @@ export class DriversComponent implements OnInit {
     })
   }
 
-  onchangeDriver(values:any){
-    console.log("changevalue",values)
+  onchangeDriver(values:any,val){
+
+    if(val){
+      this.test = false;
+    } else{
+      this.test = true;
+    }
+    console.log(val);
+
+    // console.log("changevalue",values)
 
     if(values.currentTarget.checked === true){
      var driverActive = '0' 
@@ -270,6 +281,9 @@ export class DriversComponent implements OnInit {
 
 
   async driverEditService(data){
+    
+    this.submitted = false;
+
     data['profilePic'] = this.imagePreview
     data['dob'] = this.datePipe.transform(data.dob, 'yyyy-MM-dd');
 

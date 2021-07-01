@@ -51,7 +51,12 @@
 <tr *ngFor="let item of assignmentList;let i = index">
 <td style="font-size: 13px;">{{item.assignDate}} - {{item.time}}</td>
 <td>
-   <a routerLink="/makeassignment/{{item.id }}"> {{item.assignment_ID}} </a>
+   <a *ngIf="item.isComplete == 0" routerLink="/makeassignment/{{item.id }}">
+     {{item.assignment_ID}}
+   </a>
+   <a *ngIf="item.isComplete != 0">
+      {{item.assignment_ID}}
+     </a>
 </td>
 <td><span class="red_color"><a routerLink="/drivers/{{item.driverId }}">{{item.drId}}</a></span></td>
 <td>

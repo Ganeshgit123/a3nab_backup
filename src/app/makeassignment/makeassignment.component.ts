@@ -68,17 +68,6 @@ export class MakeassignmentComponent implements OnInit {
   ngOnInit(): void {
     this.getDriverList();
     this.assignOrderList();
-    
-    this.route.params.subscribe(params => {
-      this.orderRouteId = params['id']
-      if(this.orderRouteId){
-        this.isEdit = true;
-        this.assignedOrderList();
-      } 
-    });
-
-    
-   
     this.callRolePermission();
    
   }
@@ -137,6 +126,13 @@ export class MakeassignmentComponent implements OnInit {
            this.orderList = response.body.data.orders
            this.originalArray = response.body.data.orders
            this.markers = response.body.data.orders
+           this.route.params.subscribe(params => {
+            this.orderRouteId = params['id']
+            if(this.orderRouteId){
+              this.isEdit = true;
+              this.assignedOrderList();
+            } 
+          });
          } else {
            this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
          }
@@ -250,7 +246,7 @@ export class MakeassignmentComponent implements OnInit {
       this.apiCall.commonPostService(params).subscribe(
         (response: any) => {
           if (response.body.error === 'false') {
-            console.log("0th---->", response.body.data);
+            // console.log("0th---->", response.body.data);
             this.storeList = response.body.data.store
             this.drop = response.body.data.drop
             this.pickup = response.body.data.pickup

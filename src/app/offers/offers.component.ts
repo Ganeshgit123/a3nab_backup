@@ -191,7 +191,7 @@ async onSubmit(){
 }
 
 async offerEditService(data){
-
+  this.submitted = false;
   console.log("edit",data)
     
   data['image'] = this.imagePreview
