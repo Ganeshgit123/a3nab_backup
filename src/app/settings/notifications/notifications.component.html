@@ -12,7 +12,7 @@
 <tr>
 <th>Action</th>
 <th class="text-center">Email</th>
-<th class="text-center">SMS</th>
+<!-- <th class="text-center">SMS</th> -->
 <th class="text-center">Push</th>
 </tr>
 </thead>
@@ -24,11 +24,11 @@
 </label>
 <button class="edit_btn"  (click)="editcusemail(item.id);" data-toggle="modal" data-target="#edit_email"><img src="assets/img/edit_icon.svg" onmouseover="this.src='assets/img/edit_hover_icon.svg'" onmouseout="this.src='assets/img/edit_icon.svg'"></button>
 </td>
-<td class="text-center">
+<!-- <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.sms == 'true'" (change)="sms_status_click($event,item.id)" /><span class="slider"></span>
 </label>
 <button class="edit_btn" (click)="editcussms(item.id);" data-toggle="modal" data-target="#edit_sms"><img src="assets/img/edit_icon.svg" onmouseover="this.src='assets/img/edit_hover_icon.svg'" onmouseout="this.src='assets/img/edit_icon.svg'"></button>
-</td>
+</td> -->
 <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.push == 'true'" (change)="push_status_click($event,item.id)"/><span class="slider"></span>
 </label>
@@ -60,7 +60,7 @@
 <tr>
 <th>Action</th>
 <th class="text-center">Email</th>
-<th class="text-center">SMS</th>
+<!-- <th class="text-center">SMS</th> -->
 <th class="text-center">Push</th>
 </tr>
 </thead>
@@ -72,11 +72,11 @@
 </label>   
 <button class="edit_btn" data-toggle="modal"  (click)="editstoemail(item.id);" data-target="#edit_email"><img src="assets/img/edit_icon.svg" onmouseover="this.src='assets/img/edit_hover_icon.svg'" onmouseout="this.src='assets/img/edit_icon.svg'"></button>
 </td>
-<td class="text-center">
+<!-- <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.sms == 'true'" (change)="store_sms_status_click($event,item.id)" /><span class="slider"></span>
 </label>
 <button class="edit_btn" data-toggle="modal"  (click)="editstosms(item.id);"data-target="#edit_sms"><img src="assets/img/edit_icon.svg" onmouseover="this.src='assets/img/edit_hover_icon.svg'" onmouseout="this.src='assets/img/edit_icon.svg'"></button>
-</td>
+</td> -->
 <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.push == 'true'" (change)="store_push_status_click($event,item.id)" /><span class="slider"></span>
 </label>
@@ -105,7 +105,7 @@
 <tr>
 <th>Action</th>
 <th class="text-center">Email</th>
-<th class="text-center">SMS</th>
+<!-- <th class="text-center">SMS</th> -->
 <th class="text-center">Push</th>
 </tr>
 </thead>
@@ -117,11 +117,11 @@
 </label>
 <button class="edit_btn" data-toggle="modal"  (click)="editdeliemail(item.id);"  data-target="#edit_email"><img src="assets/img/edit_icon.svg" onmouseover="this.src='assets/img/edit_hover_icon.svg'" onmouseout="this.src='assets/img/edit_icon.svg'"></button>
 </td>
-<td class="text-center">
+<!-- <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.sms == 'true'" (change)="deli_sms_status_click($event,item.id)" /><span class="slider"></span>
 </label>
 <button class="edit_btn" data-toggle="modal" (click)="editdelisms(item.id);" data-target="#edit_sms" ><img src="assets/img/edit_icon.svg" onmouseover="this.src='assets/img/edit_hover_icon.svg'" onmouseout="this.src='assets/img/edit_icon.svg'"></button>
-</td>
+</td> -->
 <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.push == 'true'" (change)="deli_push_status_click($event,item.id)" /><span class="slider"></span>
 </label>

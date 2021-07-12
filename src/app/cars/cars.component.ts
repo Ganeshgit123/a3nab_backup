@@ -343,7 +343,7 @@ async carEditService(data){
     url: 'admin/editCar',
     data: data
   }
-console.log("efefe",params)
+// console.log("efefe",params)
   this.apiCall.commonPostService(params).subscribe(
     (response: any) => {
       if (response.body.error == 'false') {

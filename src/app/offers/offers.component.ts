@@ -67,7 +67,7 @@ export class OffersComponent implements OnInit {
     this.addOffers   = this.formBuilder.group({
       title: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       couponCode: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-      trustUser:[this.trustUser],
+      // trustUser:[this.trustUser],
       description: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       discount: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       minimumValue: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
@@ -156,7 +156,7 @@ async onSubmit(){
     postData['image'] = image['uploadUrl']
     postData['startDate'] = this.datePipe.transform(this.addOffers.value.startDate, 'yyyy-MM-dd');
     postData['endDate'] = this.datePipe.transform(this.addOffers.value.endDate, 'yyyy-MM-dd');
-    postData['trustUser'] = this.addOffers.value.trustUser ? "true" : "false";
+    // postData['trustUser'] = this.addOffers.value.trustUser ? "true" : "false";
     postData['status'] = this.addOffers.value.status ? "active" : "inactive";
  
    
@@ -197,7 +197,7 @@ async offerEditService(data){
   data['image'] = this.imagePreview
   data['startDate'] = this.datePipe.transform(data.startDate, 'yyyy-MM-dd');
   data['endDate'] = this.datePipe.transform(data.endDate, 'yyyy-MM-dd');
-  data['trustUser'] = this.addOffers.value.trustUser ? "true" : "false";
+  // data['trustUser'] = this.addOffers.value.trustUser ? "true" : "false";
   data['status'] = this.addOffers.value.status ? "active" : "inactive";
 
     const formData = new FormData();
@@ -244,7 +244,7 @@ this.imagePreview = offers['image']
 this.isEdit = true;
 this.id = offers['id']
 
- this.trust = offers['trustUser'] 
+//  this.trust = offers['trustUser'] 
 
 //  console.log("tt",this.trust)
   
@@ -252,7 +252,7 @@ this.addOffers   = this.formBuilder.group({
   title: [offers['title'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   image: [''],
   couponCode: [offers['couponCode'] , [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-  trustUser: [offers['trustUser']],
+  // trustUser: [offers['trustUser']],
   description: [offers['description'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   discount: [offers['discount'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   minimumValue: [offers['minimumValue'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],

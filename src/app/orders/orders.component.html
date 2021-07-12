@@ -88,7 +88,8 @@ Map View &nbsp;&nbsp;
 [longitude]="m.longitude"
 >
 <agm-info-window #infowindow>
-<p><strong>Name: </strong> {{m.addressPinDetails}}</p>
+<p><strong>Address: </strong> {{m.addressPinDetails}}</p>
+    <p class="text-center">{{m.orderIDs}}</p>
 </agm-info-window>
 </agm-marker>
 <span *ngFor="let m of markers; let i = index">
@@ -168,7 +169,14 @@ Map View &nbsp;&nbsp;
 <!-- <span class="red_color">{{store.storeID}}</span>&nbsp;&nbsp;<span>{{store.storeName}}</span>&nbsp;&nbsp;<span class="yellow">{{store.storeStatus}}</span> -->
 </div>
 </td>
-<td><span class="pend_btn">{{item.orderStatus}}</span></td>
+<td>
+    <span *ngIf = "item.orderStatus == 'PENDING'" class="yellow">Pending</span>
+    <span *ngIf = "item.orderStatus == 'COMPLETED'" class="green">Completed</span>
+    <span *ngIf = "item.orderStatus == 'CANCELLED'" class="red_color">Cancellation</span>
+    <span *ngIf = "item.orderStatus == 'ACCEPTED'" class="green">Accepted</span>
+    <span *ngIf = "item.orderStatus == 'ONGOING'" class="yellow">Ongoing</span>
+    <span *ngIf = "item.orderStatus == 'REJECTED'" class="red_color">Rejected</span>
+</td>
 </tr>
 </tbody>
 </table>
