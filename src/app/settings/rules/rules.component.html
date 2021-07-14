@@ -123,30 +123,39 @@ Only Show Active Rule &nbsp;&nbsp;
 <div class="separe">
 <div class="form-group">
 <label>Select Action</label><br>
-<select formControlName="type" class="form-control select2" type="text" style="width: 100%;">
+<select formControlName="type"  [(ngModel)]="replytype" class="form-control select2" type="text" style="width: 100%;">
 <option value="">Select Action</option>
 <option value="WALLET">WALLET</option>
 <option value="POINTS">POINTS</option>
-<!-- <option value="NOTIFICATION">NOTIFICATION</option> -->
+<option value="NOTIFICATION">NOTIFICATION</option>
 </select>
 </div>
 
+<div  *ngIf="replytype === 'WALLET'" >
 <div class="form-group">
 <label>Wallet Amount</label>
-<input type="text" name="" formControlName="walletAmount" class="form-control" placeholder="0 SAR">
+<input type="text" formControlName="walletAmount" class="form-control" placeholder="0 SAR">
 </div>
+</div>
+
+<div *ngIf="replytype === 'POINTS'" >
 <div class="form-group">
 <label>Points</label>
-<input type="text" name="" formControlName="points" class="form-control" placeholder="0 Points">
+<input type="text" formControlName="points" class="form-control" placeholder="0 Points">
 </div>
+</div>
+
+<div *ngIf="replytype === 'NOTIFICATION'" >
 <div class="form-group">
 <label>Notification Title</label>
-<input type="text" name="" formControlName="notifyTitle" class="form-control" placeholder="Title" >
+<input type="text"  formControlName="notifyTitle" class="form-control" placeholder="Title" >
 </div>
 <div class="form-group">
 <label>Notification Message</label>
 <textarea class="form-control" formControlName="notifyMessage" placeholder="Message"></textarea>
 </div>
+</div>
+
 </div>
 </div>
 </div>
@@ -158,7 +167,7 @@ Only Show Active Rule &nbsp;&nbsp;
 <div class="col-md-5">
 <ul>
 <li class="ent_tag" *ngIf="isEdit == false">
-<p (click)="addaction()"><span style="cursor: pointer;">Enter Tag</span></p>
+<p (click)="addaction()"><span style="cursor: pointer;">Add rule</span></p>
 </li>
 </ul>
 </div>

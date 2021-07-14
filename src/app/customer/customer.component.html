@@ -93,6 +93,7 @@ Map View &nbsp;&nbsp;
 <thead>
 <tr>
 <th>Status</th>
+<th>Last Login</th>
 <th>Signup Date</th>
 <th>Customer ID</th>
 <th>Customer Name</th>
@@ -123,6 +124,7 @@ Map View &nbsp;&nbsp;
 </label>
 </div> -->
 </td>
+<td>{{item.updatedAt}} - {{item.updatedAtTime}}</td>
 <td>{{item.signupDate}} - {{item.signupDateTime}}</td>
 <td class="col_chan"><button type="button" (click)="viewUser(item.id,'','')" class="cust_view_btn" data-toggle="modal" data-target="#cust_btn">{{item.customerID}}</button></td>
 <td>{{item.firstName}}</td>
@@ -223,16 +225,16 @@ Map View &nbsp;&nbsp;
 </div>
 <ul>
 <form [formGroup]="trustUserForm" (ngSubmit)="onSubmit()">
-<li class="trust text-center">
+<!-- <li class="trust text-center">
 Trusty User &nbsp;&nbsp; 
 <label class="switch">
 <input type="checkbox" formControlName="trustUser">
 <span class="slider"></span>
 </label>
-</li>
+</li> -->
 <li><button type="button" class="car_log_btn" data-toggle="modal" data-target="#log_man">Action Log</button></li>
 <br>
-<li> 
+<!-- <li> 
 <div class="form-group">
 <label>Package Value</label>
 <input class="form-control" formControlName="packageValue" type="text">
@@ -240,7 +242,7 @@ Trusty User &nbsp;&nbsp;
 </li>
 <li *ngIf = "showAccept == 'true'">
 <button  class="action_log_btn" >Submit</button>
-</li>
+</li> -->
 </form>
 </ul>
 <form>

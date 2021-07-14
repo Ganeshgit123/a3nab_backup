@@ -25,6 +25,7 @@ export class RulesComponent implements OnInit {
   options:any;
   isEdit = false;
   ruleId: number;
+  replytype;
 
   constructor( private formBuilder:FormBuilder,
     private apiCall: ApiCallService,
@@ -65,6 +66,8 @@ export class RulesComponent implements OnInit {
     })
   }
 
+  
+
   addaction(){
     let control = <FormArray>this.addRules.controls.options;
     control.push(
@@ -78,7 +81,7 @@ export class RulesComponent implements OnInit {
     )
   }
 
-   Change(event) {
+  onChange(event) {
     this.selectedType = event.target.value;
   }
 
@@ -213,7 +216,7 @@ async onSubmit(){
     url: 'admin/addNewRule',
     data: opt
   }
- 
+ console.log("data",params)
   this.apiCall.commonPostService(params).subscribe(
     (response: any) => {
       if (response.body.error == 'false') {
