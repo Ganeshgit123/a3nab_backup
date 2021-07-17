@@ -319,7 +319,7 @@ isEdit = false;
             //  console.log("stoid",this.stoid)
 
             this.userOrderList.forEach(function (ord,index) {
-              var tt =  ord.totalAmount - ord.discountAmount    
+              var tt =  (ord.totalAmount + ord.otherTotal) - ord.discountAmount    
       
                    var subtot = tt - ord.couponDiscount
                   var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)

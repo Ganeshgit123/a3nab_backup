@@ -69,7 +69,7 @@ export class FeedbackComponent implements OnInit {
           this.pages = response.body.data.page * 10;
 
           this.appUserFeedbackList.forEach(function (ord,index) {
-            var tt =  ord.totalAmount - ord.discountAmount    
+            var tt =  (ord.totalAmount + ord.otherTotal) - ord.discountAmount    
     
                  var subtot = tt - ord.couponDiscount
                 var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
@@ -132,7 +132,7 @@ export class FeedbackComponent implements OnInit {
           this.appdriverFeedbackList = response.body.data.feedback
           this.driverpage = response.body.data.page * 10;
           this.appdriverFeedbackList.forEach(function (ord,index) {
-            var tt =  ord.totalAmount - ord.discountAmount    
+            var tt =  (ord.totalAmount + ord.otherTotal) - ord.discountAmount    
     
                  var subtot = tt - ord.couponDiscount
                 var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)

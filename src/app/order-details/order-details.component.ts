@@ -57,6 +57,7 @@ export class OrderDetailsComponent implements OnInit {
   couponDiscountPer : any;
   deleteItems : any;
   pointsAmount : any;
+  otherTotal : any;
   detectedPoint : any;
   couponDiscount : any;
   taxValue : any;
@@ -210,16 +211,17 @@ export class OrderDetailsComponent implements OnInit {
           this.packedByDriver = response.body.data.orderInfo.packedByDriver
           this.onWayToDelivery = response.body.data.orderInfo.onWayToDelivery
           this.orderStatus = response.body.data.orderInfo.orderStatus
+          this.otherTotal = response.body.data.orderInfo.otherTotal
           // console.log(this.orderDetails)
 
-          this.subtot= (this.totalAmount - this.discountAmount) 
+          this.subtot= ((this.totalAmount +  this.otherTotal) - this.discountAmount) 
           // console.log("tot",this.subtot)
            
           this.distot = this.subtot - this.couponDiscount 
           // console.log("dis",this.distot)
 
           this.subtot1 = this.distot - (this.pointsAmount + this.paidByWallet)
-          // console.log("tot",this.subtot1)
+          // console.log("subtot1",this.subtot1)
           
           this.subtot2 = this.subtot1 + this.fastDelievryCharge
           // console.log("tot",this.subtot2)
