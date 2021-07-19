@@ -131,16 +131,21 @@ Only Show Active Rule &nbsp;&nbsp;
 </select>
 </div>
 
+<div *ngIf="comp.value.type === 'WALLET'">
 <div class="form-group">
 <label>Wallet Amount</label>
 <input type="text" formControlName="walletAmount" class="form-control" placeholder="0 SAR">
 </div>
+</div>
 
+<div *ngIf="comp.value.type === 'POINTS'">
 <div class="form-group">
 <label>Points</label>
 <input type="text" formControlName="points" class="form-control" placeholder="0 Points">
 </div>
+</div>
 
+<div *ngIf="comp.value.type === 'NOTIFICATION'">
 <div class="form-group">
 <label>Notification Title</label>
 <input type="text"  formControlName="notifyTitle" class="form-control" placeholder="Title" >
@@ -148,6 +153,7 @@ Only Show Active Rule &nbsp;&nbsp;
 <div class="form-group">
 <label>Notification Message</label>
 <textarea class="form-control" formControlName="notifyMessage" placeholder="Message"></textarea>
+</div>
 </div>
 
 </div>

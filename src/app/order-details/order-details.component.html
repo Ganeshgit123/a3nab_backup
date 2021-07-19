@@ -523,10 +523,10 @@ My Super Mart<br>
 <li class="light_color">Total Bill</li>
 <li class="righ_cont">{{finalTot}} SAR</li>
 </ul>
-<!-- <p *ngIf = "paytype === 'card'" class="text-center online_btn">Paid Online</p> -->
 
-<!-- <p *ngIf = "paytype === 'cash'" class="text-center cod_btn">C.O.D</p> -->
 <p  *ngIf = " payType === 'card' " class="text-center paid_btn">Online Paid</p> 
+<p  *ngIf = " payType === 'Apple Pay' " class="text-center paid_btn">Apple Pay</p> 
+<p  *ngIf = " payType === 'Machine' " class="text-center cod_btn">Machine</p> 
 
 <p  *ngIf = " payType === 'cash' " class="text-center cod_btn">C.O.D</p> 
 

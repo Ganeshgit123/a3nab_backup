@@ -505,8 +505,10 @@
 <td class="red_mar"><a routerLink="/customer/{{ item.userId }}">{{item.customerID}}</a></td>
 <td>SAR {{item.grandTotal}}</td>
 <td class="text-center">
-<span *ngIf="item.paytype == 'card'" class="online_btn">Paid Online</span>
-<span *ngIf="item.paytype == 'cash'" class="cod_btn">C.O.D</span>
+<span *ngIf="item.paytype === 'card'" class="online_btn">Paid Online</span>
+<span *ngIf="item.paytype === 'cash'" class="cod_btn">C.O.D</span>
+<span *ngIf = "item.paytype === 'Apple Pay'" class="online_btn">Apple Pay</span>
+<span *ngIf = "item.paytype === 'Machine'" class="cod_btn">Machine</span>
 </td>
 <!-- <td class="text-center"></td> -->
 <td class="text-center">SAR {{item.totalPrice}}</td>

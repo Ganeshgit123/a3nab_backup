@@ -96,8 +96,15 @@ Show Off Duty Drivers &nbsp;&nbsp;
 </div>
 <div class="col-md-8">
    <p>{{item.firstName}} {{item.lastName}}</p>
-   <p class="driv_id">{{item.drId}}</p>
-
+   <div class="row">
+      <div class="col-md-9">
+         <p class="driv_id">{{item.drId}}</p>
+      </div>
+      <div class="col-md-3">
+         <a class="vari-del"  (click)="driveStatus(item.id)"> <img src="assets/img/delete_icon.svg" onmouseover="this.src='assets/img/delete_hover_icon.svg'" onmouseout="this.src='assets/img/delete_icon.svg'"> </a>
+      </div>
+   </div>
+  
    <p><ngb-rating [(rate)]="item.rating" class="rating-star-point" [readonly]="true" [max]="5"></ngb-rating>
    </p>
    

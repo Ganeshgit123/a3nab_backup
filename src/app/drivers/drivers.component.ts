@@ -185,6 +185,32 @@ export class DriversComponent implements OnInit {
     this.getDriverList(object)
   }
 
+  driveStatus(val){
+    const object = {}
+
+    object['id'] = val
+     object['isDelete'] = '1'
+     
+     let params ={
+      url:"admin/updateDriverDeleStatus",
+      data:object
+    }
+  // console.log(">>>",params)
+    this.apiCall.commonPostService(params).subscribe((result:any)=>{
+      let resu = result.body;
+      if(resu.error == "false")
+      {
+        this.apiCall.showToast("Deleted Successfully", 'Success', 'successToastr');
+        this.ngOnInit();
+      }else{
+        this.apiCall.showToast(resu.message, 'Error', 'errorToastr');
+      }
+      
+    },(error)=>{
+      console.error(error);
+    });
+  }
+
   uploadImageFile(event){
     var reader = new FileReader();
       reader.onload = (event: any) => {

@@ -132,3 +132,8 @@ margin-bottom: 30px;
 .spot_btn:hover{
   color: #C1003A;
 }
+
+.vari-del img{
+  width: 25px;
+  height: 25px;
+}

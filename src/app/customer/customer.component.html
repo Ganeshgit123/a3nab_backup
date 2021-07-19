@@ -233,6 +233,7 @@ Trusty User &nbsp;&nbsp;
 </label>
 </li> -->
 <li><button type="button" class="car_log_btn" data-toggle="modal" data-target="#log_man">Action Log</button></li>
+<li><button type="button" class="car_log_btn" data-toggle="modal" data-target="#wall_his">Wallet History</button></li>
 <br>
 <!-- <li> 
 <div class="form-group">
@@ -402,10 +403,12 @@ Order Status : <span class="blue" *ngIf = "item.orderStatus == 'ONGOING'">{{item
 
 <td class="text-center"><span class="green" *ngIf = "item.pointsAmount !== 0"> {{item.pointsAmount}}</span>
     <span class="red_color" *ngIf = "item.pointsAmount == 0">{{item.pointsAmount}}</span></td>
-
-<td class="text-center">SAR {{item.grand}} <br> 
+    
+<td class="text-center">SAR {{item.grand}} <br>
 <span *ngIf = "item.paytype == 'card'" class="online_btn">Paid Online</span>
 <span *ngIf = "item.paytype == 'cash'" class="cod_btn">C.O.D</span>
+<span *ngIf = "item.paytype === 'Apple Pay'" class="online_btn">Apple Pay</span>
+<span *ngIf = "item.paytype === 'Machine'" class="cod_btn">Machine</span>
 
 <!-- <span class="online_btn">Paid Online</span> -->
 </td>
@@ -453,106 +456,7 @@ Order Status : <span class="blue" *ngIf = "item.orderStatus == 'ONGOING'">{{item
 </div>
 </section>
 
-<div class="modal right fade" id="view_det" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<!-- <h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4> -->
-</div>
-<div class="modal-body">
-<form>
-<div class="row">
-<div class="col-md-6">
-<div class="form-group">
-<label>Add More</label><br>
-<select>
-<option>Select Operation</option>
-</select>
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-group">
-<label>Enter Units</label>
-<input type="text" name="" class="form-control" placeholder="20">
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-md-12">
-<div class="form-group">
-<label>Enter Expiration Date</label><br>
-<select class="cus_sel">
-<option>22/06/20</option>
-</select>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-md-12">
-<div class="form-group">
-<label>Choose Vendor</label><br>
-<select class="cus_sel">
-<option>Hassan M.</option>
-</select>
-</div>
-</div>
-</div>
-<div class="make_btn">
-<p class="text-center"><button class="ma_bbnt">Make Entry</button></p>
-</div>
-<div class="make_sec">
-<div class="row">
-<div class="col-md-4">
-<p>Stock History</p>
-</div>
-<div class="col-md-4">
-<select>
-<option>Start Date</option>
-</select>
-</div>
-<div class="col-md-4">
-<select>
-<option>End Date</option>
-</select>
-</div>
-</div>
-</div>
-<section class="make_list">
-<div class="make_data">
-<p>Added By : <span>User Name</span></p>
-<table datatable="ng" class="table table-bordered table-striped table_datatable" id="customerTable">
-<tbody>
-<tr>
-<td>50 Units</td>
-<td>Added</td>
-<td>Vendor Name</td>
-<td>4th June 20</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="make_data">
-<p>Added By : <span>User Name</span></p>
-<table datatable="ng" class="table table-bordered table-striped table_datatable" id="customerTable">
-<tbody>
-<tr>
-<td>50 Units</td>
-<td>Added</td>
-<td>Vendor Name</td>
-<td>4th June 20</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-</form>
-</div>
-</div>
-<!-- modal-content -->
-</div>
-<!-- modal-dialog -->
-</div>
+
 </div>
 </div>
 </div>
@@ -601,3 +505,52 @@ Order Status : <span class="blue" *ngIf = "item.orderStatus == 'ONGOING'">{{item
     <!-- modal-dialog -->
     </div>
     </section>
+
+    <section class="car_modal">
+        <div class="modal right fade" id="wall_his" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <div class="row">
+                <div class="col-md-7">
+                <ul>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </ul>
+                </div>
+                </div>
+        <div class="row">
+        <div class="col-md-12">
+        <section class="extand_table">
+        <div class="material-datatables">
+        <div class="table-responsive text-nowrap">
+        <table class="table table-bordered table-striped table_datatable" id="customerTable">
+        <thead>
+        <tr>
+        <th>Order Id</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Transaction</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        <tr *ngFor="let item of wallHis">
+        <td>{{item.orderId}}</td>
+        <td>{{item.amount}}</td>
+        <td>{{item.transactionType}}</td>
+        <td>{{item.typeOfTrans}}</td>
+      
+        </tbody>
+        </table>
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+        </div>
+        <!-- modal-content -->
+        </div>
+        <!-- modal-dialog -->
+        </div>
+        </div>
+        </section>

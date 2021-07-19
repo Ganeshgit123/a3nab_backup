@@ -135,7 +135,8 @@ Map View &nbsp;&nbsp;
 <td>SAR {{item.grand}} </td>
 <td>
 <span *ngIf = "item.paytype === 'card'" class="online_btn">Paid Online</span>
-
+<span *ngIf = "item.paytype === 'Apple Pay'" class="online_btn">Apple Pay</span>
+<span *ngIf = "item.paytype === 'Machine'" class="cod_btn">Machine</span>
 <span *ngIf = "item.paytype === 'cash'" class="cod_btn">C.O.D</span>
 </td>
 <!-- <td><span class="online_btn">Paid Online</span></td> -->

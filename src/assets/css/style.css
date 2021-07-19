@@ -8308,9 +8308,9 @@ position: fixed;
 top: 70px;
 }
 
-.horizontal-menu .main-panel .navbar .navbar-minimize {
+/* .horizontal-menu .main-panel .navbar .navbar-minimize {
 display: none;
-}
+} */
 
 .horizontal-menu .main-panel>.content {
 margin-top: 130px;
@@ -14814,9 +14814,6 @@ display: block;
 background-color: rgba(255, 255, 255, 0.1);
 }
 
-.navbar-minimize {
-display: none;
-}
 
 .card .form-horizontal .label-on-left,
 .card .form-horizontal .label-on-right {
@@ -14841,10 +14838,6 @@ margin-top: 0;
 margin-top: 0;
 }
 
-.sidebar {
-display: none;
-box-shadow: none;
-}
 
 .sidebar .sidebar-wrapper {
 padding-bottom: 60px;
@@ -14860,7 +14853,7 @@ line-height: 30px;
 margin-right: 8px;
 }
 
-.sidebar .nav-mobile-menu .open .dropdown-menu {
+/* .sidebar .nav-mobile-menu .open .dropdown-menu {
 position: static;
 float: none;
 width: auto;
@@ -14869,7 +14862,7 @@ background-color: transparent;
 border: 0;
 -webkit-box-shadow: none;
 box-shadow: none;
-}
+} */
 
 .main-panel {
 width: 100%;
@@ -14909,11 +14902,11 @@ transition: all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1);
 left: 0;
 }
 
-.navbar .navbar-collapse.collapse,
+/* .navbar .navbar-collapse.collapse,
 .navbar .navbar-collapse.collapse.in,
 .navbar .navbar-collapse.collapsing {
 display: none !important;
-}
+} */
 
 .navbar-nav>li {
 float: none;
@@ -15540,15 +15533,15 @@ float: none;
 font-size: 14px;
 margin: 0;
 }
-}
+} */
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
 .navbar>.container-fluid .navbar-brand {
 margin-left: 0;
 }
-}
+} */
 
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
 .main-panel .content {
 padding-left: 0;
 padding-right: 0;
@@ -15575,9 +15568,9 @@ width: auto;
 margin-left: 15px;
 margin-right: 15px;
 }
-}
+} */
 
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
 .table-full-width {
 margin-left: -20px;
 margin-right: -20px;
@@ -15586,13 +15579,13 @@ margin-right: -20px;
 .table-responsive {
 overflow: auto;
 }
-}
+} */
 
-@media all and (max-width: 490px) {
+/* @media all and (max-width: 490px) {
 .nav-center .nav-pills-icons {
 max-width: 211px;
 }
-}
+} */
 
 /*-------------------------
 Font Face

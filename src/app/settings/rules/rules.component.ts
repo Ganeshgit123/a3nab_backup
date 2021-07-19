@@ -25,7 +25,6 @@ export class RulesComponent implements OnInit {
   options:any;
   isEdit = false;
   ruleId: number;
-  replytype;
 
   constructor( private formBuilder:FormBuilder,
     private apiCall: ApiCallService,

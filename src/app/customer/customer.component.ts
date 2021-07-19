@@ -76,6 +76,7 @@ stoll:any = [];
 stoid:any;
 custmId:any;
 CustmIDs:any;
+wallHis : any;
 isEdit = false;
 
   constructor(
@@ -446,7 +447,7 @@ isEdit = false;
         if (response.body.error == 'false') {
           // console.log(response.body.data.userList)
           this.userList = response.body.data.userList
-                   // console.log(this.userList)
+
         } else {
           // Query Error
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
@@ -518,6 +519,7 @@ viewUser(id,valueFrom,valueTo){
           this.userPoints = response.body.data.users.userPoints
           this.cancellation = response.body.data.users.cancellation
           
+          this.wallHis = response.body.data.walletDetails.list
           
           this.userOrderList = response.body.data.orderList
 

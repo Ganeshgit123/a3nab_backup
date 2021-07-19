@@ -221,8 +221,8 @@ export class OrdersComponent implements OnInit {
 
           this.orderList.forEach(function (ord,index) {
             var tt =  (ord.totalAmount + ord.otherTotal) - ord.discountAmount    
-                    console.log("tot",ord.otherTotal)
-                    console.log("sdf",tt)
+                    // console.log("tot",ord.otherTotal)
+                    // console.log("sdf",tt)
                  var subtot = tt - ord.couponDiscount
                 var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
                 var subtot2 = subtot1 + ord.fastDelievryCharge

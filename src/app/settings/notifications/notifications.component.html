@@ -11,7 +11,7 @@
 <thead>
 <tr>
 <th>Action</th>
-<th class="text-center">Email</th>
+<!-- <th class="text-center">Email</th> -->
 <!-- <th class="text-center">SMS</th> -->
 <th class="text-center">Push</th>
 </tr>
@@ -19,11 +19,11 @@
 <tbody>
 <tr *ngFor="let item of customernotlist">
 <td width="60%" >{{item.name}}</td>
-<td class="text-center">
+<!-- <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.email == 'true'"  (change)="email_status_click($event,item.id)"/><span class="slider"></span>
 </label>
 <button class="edit_btn"  (click)="editcusemail(item.id);" data-toggle="modal" data-target="#edit_email"><img src="assets/img/edit_icon.svg" onmouseover="this.src='assets/img/edit_hover_icon.svg'" onmouseout="this.src='assets/img/edit_icon.svg'"></button>
-</td>
+</td> -->
 <!-- <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.sms == 'true'" (change)="sms_status_click($event,item.id)" /><span class="slider"></span>
 </label>
@@ -59,7 +59,7 @@
 <thead>
 <tr>
 <th>Action</th>
-<th class="text-center">Email</th>
+<!-- <th class="text-center">Email</th> -->
 <!-- <th class="text-center">SMS</th> -->
 <th class="text-center">Push</th>
 </tr>
@@ -67,11 +67,11 @@
 <tbody>
 <tr *ngFor="let item of managernotlist">
 <td width="60%">{{item.name}}</td>
-<td class="text-center">
+<!-- <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.email == 'true'" (change)="store_email_status_click($event,item.id)"/><span class="slider"></span>
 </label>   
 <button class="edit_btn" data-toggle="modal"  (click)="editstoemail(item.id);" data-target="#edit_email"><img src="assets/img/edit_icon.svg" onmouseover="this.src='assets/img/edit_hover_icon.svg'" onmouseout="this.src='assets/img/edit_icon.svg'"></button>
-</td>
+</td> -->
 <!-- <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.sms == 'true'" (change)="store_sms_status_click($event,item.id)" /><span class="slider"></span>
 </label>
@@ -104,7 +104,7 @@
 <thead>
 <tr>
 <th>Action</th>
-<th class="text-center">Email</th>
+<!-- <th class="text-center">Email</th> -->
 <!-- <th class="text-center">SMS</th> -->
 <th class="text-center">Push</th>
 </tr>
@@ -112,11 +112,11 @@
 <tbody>
 <tr *ngFor="let item of deliverynotlist">
 <td width="60%">{{item.name}}</td>
-<td class="text-center">
+<!-- <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.email == 'true'" (change)="deli_email_status_click($event,item.id)" /><span class="slider"></span>
 </label>
 <button class="edit_btn" data-toggle="modal"  (click)="editdeliemail(item.id);"  data-target="#edit_email"><img src="assets/img/edit_icon.svg" onmouseover="this.src='assets/img/edit_hover_icon.svg'" onmouseout="this.src='assets/img/edit_icon.svg'"></button>
-</td>
+</td> -->
 <!-- <td class="text-center">
 <label class="switch"><input type="checkbox" [checked] = "item.sms == 'true'" (change)="deli_sms_status_click($event,item.id)" /><span class="slider"></span>
 </label>
