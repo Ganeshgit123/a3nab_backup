@@ -215,7 +215,7 @@ async onSubmit(){
     url: 'admin/addNewRule',
     data: opt
   }
- console.log("data",params)
+//  console.log("data",params)
   this.apiCall.commonPostService(params).subscribe(
     (response: any) => {
       if (response.body.error == 'false') {

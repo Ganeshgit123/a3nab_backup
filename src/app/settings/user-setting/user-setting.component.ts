@@ -36,6 +36,7 @@ export class UserSettingComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     this.addUserSetting   = this.formBuilder.group({
       firstName: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
       lastName: ['', [Validators.required,Validators.pattern(/^\S+(?: \S+)*$/)]],
@@ -98,6 +99,7 @@ export class UserSettingComponent implements OnInit {
           this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
           $('#add_adm_btn').modal('hide');
           this.ngOnInit();
+          window.location.reload();
           // this.router.navigateByUrl('/dashboard');
         } else {
           // Query Error
