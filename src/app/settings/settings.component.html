@@ -12,7 +12,7 @@
 <li class="active"><a href="#1a" data-toggle="tab">General</a></li>
 <li><a href="#2a" data-toggle="tab">Delivery</a></li>
 <li *ngIf = "showAccept == 'true'"><a href="#3a" data-toggle="tab">User Settings</a></li>
-<li *ngIf = "showAccept == 'true'"><a href="#4a" data-toggle="tab">Admin Users</a></li>
+<li *ngIf = "showAccept == 'true'"><a href="#4a" data-toggle="tab" (click)="getAdminList()">Admin Users</a></li>
 <li *ngIf = "showAccept == 'true'"><a href="#5a" data-toggle="tab">Notifications</a></li>
 <li *ngIf = "showAccept == 'true'" style="width: 100%;"><a href="#6a" data-toggle="tab">Rules</a></li>
 <li *ngIf = "showAccept == 'true'"><a href="#7a" data-toggle="tab">FAQ</a></li>

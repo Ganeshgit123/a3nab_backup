@@ -394,7 +394,6 @@ this.dropdownSettings = {
           // console.log(response.body)
           this.pdproductList = response.body.data.products
           // this.subCategory = response.body.data
-
           // console.log("prdd",this.pdproductList)
         } else {
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')

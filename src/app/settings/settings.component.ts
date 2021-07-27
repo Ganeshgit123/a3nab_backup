@@ -32,21 +32,7 @@ export class SettingsComponent implements OnInit {
     // this.radiusForm = this.formBuilder.group({
     //   radius: ['',  [Validators.required, Validators.pattern("[+-]?([0-9]*[.])?[0-9]+")]],
     // });
-    var params = {
-      url: 'admin/getSubadmin',
-    }
-    this.apiCall.commonGetService(params).subscribe((result:any)=>{
-      let res = result.body;
-      if(res.error=="false")
-      {    
-           this.userlist = res.data.admin;
-  //  console.log("ad",this.userlist)
-      }else{
-        this.apiCall.showToast(res.message, 'Error', 'errorToastr')
-      }
-    },(error)=>{
-       console.error(error);
-    });
+    this.getAdminList();
 
     this.addUserSetting   = this.formBuilder.group({
       firstName: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
@@ -64,6 +50,24 @@ export class SettingsComponent implements OnInit {
 
   }
 
+  getAdminList(){
+    var params = {
+      url: 'admin/getSubadmin',
+    }
+    this.apiCall.commonGetService(params).subscribe((result:any)=>{
+      let res = result.body;
+      if(res.error=="false")
+      {    
+           this.userlist = res.data.admin;
+  //  console.log("ad",this.userlist)
+      }else{
+        this.apiCall.showToast(res.message, 'Error', 'errorToastr')
+      }
+    },(error)=>{
+       console.error(error);
+    });
+  }
+  
   callRolePermission(){
     if(sessionStorage.getItem('adminRole') !== 'superadmin'){
       let settingpermission = JSON.parse(sessionStorage.getItem('permission'))

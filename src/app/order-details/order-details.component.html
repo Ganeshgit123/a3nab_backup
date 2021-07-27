@@ -402,10 +402,7 @@ My Super Mart<br>
 </ul>
 </td> -->
 <td style="width: 30px;">
-
 <img src="{{prod.productImage}}">
-
-
 </td>
 <td>
 <p>{{prod.productName}}</p>
@@ -423,11 +420,11 @@ My Super Mart<br>
 </ul>
 </td> -->
 <td class="text-center">x{{prod.quantity}}</td>
-<td>SAR {{prod.price}}</td>
+<td>SAR {{prod.price + prod.cuttingStylePrice + prod.boxStylePrice}}</td>
 <td>{{prod.discount}} %</td>
 <td>
    
-    SAR {{prod.quantity * (prod.price - (prod.price * prod.discount /100))}}</td>
+    SAR {{prod.quantity * (prod.price + prod.cuttingStylePrice + prod.boxStylePrice - (prod.price * prod.discount /100))}}</td>
 <td> 
     <!-- <a style="cursor: pointer;" ng-really-message="Are you sure?" ng-really-click="removeOrderItems(prod)"> <img src="assets/img/delete_icon.svg" style="width: 18px;height: 18px;"> </a> -->
     <a

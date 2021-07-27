@@ -99,7 +99,6 @@ export class UserSettingComponent implements OnInit {
           this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
           $('#add_adm_btn').modal('hide');
           this.ngOnInit();
-          window.location.reload();
           // this.router.navigateByUrl('/dashboard');
         } else {
           // Query Error
