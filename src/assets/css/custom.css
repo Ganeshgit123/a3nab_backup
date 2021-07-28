@@ -1771,6 +1771,21 @@ width: 20px;
 height: 20px;
 }
 
+.mycheckbox input[type="radio"] {
+    display: none;
+    }
+    .mycheckbox input[type="radio"]+label {
+    background: url('../img/check_square_icon.svg') no-repeat;
+    width:20px;
+    height: 20px;
+    }
+    
+    .mycheckbox input[type="radio"]:checked + label {
+    background: url('../img/check_square_after_icon.svg') no-repeat;
+    width: 20px;
+    height: 20px;
+    }
+
 .driver_sec .car_img{
 width: 30%;
 float: left;

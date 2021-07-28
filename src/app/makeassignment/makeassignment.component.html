@@ -59,7 +59,8 @@ Show Off Duty Drivers &nbsp;&nbsp;
 [longitude]="m.longitude"
 >
 <agm-info-window #infowindow>
-<p><strong>Address: </strong> {{m.addressPinDetails}}</p>
+<p><strong>User Address: </strong> </p>
+    <p class="text-center">{{m.addressPinDetails}}</p>
 </agm-info-window>
 </agm-marker>
 <agm-marker 
@@ -251,7 +252,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
 </td>
 <td style="width:30%;text-align: right;">
 <div class="mycheckbox">
-<input type="checkbox" name="optradio" class="form-check-input" [checked]="item.id == as_driver_id" id="{{item.id}}" [disabled]="checkdriver(item)" (change)="selectDriver($event,item)"   value="{{item.id}}">
+<input type="radio" name="optradio" class="form-check-input" [checked]="item.id == as_driver_id" id="{{item.id}}" [disabled]="checkdriver(item)" (change)="selectDriver($event,item)"   value="{{item.id}}">
 <label for="{{item.id}}"></label>
 </div>
 </td>

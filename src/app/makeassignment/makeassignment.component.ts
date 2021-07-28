@@ -292,7 +292,7 @@ export class MakeassignmentComponent implements OnInit {
           this.pickup = response.body.data.pickup
           this.total = response.body.data.total
           this.distance = response.body.data.distance
-          this.markers1 = response.body.data.distance
+          this.markers1 = response.body.data.store
         } else {
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
         }
