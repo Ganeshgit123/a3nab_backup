@@ -68,7 +68,7 @@ export class DriversComponent implements OnInit {
       countryCode: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
     })
 
-    const obj = { }
+    const obj = {driverActive:1 }
 
     this.getDriverList(obj)
 
@@ -236,7 +236,7 @@ export class DriversComponent implements OnInit {
         if (response.body.error == 'false') {
           // Success
           this.driverList = response.body.data.driver
-         
+        //  console.log("fef",this.driverList)
           this.markers = response.body.data.driver
           this.floatcash = response.body.data.floatingCash
 

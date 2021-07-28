@@ -29,7 +29,7 @@ carFname:any;
 carLname:any;
 carlastOilChange:any;
 carlastGasRefill:any;
-currentMileage:any;
+startingMileage:any;
 licenseNumber:any;
 expirationDate:any;
 imagePreview = null;
@@ -292,7 +292,7 @@ searchAssign;
               this.carLname = response.body.data.car.lastName
               this.carlastOilChange = response.body.data.car.lastDateOilChange
               this.carlastGasRefill = response.body.data.car.lastDateGasRefill
-              this.currentMileage = response.body.data.car.currentMileage
+              this.startingMileage = response.body.data.car.startingMileage
               this.licenseNumber = response.body.data.car.licenseNumber
               this.expirationDate = response.body.data.car.expirationDate
               this.carModel = response.body.data.car.carModel
