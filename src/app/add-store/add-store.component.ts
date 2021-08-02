@@ -680,12 +680,24 @@ async upload_btn_file(){
      }
 
      const stockData = this.storeStockUpdateFrom.value
+
+    //  console.log("data",stockData.currentStock)
+    //  console.log("unit",stockData.units)
+    //  console.log("type",stockData.stockType)
+
+     if(stockData.stockType == "SUBTRACT"){
+       if(stockData.currentStock < stockData.units){
+        //  console.log("ganesj")
+        this.apiCall.showToast('Please change unit less than current stock', 'Error', 'errorToastr')
+        return false;
+       }
+     }
      stockData['expiryDate'] = this.datePipe.transform(this.storeStockUpdateFrom.value.expiryDate, 'yyyy-MM-dd');
      var params = {
       url: 'admin/adminUpdateStoreStock',
       data: this.storeStockUpdateFrom.value
     }
-
+// console.log("stock",params)
     this.apiCall.commonPostService(params).subscribe(
       (response: any) => {
         if (response.body.error == 'false') {
