@@ -5,6 +5,18 @@
 <div ui-view="" class="ng-scope">
 <section class="custom_head">
 <div class="container-fluid">
+   <div class="row">
+      <div class="col-md-12">
+      <div class="search-bar">
+      <form>
+      <label for="searchQuery">
+      <span><img src="assets/img/search_icon.svg" width="18px"></span>
+      </label>
+      <input type="search" id="searchQuery" name="searchQuery" placeholder="search" (input)="searchAssignment($event.target.value)"/>
+      </form>
+      </div>
+      </div>
+</div>
 <div class="row">
 <div class="col-md-6">
 <ul>

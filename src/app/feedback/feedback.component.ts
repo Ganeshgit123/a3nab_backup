@@ -45,6 +45,14 @@ export class FeedbackComponent implements OnInit {
     this.ratingList(object)
   }
 
+  searchUserFeedback(value :any){
+    const object = { pageNumber: this.page,text: value}
+    this.ratingList(object)
+    this.appFeedback(object)
+    this.driverFeedbackList(object)
+
+  }
+
   pagination(searchpage){
     const object = { pageNumber: searchpage}
     this.appFeedback(object)

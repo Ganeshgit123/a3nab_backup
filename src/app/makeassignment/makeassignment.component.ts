@@ -39,6 +39,7 @@ export class MakeassignmentComponent implements OnInit {
   total: any;
   driverhtml = false;
   isEdit =  false;
+  isDriverSelect = false;
   orderRouteId: any;
   lat: number = 24.774265;
   lng: number = 46.738586;
@@ -55,6 +56,7 @@ export class MakeassignmentComponent implements OnInit {
   previous;
   previous1;
   previous2;
+  previousDriver;
   searchord;
   mergeOrder;
   searchDriv;
@@ -66,7 +68,7 @@ export class MakeassignmentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getDriverList();
+    // this.getDriverList();
     this.assignOrderList();
     this.callRolePermission();
    
@@ -179,6 +181,7 @@ export class MakeassignmentComponent implements OnInit {
       (response: any) => {
         if (response.body.error === 'false') {
           this.driverList = response.body.data.driver
+          console.log("driver",this.driverList)
         } else {
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
         }
@@ -209,6 +212,7 @@ export class MakeassignmentComponent implements OnInit {
     if (index === -1) {
       item.isnew = true
       this.selection = [...this.selection, item];
+      this.getDriverList();
     } else {
       item.isnew = false
       this.selection = this.selection.filter(user => user.id !== item.id)
@@ -268,6 +272,8 @@ export class MakeassignmentComponent implements OnInit {
 
 
   selectDriver(values:any,data){ 
+    console.log("select")
+    this.isDriverSelect = true;
     this.driverName = data.firstName
     this.driverID = data.drId
     this.driverImage = data.profilePic
@@ -333,6 +339,12 @@ export class MakeassignmentComponent implements OnInit {
       this.previous2 = infowindow2;
   }
 
+  clickedDriverMark(infowindowDiver){
+    if (this.previousDriver) {
+      this.previousDriver.close();
+      }
+      this.previousDriver = infowindowDiver;
+  }
 
  
 
@@ -419,4 +431,11 @@ interface marker {
   lng: number;
   label?: string;
   draggable: boolean;
+}
+interface MarkerLabel {
+  color: string;
+  fontFamily: string;
+  fontSize: string;
+  fontWeight: string;
+  text: string;
 }

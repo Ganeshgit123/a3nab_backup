@@ -135,6 +135,11 @@ showExport = 'true';
     this.getStoreList(object)
   }
 
+  searchStores(value : any ){
+    const object = { pageNumber: this.page,text:value }
+    this.getStoreList(object)
+  }
+
   getStoreList(object){
     var params = {
       url: 'admin/storeList',

@@ -269,6 +269,11 @@ export class SupportComponent implements OnInit {
     this.getSupportList(object)
   }
 
+  searchSupport(value :any){
+    const object = { pageNumber: this.page,category: this.cateList,status: this.supportStatus,text:value }
+    this.getSupportList(object)
+  }
+
   onChangeFilter(id,status){
     const data = {id: id, status: status }
 

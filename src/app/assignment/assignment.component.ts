@@ -31,7 +31,7 @@ export class AssignmentComponent implements OnInit {
 
   getAssignment(data){
     // console.log(data)
-    var params = {
+    var params = {  
       url: 'admin/getAssignmentList',
       data: data
     }
@@ -59,8 +59,15 @@ export class AssignmentComponent implements OnInit {
     )
   }
 
+
+
   nextPage(page){
     const object = { pageNumber: page,status: 0 }
+    this.getAssignment(object)
+  }
+
+  searchAssignment(value : any ){
+    const object = { pageNumber: this.page,status: 0,text:value}
     this.getAssignment(object)
   }
 

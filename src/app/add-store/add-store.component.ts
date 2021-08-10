@@ -473,6 +473,7 @@ async upload_btn_file(){
           this.cancellation = response.body.data.cancellation
 
           this.storeManagerList = response.body.data.storeManager
+          // console.log("manager",this.storeManagerList)
           this.storeID = response.body.data.storeDetails[0].storeID
           this.storeDueDate = response.body.data.storeDetails[0].dueDay
 

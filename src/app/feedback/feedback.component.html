@@ -5,6 +5,18 @@
 <div ui-view="" class="ng-scope">
 <section class="store_tab">
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+        <div class="search-bar">
+        <form>
+        <label for="searchQuery">
+        <span><img src="assets/img/search_icon.svg" width="18px"></span>
+        </label>
+        <input type="search" id="searchQuery" name="searchQuery" placeholder="search" (input)="searchUserFeedback($event.target.value)"/>
+        </form>
+        </div>
+        </div>
+  </div>
 <div id="exTab1">
 <ul class="nav nav-pills">
 <li class="active">

@@ -74,7 +74,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <p><strong>Store: </strong> {{mn.storeName}} {{mn.storeID}}</p>
 </agm-info-window>
 </agm-marker>
-<agm-marker 
+<agm-marker *ngIf = "isDriverSelect == true"
 (markerClick)="clickedMarker2(infowindow2)"
 [iconUrl]="DrivericonUrl"
 [latitude]="latitude"
@@ -82,6 +82,19 @@ Show Off Duty Drivers &nbsp;&nbsp;
 >
 <agm-info-window #infowindow2>
 <p><strong>Driver:</strong> {{driverName}} {{driverID}}</p>
+</agm-info-window>
+</agm-marker>
+
+<agm-marker 
+*ngFor="let dll of driverList; let i = index"
+(markerClick)="clickedDriverMark(infowindowDiver)"
+[iconUrl]="DrivericonUrl"
+[latitude]="dll.latitude"
+[longitude]="dll.longitude"
+[label]="dll.firstName"
+>
+<agm-info-window #infowindowDiver>
+<p><strong>Driver: </strong> {{dll.firstName}} {{dll.drId}}</p>
 </agm-info-window>
 </agm-marker>
 </agm-map>
