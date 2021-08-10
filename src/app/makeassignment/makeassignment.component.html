@@ -8,13 +8,13 @@
 <div class="row">
 <div class="col-md-10">
 <ul>
-<li style="padding-left: 10px;">
+<!-- <li style="padding-left: 10px;">
 Show Off Duty Drivers &nbsp;&nbsp; 
 <label class="switch">
 <input type="checkbox">
 <span class="slider"></span>
 </label>
-</li>
+</li> -->
 <!-- <li>
 <select>
 <option>Driver Status</option>
@@ -45,7 +45,54 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <div class="card-content">
 <div class="row">
 <div class="col-md-12">
-<agm-map 
+<agm-map *ngIf = "isEdit"
+[latitude]="lat"
+[longitude]="lng"
+[zoom]="zoom"
+[disableDefaultUI]="false"
+[zoomControl]="false">
+<agm-marker 
+*ngFor="let m of editMarkerUser; let i = index"
+(markerClick)="clickedMarker(infowindow)"
+[iconUrl]="UsericonUrl"
+[latitude]="m.latitude"
+[longitude]="m.longitude"
+>
+<agm-info-window #infowindow>
+<p><strong>User Address: </strong> </p>
+    <p class="text-center">{{m.addressPinDetails}}</p>
+</agm-info-window>
+</agm-marker>
+<div *ngFor="let mn of orderedList"> 
+<agm-marker 
+*ngFor="let st of mn.storeList"
+(markerClick)="clickedMarker1(infowindow1)"
+[iconUrl]="StoreiconUrl"
+[latitude]="st.storeLatitude"
+[longitude]="st.storeLongitude"
+[label]="st.storeName"
+>
+<agm-info-window #infowindow1>
+<p><strong>Store: </strong> {{st.storeName}} {{st.storeID}}</p>
+</agm-info-window>
+</agm-marker>
+</div>
+
+<agm-marker 
+*ngFor="let dll of driverList; let i = index"
+(markerClick)="clickedDriverMark(infowindowDiver)"
+[iconUrl]="DrivericonUrl"
+[latitude]="dll.latitude"
+[longitude]="dll.longitude"
+[label]="dll.firstName"
+>
+<agm-info-window #infowindowDiver>
+<p><strong>Driver: </strong> {{dll.firstName}} {{dll.drId}}</p>
+</agm-info-window>
+</agm-marker>
+</agm-map>
+
+<agm-map *ngIf = "!isEdit"
 [latitude]="lat"
 [longitude]="lng"
 [zoom]="zoom"
@@ -276,13 +323,6 @@ Show Off Duty Drivers &nbsp;&nbsp;
 </div>
 </div>
 </div>
-
-
-
-
-
-
-
 
 <div class="col-md-4 dri_sec" *ngIf = "isShowStore || isEdit"  >
 <div class="card">

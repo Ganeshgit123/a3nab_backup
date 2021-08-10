@@ -47,10 +47,14 @@ export class MakeassignmentComponent implements OnInit {
   markers: marker[] = []
   markers1 : marker[] = []
   markerDriver : marker[] = []
+  editMarkerUser:  marker[] = []
+  editMarkerStore:  marker[] = []
+
   zoom: number = 5;
   public StoreiconUrl = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
   public DrivericonUrl = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
   public UsericonUrl = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+  
   showAccept = 'true';
 
   previous;
@@ -84,6 +88,9 @@ export class MakeassignmentComponent implements OnInit {
        (response: any) => {
         if (response.body.error === 'false') {
           this.orderedList = response.body.data.orders
+          this.editMarkerUser = response.body.data.orders
+
+            
           this.merged_order = this.orderList.concat(this.orderedList);
           this.orderedList.filter((val) =>{
               this.as_driver_id = val.as_driverId
@@ -147,7 +154,7 @@ export class MakeassignmentComponent implements OnInit {
    }
  
    editDriverList(dr_id){
-
+    this.getDriverList();
     this.selection = this.orderedList;
     if(this.driverList){
       let dr_da = this.driverList?.filter((value)=>{
@@ -181,7 +188,7 @@ export class MakeassignmentComponent implements OnInit {
       (response: any) => {
         if (response.body.error === 'false') {
           this.driverList = response.body.data.driver
-          console.log("driver",this.driverList)
+          // console.log("driver",this.driverList)
         } else {
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
         }
@@ -216,6 +223,7 @@ export class MakeassignmentComponent implements OnInit {
     } else {
       item.isnew = false
       this.selection = this.selection.filter(user => user.id !== item.id)
+      this.getDriverList();
     }
     
     
@@ -431,11 +439,4 @@ interface marker {
   lng: number;
   label?: string;
   draggable: boolean;
-}
-interface MarkerLabel {
-  color: string;
-  fontFamily: string;
-  fontSize: string;
-  fontWeight: string;
-  text: string;
 }
