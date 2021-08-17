@@ -31,7 +31,7 @@ carlastOilChange:any;
 carlastGasRefill:any;
 startingMileage:any;
 licenseNumber:any;
-expirationDate:any;
+expirationListDate:any;
 imagePreview = null;
 carModel:any;
 carImage:any;
@@ -294,7 +294,7 @@ searchAssign;
               this.carlastGasRefill = response.body.data.car.lastDateGasRefill
               this.startingMileage = response.body.data.car.startingMileage
               this.licenseNumber = response.body.data.car.licenseNumber
-              this.expirationDate = response.body.data.car.expirationDate
+              this.expirationListDate = response.body.data.car.expirationDate
               this.carModel = response.body.data.car.carModel
               this.carImage = response.body.data.car.carImage
             
@@ -316,21 +316,25 @@ editCars(data){
   console.log("edit",data)
   $('#add_driv_btn').modal('show');
     this.imagePreview = data['carImage']
-    // var expirationDate = new Date(data['expirationDate']);
+    var expiryDate = new Date(data['expirationDate']);
     this.isEdit = true;
     this.carId = data['id']
     this.addCar   = this.formBuilder.group({
       licenseNumber: [data['licenseNumber'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
       carImage: [''],
-      expirationDate: [data['expirationDate'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      expirationDate: [expiryDate,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
       startingMileage: [data['startingMileage'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
       carModel: [data['carModel'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
     })
 }
 
 async carEditService(data){
+  console.log("ddd",data)
+  this.submitted = false;
   data['carImage'] = this.imagePreview
-  data['expirationDate'] = this.datePipe.transform(data['expirationDate'], 'yyyy-MM-dd');
+
+
+  data['expirationDate'] = this.datePipe.transform(data.expirationDate, 'yyyy-MM-dd');
 
     const formData = new FormData();
     formData.append('uploaded_file', this.fileUpload); 
@@ -343,7 +347,7 @@ async carEditService(data){
     url: 'admin/editCar',
     data: data
   }
-// console.log("efefe",params)
+console.log("efefe",params)
   this.apiCall.commonPostService(params).subscribe(
     (response: any) => {
       if (response.body.error == 'false') {
