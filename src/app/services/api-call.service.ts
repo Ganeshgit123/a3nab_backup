@@ -58,7 +58,9 @@ export class ApiCallService {
 
   adminLogin(apiData) {
     const httpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+
     });
     return this.http.post(this.baseUrl + 'admin/login', apiData, {
       headers: httpHeaders,
@@ -71,6 +73,7 @@ export class ApiCallService {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': this.accToken,
+      'Access-Control-Allow-Origin': '*',
       'role': 'admin',
       'lang': 'en'
     });
@@ -87,6 +90,7 @@ export class ApiCallService {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': this.accToken,
+      'Access-Control-Allow-Origin': '*',
       'role': 'admin',
       'lang': 'en'
     });
@@ -119,6 +123,7 @@ export class ApiCallService {
 
   fileUploadService(apiData) {
     const httpHeaders = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
       // 'Content-Type': [''],
       // 'Accept': 'application/json',
       // 'Authorization': this.accToken
