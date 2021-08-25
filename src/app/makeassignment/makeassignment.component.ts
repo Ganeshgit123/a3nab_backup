@@ -90,7 +90,7 @@ export class MakeassignmentComponent implements OnInit {
           this.orderedList = response.body.data.orders
           this.editMarkerUser = response.body.data.orders
 
-            
+            // console.log("fef",this.editMarkerUser)
           this.merged_order = this.orderList.concat(this.orderedList);
           this.orderedList.filter((val) =>{
               this.as_driver_id = val.as_driverId
@@ -135,6 +135,7 @@ export class MakeassignmentComponent implements OnInit {
            this.orderList = response.body.data.orders
            this.originalArray = response.body.data.orders
            this.markers = response.body.data.orders
+          //  console.log("mark",this.markers)
            this.route.params.subscribe(params => {
             this.orderRouteId = params['id']
             if(this.orderRouteId){
