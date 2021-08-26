@@ -171,9 +171,9 @@ this.dropdownSettings = {
   public editProducts(data){
     // console.log(">>>>",data)
     // return;
-    var relCategory = null
-    var relProCategory = null
-    var relsubCategory = null
+    // var relCategory = null
+    // var relProCategory = null
+    // var relsubCategory = null
     var rel = data['relatedProduct']
 
     this.productId = data['id']
@@ -523,7 +523,6 @@ this.dropdownSettings = {
 
   async onSubmit(){
     
-    // console.log("fomr_val",this.productForm.value)
     // console.log(this.productForm)
     // console.log(this.variantArray)
     // console.log("img",this.productImages)
@@ -559,14 +558,35 @@ this.dropdownSettings = {
 
     productObject['categoryId'] = this.productForm.value.categoryId
     productObject['productCategoryId'] = this.productForm.value.productCategoryId
-    productObject['productSubCategoryId'] = this.productForm.value.productSubCategoryId
+
+    if(this.productForm.value.productSubCategoryId == null){
+      productObject['productSubCategoryId'] = ""
+    }else{
+      productObject['productSubCategoryId'] = this.productForm.value.productSubCategoryId
+    }
+
     productObject['storeId'] = JSON.stringify(this.productForm.value.storeId)
     productObject['boxStyle'] = JSON.stringify(this.productForm.value.boxStyle)
     productObject['cuttingStyle'] = JSON.stringify(this.productForm.value.cuttingStyle)
+    
+    if(this.productForm.value.relCategory == null){
+      productObject['relCategory'] = ""
+    }else{
+      productObject['relCategory'] = this.productForm.value.relCategory
+    }
 
-    productObject['relCategory'] = this.productForm.value.relCategory
-    productObject['relProCategory'] = this.productForm.value.relProCategory
-    productObject['relsubCategory'] = this.productForm.value.relsubCategory
+    if(this.productForm.value.relProCategory == null){
+      productObject['relProCategory'] = ""
+    }else{
+      productObject['relProCategory'] = this.productForm.value.relProCategory
+    }
+
+    if(this.productForm.value.relsubCategory == null){
+      productObject['relsubCategory'] = ""
+    }else{
+      productObject['relsubCategory'] = this.productForm.value.relsubCategory
+    }
+
     productObject['relatedProducts'] = JSON.stringify(this.finalFilterProduct)
     // console.log("pfofo",productObject['relatedProducts'])
     // return
