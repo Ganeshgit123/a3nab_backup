@@ -132,7 +132,7 @@ Map View &nbsp;&nbsp;
 <td><span class="red_color"><a routerLink="/order-details/{{ item.id }}">{{item.orderIDs}}</a></span></td>
 <td>{{item.deliveryDate}}</td>
 <td><span class="red_color"><a routerLink="/customer/{{ item.userId }}">{{item.customerID}}</a></span><br><span>{{item.firstName}}</span> ,<span>{{item.landmark}}</span><br><span> {{item.addressPinDetails}}</span></td>
-<td>SAR {{item.grand}} </td>
+<td>SAR {{item.grand | number : '1.2-2'}} </td>
 <td>
 <span *ngIf = "item.paytype === 'card'" class="online_btn">Paid Online</span>
 <span *ngIf = "item.paytype === 'Apple Pay'" class="online_btn">Apple Pay</span>

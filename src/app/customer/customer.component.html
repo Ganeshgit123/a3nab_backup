@@ -404,7 +404,7 @@ Order Status : <span class="blue" *ngIf = "item.orderStatus == 'ONGOING'">{{item
 <td class="text-center"><span class="green" *ngIf = "item.pointsAmount !== 0"> {{item.pointsAmount}}</span>
     <span class="red_color" *ngIf = "item.pointsAmount == 0">{{item.pointsAmount}}</span></td>
     
-<td class="text-center">SAR {{item.grand}} <br>
+<td class="text-center">SAR {{item.grand | number : '1.2-2'}} <br>
 <span *ngIf = "item.paytype == 'card'" class="online_btn">Paid Online</span>
 <span *ngIf = "item.paytype == 'cash'" class="cod_btn">C.O.D</span>
 <span *ngIf = "item.paytype === 'Apple Pay'" class="online_btn">Apple Pay</span>

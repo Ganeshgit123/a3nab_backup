@@ -503,7 +503,7 @@
 <td>{{item.orderOn}}</td>
 <td class="red_mar"><a routerLink="/order-details/{{ item.id }}">{{item.orderIDs}}</a></td>
 <td class="red_mar"><a routerLink="/customer/{{ item.userId }}">{{item.customerID}}</a></td>
-<td>SAR {{item.grandTotal}}</td>
+<td>SAR {{item.grandTotal | number : '1.2-2'}}</td>
 <td class="text-center">
 <span *ngIf="item.paytype === 'card'" class="online_btn">Paid Online</span>
 <span *ngIf="item.paytype === 'cash'" class="cod_btn">C.O.D</span>

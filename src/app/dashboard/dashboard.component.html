@@ -114,7 +114,7 @@
 <td class="col_chan">{{order.orderOn}} - {{order.time}}</td>
 <td class="col_chan"><a routerLink="/order-details/{{ order.id }}">{{order.orderIDs}}</a> </td>
 <td class="col_chan"><a routerLink="/customer/{{ order.userId }}">{{order.customerID}}</a></td>
-<td>SAR {{order.grand}}</td>
+<td>SAR {{order.grand | number : '1.2-2'}}</td>
 <td>{{order.orderStatus}}</td>
 <td class="driv_btn" *ngIf="order.orderStatus == 'PENDING'">{{order.orderStatus}}</td>
 <td class="col_chan text-center" style="color: #C1003A;" *ngIf="order.orderStatus != 'PENDING'"><a routerLink="/drivers/{{ order.as_driverId }}">{{order.drId}}</a></td>
@@ -796,7 +796,7 @@
 <td class="col_chan"><a routerLink="/order-details/{{ feed.orderId }}">{{feed.orderIDs}}</a></td>
 <td><a routerLink="/customer/{{ feed.userId }}">{{feed.customerID}}</a></td>
 <td><a routerLink="/drivers/{{feed.drIds }}">{{feed.drId}}</a></td>
-<td>SAR {{feed.grand}}</td>
+<td>SAR {{feed.grand | number : '1.2-2'}}</td>
 <td>
 <ngb-rating [(rate)]="feed.driverRating" class="rating-star-point" [readonly]="true" [max]="5"></ngb-rating>
 </td>
@@ -863,7 +863,7 @@
 <td class="red_color"><a routerLink="/order-details/{{ item.orderId }}">{{item.orderIDs}}</a></td>
 <td class="red_color"><a routerLink="/customer/{{ item.userId }}">{{item.customerID}}</a></td>
 <td class="red_color"><a routerLink="/drivers/{{item.drIds }}">{{item.drId}}</a></td>
-<td>SAR {{item.grand}}</td>
+<td>SAR {{item.grand | number : '1.2-2'}}</td>
 <td>{{item.findLocation}}</td>
 <td>{{item.notes}}</td>
 </tr>
