@@ -129,7 +129,7 @@ export class AddStoreComponent implements OnInit {
       productId: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       storeId: [this.storeId,  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       stockType: ['',  [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-      units: ['',  [ Validators.required, Validators.pattern("[+-]?([0-9]*[.])?[0-9]+")]],
+      units: ['',  [ Validators.required, Validators.pattern(/^[0-9]*$/)]],
       StockReason: [''],
       expiryDate: [this.bsValue],
       currentStock : ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
@@ -674,6 +674,8 @@ async upload_btn_file(){
   }
 
   stockSubmitChange(){
+    console.log("tet",this.storeStockUpdateFrom.value)
+    this.submitted = true;
     this.stockSubmit = true;
     if (!this.storeStockUpdateFrom.valid) {
       this.apiCall.showToast('Please Fill the mandatory field', 'Error', 'errorToastr')
@@ -704,6 +706,7 @@ async upload_btn_file(){
         if (response.body.error == 'false') {
           // Success
           this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
+          this.submitted = false;
           $('#view_det').modal('hide');
           this.ngOnInit();
           this.storeStockUpdateFrom.reset();

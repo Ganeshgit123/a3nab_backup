@@ -114,16 +114,16 @@
     <div class="column" style="width: 50%;">
     </div>
     <div class="column" style="float:right;width: 25%;text-align: right;">
-        <p>{{totalAmount}} SAR</p>
+        <p>{{totalAmount | number : '1.2-2'}} SAR</p>
         <p *ngIf='discountAmount !== 0'><span class="green">(-) </span>{{discountAmount}} SAR</p>
         <p *ngIf = "couponDiscount !== 0"><span class="green">(-) </span>{{couponDiscount}} SAR</p>
         <p *ngIf = "pointsAmount !== 0"><span class="green">(-) </span>{{pointsAmount}} SAR</p>
         <p *ngIf = "paidByWallet !== 0"><span class="green">(-) </span>{{paidByWallet}} SAR</p>
         <p><span class="green">(+) </span>{{fastDelievryCharge}} SAR</p>
-        <p>{{subtot2}} SAR</p>
-        <p>{{taxtot}} SAR</p>
+        <p>{{subtot2 | number : '1.2-2'}} SAR</p>
+        <p>{{taxtot | number : '1.2-2'}} SAR</p>
         <hr style="border-style: dashed;">
-        <p>{{finalTot}} SAR</p>
+        <p>{{finalTot | number : '1.2-2'}} SAR</p>
         <hr style="border-style: dashed;">
     </div>
     <div class="column" style="float:right;width: 25%;text-align: right;">
@@ -240,7 +240,7 @@ Amount (SAR)
 Product Total
 </div>
 <div class="col-md-3" style="text-align: right;">
-{{totalAmount}} SAR
+{{totalAmount | number : '1.2-2'}} SAR
 </div>
 </div>
 
@@ -294,7 +294,7 @@ Fast Delivery Charges
 Sub Total
 </div>
 <div class="col-md-3" style="text-align: right;">
-{{subtot2}} SAR
+{{subtot2 | number : '1.2-2'}} SAR
 </div>
 </div>
 
@@ -303,7 +303,7 @@ Sub Total
 Tax
 </div>
 <div class="col-md-3" style="text-align: right;">
-{{taxtot}} SAR
+{{taxtot | number : '1.2-2'}} SAR
 </div>
 </div>
 
@@ -316,7 +316,7 @@ Tax
 Grand Total 
 </div>
 <div class="col-md-3" style="text-align: right;">
-{{finalTot}} SAR
+{{finalTot | number : '1.2-2'}} SAR
 </div>
 </div>
 <div class="col-md-12" style="margin-top: 10px; text-align: center;">
@@ -484,7 +484,7 @@ My Super Mart<br>
 <p></p>
 <ul class="prod_tot">
 <li class="light_color">Product Total</li>
-<li class="righ_cont">{{subtot}} SAR </li>
+<li class="righ_cont">{{subtot | number : '1.2-2'}} SAR </li>
 </ul>
 <!-- <ul>
 <li class="light_color">Product Discount</li>
@@ -509,16 +509,16 @@ My Super Mart<br>
 </ul>
 <ul>
 <li class="light_color">Sub Total</li>
-<li class="righ_cont">{{subtot2}} SAR </li>
+<li class="righ_cont">{{subtot2 | number : '1.2-2'}} SAR </li>
 </ul>
 <ul>
 <li class="light_color">Tax</li>
-<li class="righ_cont">{{taxtot}} SAR</li>
+<li class="righ_cont">{{taxtot | number : '1.2-2'}} SAR</li>
 </ul>
 
 <ul>
 <li class="light_color">Total Bill</li>
-<li class="righ_cont">{{finalTot}} SAR</li>
+<li class="righ_cont">{{finalTot | number : '1.2-2'}} SAR</li>
 </ul>
 
 <p  *ngIf = " payType === 'card' " class="text-center paid_btn">Online Paid</p> 
