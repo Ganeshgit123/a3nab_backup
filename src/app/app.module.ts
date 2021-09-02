@@ -57,6 +57,7 @@ import {NgxPrintModule} from 'ngx-print';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     GeneralComponent,
     AdminNumComponent,
     ExportComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

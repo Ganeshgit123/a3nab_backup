@@ -59,7 +59,7 @@ export class SettingsComponent implements OnInit {
       if(res.error=="false")
       {    
            this.userlist = res.data.admin;
-  //  console.log("ad",this.userlist)
+   console.log("ad",this.userlist)
       }else{
         this.apiCall.showToast(res.message, 'Error', 'errorToastr')
       }

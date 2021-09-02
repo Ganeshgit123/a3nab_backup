@@ -23,6 +23,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { RequestComponent } from './request/request.component';
 import { OffersComponent } from './offers/offers.component';
 import { ExportComponent  } from './export/export.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { RoleGuardService } from './auth/role-guard.service';
 import { ThermalPrintModule } from 'ng-thermal-print';
 import { from } from 'rxjs';
@@ -60,6 +61,7 @@ const routes: Routes = [
       {path: 'requests', component: RequestComponent,  canActivate: [AuthGuard,RoleGuardService],data: { expectedRole: 'Supporttrue'}},
       {path: 'offers', component: OffersComponent,  canActivate: [AuthGuard,RoleGuardService],data: { expectedRole: 'Offerstrue'}},
       {path: 'export', component: ExportComponent,  canActivate: [AuthGuard,RoleGuardService],data: { expectedRole: 'Exporttrue'}},
+      {path: 'change_password', component: ChangePasswordComponent,  canActivate: [AuthGuard,RoleGuardService],data: { expectedRole: 'Exporttrue'}},
     ],
     canActivate: [AuthGuard]
   }

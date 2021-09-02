@@ -167,18 +167,19 @@
 <p>Settings</p>
 </a>
 </li>
+<li ui-sref-class="active">
+<a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/change_password">
+<i class="material-icons notranslate">lock</i>
+<p>Change Admin Password</p>
+</a>
+</li>
 <li>
 <a ui-sref="logout" (click)="logout()" href="#">
 <i class="material-icons notranslate">logout</i>
 <p>Logout</p>
 </a>
 </li>
-<!-- <li ui-sref-class="active">
-<a ui-sref="adminpassword" href="#/adminpassword">
-<i class="material-icons notranslate">lock</i>
-<p>Change Admin Password</p>
-</a>
-</li> -->
+
 </ul>
 <div class="ps-scrollbar-x-rail" >
 <div class="ps-scrollbar-x" tabindex="0" ></div>
