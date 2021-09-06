@@ -212,7 +212,9 @@ export class OrderDetailsComponent implements OnInit {
           this.onWayToDelivery = response.body.data.orderInfo.onWayToDelivery
           this.orderStatus = response.body.data.orderInfo.orderStatus
           this.otherTotal = response.body.data.orderInfo.otherTotal
-          // console.log(this.orderDetails)
+          // console.log("oth",this.otherTotal)
+          // console.log("tot",this.totalAmount) 
+
 
           this.subtot= ((this.totalAmount +  this.otherTotal) - this.discountAmount) 
           // console.log("tot",this.subtot)

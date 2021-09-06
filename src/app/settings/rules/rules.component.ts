@@ -36,10 +36,10 @@ export class RulesComponent implements OnInit {
     this.getruleslist(data)
 
     this.addRules   = this.formBuilder.group({
-      title: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      triggerName: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      startDate: [this.bsValue,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      endDate: [this.bsValue1 ,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+      title: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      triggerName: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      startDate: [this.bsValue,  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      endDate: [this.bsValue1 ,  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       // type: [''],
       // walletAmount: [''],
       // points: [''],
@@ -175,21 +175,21 @@ public viewRules(data){
 
   this.addRules   = this.formBuilder.group({
   
-    title: [data['title'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      triggerName: [data['triggerName'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      startDate: [data['startDate'],  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
-      endDate: [data['endDate'] ,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
+    title: [data['title'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      triggerName: [data['triggerName'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      startDate: [data['startDate'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      endDate: [data['endDate'] ,  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       options: this.formBuilder.array(optionsArray),
   })
   }
   
   buildFormOptionArray(obj): FormGroup{
     return this.formBuilder.group({
-      walletAmount: [obj.walletAmount,  [Validators.pattern(/^\S+(?: \S+)*$/)]],
-      points: [obj.points,  [Validators.pattern(/^\S+(?: \S+)*$/)]],
-      type: [obj.type,  [Validators.pattern(/^\S+(?: \S+)*$/)]],
-      notifyTitle: [obj.notifyTitle,  [Validators.pattern(/^\S+(?: \S+)*$/)]],
-      notifyMessage: [obj.notifyMessage,  [Validators.pattern(/^\S+(?: \S+)*$/)]],
+      walletAmount: [obj.walletAmount,  [Validators.pattern(/^(?!\s*$).+/)]],
+      points: [obj.points,  [Validators.pattern(/^(?!\s*$).+/)]],
+      type: [obj.type,  [Validators.pattern(/^(?!\s*$).+/)]],
+      notifyTitle: [obj.notifyTitle,  [Validators.pattern(/^(?!\s*$).+/)]],
+      notifyMessage: [obj.notifyMessage,  [Validators.pattern(/^(?!\s*$).+/)]],
     })
 }
 
