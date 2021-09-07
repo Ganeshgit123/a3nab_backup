@@ -1288,6 +1288,16 @@ height: 60px;
 width: 35px;
 height: 35px;
 }
+@media only screen and (min-width: 1367px) and (max-width: 1499px) { 
+.prod_cate .card .card-content .del_ico{
+    width: 55px;
+}
+}
+@media only screen and (min-width: 1024px) and (max-width: 1366px) { 
+.prod_cate .card .card-content .del_ico{
+    width: 120px;
+}
+}
 .prod_cate .card .card-content .cat_nam{
 font-family: 'Bahji_Regular';
 color: #C4CBCE;

@@ -139,7 +139,7 @@ export class ExportComponent implements OnInit {
       this.exportForm.value.custom = {st_date:this.fromDate,ed_date:this.toDate}
     }
   
-    // console.log("form",this.exportForm.value)
+    console.log("form",this.exportForm.value)
     var params = {
       url: 'admin/exportData',
       data: this.exportForm.value,
@@ -149,9 +149,11 @@ export class ExportComponent implements OnInit {
         // console.log(response.body)
         if (response.body.error === 'false') {
           // Success
+
           if(response.body.data.users.length > 0){
             this.exportUserData(response.body.data.users)
           }
+          
          
           if(response.body.data.store.length > 0){
             this.exportStoreData(response.body.data.store)
@@ -179,6 +181,8 @@ export class ExportComponent implements OnInit {
          
           if(response.body.data.support.length > 0){
             this.exportSupportData(response.body.data.support)
+          }else{
+            this.apiCall.showToast("There is no Data", 'Error', 'errorToastr')
           }
 
           this.spinner.hide();

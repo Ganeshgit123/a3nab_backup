@@ -112,6 +112,8 @@ export class DashboardComponent implements OnInit {
   androidratings:any;
   androidreviews:any;
   androidversion :any;
+  regIos:any;
+  regAndroid:any;
   map: google.maps.Map;
   heatmapping: google.maps.visualization.HeatmapLayer;
 
@@ -212,6 +214,9 @@ export class DashboardComponent implements OnInit {
  
       if(resu.error == "false")
       {
+
+           this.regIos = resu.data.registeredCountIos;
+           this.regAndroid = resu.data.registeredCountAndroid;
            this.statCount = resu.data.orderStatusCount;
            this.delivered = resu.data.orderStatusCount.delivered;
            this.assigned = resu.data.orderStatusCount.assigned;
@@ -369,6 +374,7 @@ export class DashboardComponent implements OnInit {
           // Success
           // console.log(response.body)
           this.userFeedback = response.body.data.userFeedback
+
           this.userFeedback.forEach(function (ord,index) {
             var tt =  ord.totalAmount - ord.discountAmount    
     

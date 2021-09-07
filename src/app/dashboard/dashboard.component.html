@@ -3,7 +3,7 @@
 <div class="content">
 <!-- uiView:  --><div ui-view="" class="ng-scope"><div class="container-fluid ng-scope">
 <div class="row dash_page">
-<div class="col-md-3 delive_col">
+<div class="col-md-4 delive_col">
 <div class="card card-stats">
 <div class="card-content">
 <p class="category text-center">Delivered Orders &nbsp;&nbsp;<strong>{{delivered}}</strong></p>
@@ -11,7 +11,7 @@
 </div>
 </div>
 </div>
-<div class="col-md-3 delive_col">
+<div class="col-md-4 delive_col">
 <div class="card card-stats">
 <div class="card-content">
 <p class="category text-center">Pending Orders &nbsp;&nbsp;<strong>{{pending}}</strong></p>
@@ -19,7 +19,7 @@
 </div>
 </div>
 </div>
-<div class="col-md-3 delive_col">
+<div class="col-md-4 delive_col">
 <div class="card card-stats">
 <div class="card-content">
 <p class="category text-center">Assigned Orders &nbsp;&nbsp;<strong>{{assigned}}</strong></p>
@@ -27,7 +27,7 @@
 </div>
 </div>
 </div>
-<div class="col-md-3 delive_col">
+<div class="col-md-4 delive_col">
 <div class="card card-stats">
 <div class="card-content">
 <p class="category text-center">Cancelled Orders &nbsp;&nbsp;<strong>{{cancelled}}</strong></p>
@@ -35,6 +35,22 @@
 </div>
 </div>
 </div>
+<div class="col-md-4 delive_col">
+  <div class="card card-stats">
+  <div class="card-content">
+  <p class="category text-center">Registered Users (iOS)&nbsp;&nbsp;<strong>{{regIos}}</strong></p>
+  <h3 class="card-title"></h3>
+  </div>
+  </div>
+  </div>
+  <div class="col-md-4 delive_col">
+    <div class="card card-stats">
+    <div class="card-content">
+    <p class="category text-center">Registered Users (Android) &nbsp;&nbsp;<strong>{{regAndroid}}</strong></p>
+    <h3 class="card-title"></h3>
+    </div>
+    </div>
+    </div>
 </div>
 </div>
 
@@ -782,6 +798,7 @@
 <th>Price</th>
 <th>Driver Rating</th>
 <th>Product Raiting</th>
+<th>App Raiting</th>
 <th>Comment</th>
 </tr>
 </thead>
@@ -802,6 +819,9 @@
 </td>
 <td>
 <ngb-rating [(rate)]="feed.productRating" class="rating-star-point" [readonly]="true" [max]="5"></ngb-rating>
+</td>
+<td>
+  <ngb-rating [(rate)]="feed.appRating" class="rating-star-point" [readonly]="true" [max]="5"></ngb-rating>
 </td>
 <td>{{feed.commemts}}</td>
 </tr>

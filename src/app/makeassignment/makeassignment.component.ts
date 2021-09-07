@@ -72,7 +72,7 @@ export class MakeassignmentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.getDriverList();
+    this.getDriverList();
     this.assignOrderList();
     this.callRolePermission();
    
@@ -90,19 +90,16 @@ export class MakeassignmentComponent implements OnInit {
           this.orderedList = response.body.data.orders
           this.editMarkerUser = response.body.data.orders
 
-            console.log("fef",this.editMarkerUser)
+            // console.log("fef",this.editMarkerUser)
+           console.log("----------->",typeof(this.orderList), typeof(this.orderedList));
+          console.log("----------->>", this.orderList);
+          console.log("------------>>>", this.orderedList);
           this.merged_order = this.orderList.concat(this.orderedList);
           this.orderedList.filter((val) =>{
               this.as_driver_id = val.as_driverId
               delete val.as_driverId
           });
-          this.editDriverList(this.as_driver_id);
-            // this.orderedList = response.body.data.orders[0]
-            // this.storeedList = response.body.data.storeList
-            // response.body.data.orders[0].storeList = response.body.data.storeList
-            // this.or_edit = response.body.data.orders[0]
-            // let dr_id = this.orderedList?.as_driverId
-            
+          this.editDriverList(this.as_driver_id);            
          } else {
            this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
          }
@@ -135,7 +132,7 @@ export class MakeassignmentComponent implements OnInit {
            this.orderList = response.body.data.orders
            this.originalArray = response.body.data.orders
            this.markers = response.body.data.orders
-           console.log("mark",this.markers)
+
            this.route.params.subscribe(params => {
             this.orderRouteId = params['id']
             if(this.orderRouteId){
@@ -143,20 +140,23 @@ export class MakeassignmentComponent implements OnInit {
               this.assignedOrderList();
             } 
           });
+
+
          } else {
            this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
          }
        },
        (error) => {
          this.apiCall.showToast('Server Error !!', 'Oops', 'errorToastr')
-         //console.log('Error', error)
+         console.log('Error', error)
        }
      )
    }
  
    editDriverList(dr_id){
-    this.getDriverList();
+
     this.selection = this.orderedList;
+    console.log("first",this.selection)
     if(this.driverList){
       let dr_da = this.driverList?.filter((value)=>{
        if(value.id == dr_id){
@@ -231,6 +231,7 @@ export class MakeassignmentComponent implements OnInit {
     if(this.selection.length > 0){
       this.isShowDriver = true
       this.selection = this.selection.filter((item)=>{
+
         return item.isnew
       })
       const object = { latitude: this.latitude, longitude: this.longitude, driverId: this.dID, orderId: JSON.stringify(this.selection) }
@@ -259,7 +260,7 @@ export class MakeassignmentComponent implements OnInit {
       this.apiCall.commonPostService(params).subscribe(
         (response: any) => {
           if (response.body.error === 'false') {
-            // console.log("0th---->", response.body.data);
+            //console.log("0th---->", response.body.data);
             this.storeList = response.body.data.store
             this.drop = response.body.data.drop
             this.pickup = response.body.data.pickup
@@ -307,7 +308,7 @@ export class MakeassignmentComponent implements OnInit {
           this.pickup = response.body.data.pickup
           this.total = response.body.data.total
           this.distance = response.body.data.distance
-          this.markers1 = response.body.data.store
+          this.markers1 = response.body.data.distance
         } else {
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
         }
