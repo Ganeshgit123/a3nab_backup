@@ -236,6 +236,19 @@ _icon.svg'"></li>
 </div>
 </div>
 <div class="row">
+    <div class="col-md-12">
+    <div class="form-group">
+    <label>Offer types</label>
+    <select class="form-control" formControlName="off_types" (change)="onChangeOfferTypes($event.target.value)">
+        <option [selected]="true" value="">None</option>
+        <option value="discount" >Discount</option>
+        <option value="free_deli" >Free Delivery</option>
+    </select>
+    <p *ngIf="!addOffers.controls.description.valid && submitted" class="error-val-pro">Please select offer type</p>
+    </div>
+    </div>
+    </div>
+<div class="row">
 <div class="col-md-6">
 <div class="form-group">
 <label>Coupon Code</label>
@@ -243,40 +256,46 @@ _icon.svg'"></li>
 <p *ngIf="!addOffers.controls.couponCode.valid && submitted" class="error-val-pro">Please Enter Coupon code</p>
 </div>
 </div>
-<div class="col-md-6">
+<div class="col-md-6" *ngIf="off_type == false">
 <div class="form-group">
 <label>Discount</label>
-<input type="text" name="" class="form-control" placeholder="Discount using %   " formControlName="discount" >
+<input type="text" name="" class="form-control" placeholder="Discount using %" formControlName="discount" >
+<div *ngIf="off_type">
 <p *ngIf="!addOffers.controls.discount.valid && submitted" class="error-val-pro">Please Enter Discount</p>
 </div>
 </div>
 </div>
+</div>
 
-<div class="row">
+<div class="row" *ngIf="off_type == false">
 <div class="col-md-6">
 <div class="form-group">
 <label>Min. Order Value</label>
 <input type="text" name="" class="form-control" placeholder="SAR 00.00" formControlName="minimumValue" >
+<div *ngIf="off_type">
 <p *ngIf="!addOffers.controls.minimumValue.valid && submitted" class="error-val-pro">Please Enter Minimum Value</p>
+</div>
 </div>
 </div>
 <div class="col-md-6">
 <div class="form-group">
 <label>Max User Count / User</label>
 <input type="text" name="" class="form-control" placeholder="Use Numbers only" formControlName="count" > 
+<div *ngIf="off_type">
 <p *ngIf="!addOffers.controls.count.valid && submitted" class="error-val-pro">Please Enter Max User Count</p>
+</div>
+</div>
+</div>
+</div>
 
-</div>
-</div>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
+<div class="row" *ngIf="off_type == false">
+    <div class="col-md-6" >
         <div class="form-group">
             <label>Upto Amount Discount</label>
             <input type="text" name="" class="form-control" placeholder="Use Numbers only" formControlName="uptoAmount" > 
+            <div *ngIf="off_type">
             <p *ngIf="!addOffers.controls.uptoAmount.valid && submitted" class="error-val-pro">Please Enter Upto Max amount</p>
-            
+            </div>
             </div>
     </div>
 </div>

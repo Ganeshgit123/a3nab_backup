@@ -31,7 +31,10 @@ Only Show Active Rule &nbsp;&nbsp;
 <tbody>
 <tr *ngFor = "let rules of getrules">
 <td>{{rules.title}}</td>
-<td>{{rules.triggerName}}</td>
+<td>
+    <span *ngIf="rules.triggerName == 3">Add Points for Orders</span>
+    <span *ngIf="rules.triggerName != 3">{{rules.triggerName}}</span>
+</td>
 <td>{{rules.startDate}}</td>
 <td>{{rules.endDate}}</td>
 <!-- <td>Notification Rule</td> -->
@@ -96,7 +99,8 @@ Only Show Active Rule &nbsp;&nbsp;
 <option>Select Trigger</option>
 <option value="New points added to customer">New points added to customer</option>
 <!-- <option value="points expired for customer">points expired for customer</option> -->
-<option value="new referral accepted and points added to customer">new referral accepted and points added to customer</option>
+<!-- <option value="new referral accepted and points added to customer">new referral accepted and points added to customer</option> -->
+<option value="3">Add Points for Orders</option>
 </select>
 </div>
 </div>

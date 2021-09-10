@@ -48,6 +48,7 @@ export class OffersComponent implements OnInit {
    stat : any;
    searchOffer;
    searchOrders;
+   off_type = false;
 
   list_offers: any = [];
   constructor(
@@ -69,14 +70,15 @@ export class OffersComponent implements OnInit {
       couponCode: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       // trustUser:[this.trustUser],
       description: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-      discount: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-      minimumValue: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-      count: ['',  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      discount: [''],
+      minimumValue: [''],
+      count: [''],
       startDate: [this.bsValue,  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       endDate: [this.bsValue1, [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
       status: [this.status],
       image: [''],
-      uptoAmount: ['', [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      uptoAmount: [''],
+      off_types: [''],
       // offCategoryId: [''],
       // offProductId: [''],
       // StartTime: [''],
@@ -133,6 +135,14 @@ add_off_click()
   this.isEdit = false; 
   this.addOffers.reset();
 
+}
+
+onChangeOfferTypes(det){
+  if(det == 'free_deli'){
+    this.off_type = true
+  }else{
+    this.off_type = false
+  }
 }
 
 async onSubmit(){
@@ -254,13 +264,15 @@ this.addOffers   = this.formBuilder.group({
   couponCode: [offers['couponCode'] , [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   // trustUser: [offers['trustUser']],
   description: [offers['description'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-  discount: [offers['discount'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-  minimumValue: [offers['minimumValue'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-  count: [offers['count'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+  discount: [offers['discount']],
+  minimumValue: [offers['minimumValue']],
+  count: [offers['count']],
   startDate: [offers['startDate'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
   endDate: [offers['endDate'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
-  status: [this.trust ],
-  uptoAmount: [offers['uptoAmount'],  [ Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+  status: [offers['status'],[] ],
+  uptoAmount: [offers['uptoAmount']],
+  off_types: [offers['off_types']],
+
   // offCategoryId: [offers['offCategoryId'],  ],
   // offProductId: [offers['offProductId'],  ]
 })
@@ -279,7 +291,7 @@ getofferslist(data){
       if (response.body.error == 'false') {
         // Success
         this.list_offers = response.body.data.Offers;
-// console.log("list",this.list_offers)
+console.log("list",this.list_offers)
 
          } else {
         // Query Error
