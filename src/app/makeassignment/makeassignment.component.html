@@ -183,8 +183,8 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <tr *ngFor="let item of orderList | filter:searchord;let i = index">
 <td><span class="red_color">{{item.orderIDs}}</span><br>
 <span *ngFor="let store of item.storeList" class="light_color">{{store.storeName}},</span><br>
-<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span>
-<!-- <span class="ligi_li_color">Latitude : {{item.latitude}} Longitude : {{item.longitude}}</span> -->
+<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span><br>
+<span *ngIf = "item.fastDelivery === 1">Fast Delivery</span>
 </td>
 <td>
 <div class="mycheckbox">
@@ -225,9 +225,8 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <tr *ngFor="let item of merged_order | filter:mergeOrder;let i = index">
 <td><span class="red_color">{{item.orderIDs}}</span><br>
 <span *ngFor="let store of item.storeList" class="light_color">{{store.storeName}},</span><br>
-<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span>
-<!-- <span class="ligi_li_color">Latitude : {{item.latitude}} Longitude : {{item.longitude}}</span> -->
-</td>
+<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span><br>
+    <span *ngIf = "item.fastDelivery === 1">Fast Delivery</span></td>
 <td>
 <div class="mycheckbox">
 <!-- <input type="text" value="{{checkorder(item)}}"> 
@@ -386,7 +385,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <span class="red_color">{{driverID}}</span><br>
 <span class="light_color">Orders : {{driverOrders}}</span>
 </td>
-<td *ngIf = "showAccept == 'true'" style="vertical-align: middle;"><button (click)="driverAssign()" class="update_btn">Update</button></td>
+<td *ngIf = "showAccept == 'true'" style="vertical-align: middle;"><button  (click)="driverAssign()" class="update_btn">Update</button></td>
 </tr>
 </tbody>
 </table>

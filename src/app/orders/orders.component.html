@@ -129,7 +129,8 @@ Map View &nbsp;&nbsp;
 <tbody>
 <tr *ngFor="let item of orderList;let i = index" >
 <td>{{item.orderOn}}</td>
-<td><span class="red_color"><a routerLink="/order-details/{{ item.id }}">{{item.orderIDs}}</a></span></td>
+<td><span class="red_color"><a routerLink="/order-details/{{ item.id }}">{{item.orderIDs}}</a></span><br>
+<span *ngIf = "item.fastDelivery === 1">Fast Delivery</span></td>
 <td>{{item.deliveryDate}}</td>
 <td><span class="red_color"><a routerLink="/customer/{{ item.userId }}">{{item.customerID}}</a></span><br><span>{{item.firstName}}</span> ,<span>{{item.landmark}}</span><br><span> {{item.addressPinDetails}}</span></td>
 <td>SAR {{item.grand | number : '1.2-2'}} </td>

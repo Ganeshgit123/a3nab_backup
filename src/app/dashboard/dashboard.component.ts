@@ -374,7 +374,7 @@ export class DashboardComponent implements OnInit {
           // Success
           // console.log(response.body)
           this.userFeedback = response.body.data.userFeedback
-
+      
           this.userFeedback.forEach(function (ord,index) {
             var tt =  ord.totalAmount - ord.discountAmount    
     

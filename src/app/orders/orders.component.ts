@@ -217,6 +217,7 @@ export class OrdersComponent implements OnInit {
           // console.log(response.body)
           this.pages = response.body.data.pages * 10;
           this.orderList = response.body.data.orders
+          // console.log("vdv",this.orderList)
           this.markers = response.body.data.orders
 
           this.orderList.forEach(function (ord,index) {

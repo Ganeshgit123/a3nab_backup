@@ -14,9 +14,10 @@ export class MakeassignmentComponent implements OnInit {
   orderedList: any;
   or_edit: any;
   selection = [];
+  old_Selection = [];
   orderIds :string [] = [];
   driverList: any;
-
+  assignedCount: any;
   merged_order: any;
 
   isShowDriver = false;
@@ -75,7 +76,6 @@ export class MakeassignmentComponent implements OnInit {
     this.getDriverList();
     this.assignOrderList();
     this.callRolePermission();
-   
   }
 
 
@@ -88,12 +88,9 @@ export class MakeassignmentComponent implements OnInit {
        (response: any) => {
         if (response.body.error === 'false') {
           this.orderedList = response.body.data.orders
+          console.log("ordered list", this.orderedList);
+          this.assignedCount =  this.orderedList.length
           this.editMarkerUser = response.body.data.orders
-
-            // console.log("fef",this.editMarkerUser)
-           console.log("----------->",typeof(this.orderList), typeof(this.orderedList));
-          console.log("----------->>", this.orderList);
-          console.log("------------>>>", this.orderedList);
           this.merged_order = this.orderList.concat(this.orderedList);
           this.orderedList.filter((val) =>{
               this.as_driver_id = val.as_driverId
@@ -130,6 +127,7 @@ export class MakeassignmentComponent implements OnInit {
        (response: any) => {
          if (response.body.error === 'false') {
            this.orderList = response.body.data.orders
+           console.log("list",this.orderList)
            this.originalArray = response.body.data.orders
            this.markers = response.body.data.orders
 
@@ -137,6 +135,8 @@ export class MakeassignmentComponent implements OnInit {
             this.orderRouteId = params['id']
             if(this.orderRouteId){
               this.isEdit = true;
+              this.showAccept = 'false'
+              // console.log("This selection", this.selection.length);
               this.assignedOrderList();
             } 
           });
@@ -156,14 +156,15 @@ export class MakeassignmentComponent implements OnInit {
    editDriverList(dr_id){
 
     this.selection = this.orderedList;
-    console.log("first",this.selection)
+    // console.log("first",this.selection)
     if(this.driverList){
       let dr_da = this.driverList?.filter((value)=>{
        if(value.id == dr_id){
         return value
        }
       });
-    
+      // this.driverList = dr_da
+    // console.log("dr_data", dr_da);
     this.driverName = dr_da[0].firstName
     this.driverID = dr_da[0].drId
     this.driverImage = dr_da[0].profilePic
@@ -180,7 +181,6 @@ export class MakeassignmentComponent implements OnInit {
 
   getDriverList(){
     const object  = { driverActive: 1, isComplete: 1 }
-
     var params = {
       url: 'admin/getDriverList',
       data: object
@@ -189,7 +189,7 @@ export class MakeassignmentComponent implements OnInit {
       (response: any) => {
         if (response.body.error === 'false') {
           this.driverList = response.body.data.driver
-          // console.log("driver",this.driverList)
+          //  console.log("is edit",this.isEdit, this.as_driver_id)
         } else {
           this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
         }
@@ -213,28 +213,41 @@ export class MakeassignmentComponent implements OnInit {
     return this.selection.findIndex(s => s.id === item.id) !== -1;
   }
 
+
+  // buttondis() {
+  //   console.log("this.selec", this.selection.length);
+  // }
+
+
   changeHandler(item: any, event: KeyboardEvent) {
     const id = item.id;
-
     const index = this.selection.findIndex(u => u.id === id);
     if (index === -1) {
       item.isnew = true
+      this.showAccept = 'true'
       this.selection = [...this.selection, item];
       this.getDriverList();
     } else {
       item.isnew = false
       this.selection = this.selection.filter(user => user.id !== item.id)
+      if(this.assignedCount < this.selection.length){
+        this.showAccept = 'true'
+      }else{
+        this.showAccept = 'false'
+      }
       this.getDriverList();
     }
     
-    
+   
     if(this.selection.length > 0){
       this.isShowDriver = true
-      this.selection = this.selection.filter((item)=>{
 
+      this.selection = this.selection.filter((item)=>{
         return item.isnew
       })
+
       const object = { latitude: this.latitude, longitude: this.longitude, driverId: this.dID, orderId: JSON.stringify(this.selection) }
+      
       this.changeOrder(object)
     } else {
       this.distance = []
@@ -255,12 +268,12 @@ export class MakeassignmentComponent implements OnInit {
       url: 'admin/findDriverAssignOrder',
       data: object
     }
-    
+    //  console.log("send data-->", params.data.orderId);
     if(this.latitude && this.longitude && this.dID) {
       this.apiCall.commonPostService(params).subscribe(
         (response: any) => {
           if (response.body.error === 'false') {
-            //console.log("0th---->", response.body.data);
+            //  console.log("0th---->",response.body.data.store);
             this.storeList = response.body.data.store
             this.drop = response.body.data.drop
             this.pickup = response.body.data.pickup
@@ -282,7 +295,7 @@ export class MakeassignmentComponent implements OnInit {
 
 
   selectDriver(values:any,data){ 
-    console.log("select")
+    // console.log("select")
     this.isDriverSelect = true;
     this.driverName = data.firstName
     this.driverID = data.drId
@@ -380,7 +393,8 @@ export class MakeassignmentComponent implements OnInit {
   driverAssign(){
     if(this.distance.length > 0 && this.latitude && this.longitude && this.dID){
       const object = {}
-      if(this.isEdit){
+      if(this.isEdit){ 
+        console.log("ID---->", this.orderRouteId);
         object['id'] = this.orderRouteId
         object['driverId'] = this.dID
         object['longitude'] = this.longitude
@@ -393,6 +407,8 @@ export class MakeassignmentComponent implements OnInit {
           url: 'admin/editassignOrder',
           data: object
         }
+        // console.log("edit length", JSON.stringify(this.distance).length);
+        // console.log("edit data", params.data);
       }else{
         object['driverId'] = this.dID
         object['longitude'] = this.longitude
@@ -405,6 +421,8 @@ export class MakeassignmentComponent implements OnInit {
           url: 'admin/assignOrder',
           data: object
         }
+        // console.log("original data", params.data);
+        // console.log("original length", JSON.stringify(this.distance).length);
       }
 
       this.apiCall.commonPostService(params).subscribe(

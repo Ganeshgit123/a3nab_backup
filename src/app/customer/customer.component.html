@@ -390,12 +390,13 @@ Trusty User &nbsp;&nbsp;
 </td>
 <td>
 
-<span class="red_color">{{item.orderIDs}}</span> <br> 
+<span class="red_color">{{item.orderIDs}}</span> <br>
 Order Status : <span class="blue" *ngIf = "item.orderStatus == 'ONGOING'">{{item.orderStatus}}</span> 
 <span class="green" *ngIf = "item.orderStatus == 'COMPLETED'">{{item.orderStatus}}</span>
 <span class="red_color" *ngIf = "item.orderStatus == 'CANCELLED'">{{item.orderStatus}}</span>
 <span class="yellow" *ngIf = "item.orderStatus == 'PENDING'">{{item.orderStatus}}</span>
-<span class="red_color" *ngIf = "item.orderStatus == 'REJECTED'">{{item.orderStatus}}</span>
+<span class="red_color" *ngIf = "item.orderStatus == 'REJECTED'">{{item.orderStatus}}</span><br> 
+<span *ngIf = "item.fastDelivery === 1">Fast Delivery</span>
 </td>
 
 <td class="text-center"><span class="green" *ngIf = "item.detectedPoint !== 0"> {{item.detectedPoint}}</span>

@@ -44,6 +44,7 @@ export class AssignmentComponent implements OnInit {
      
           this.pages = response.body.data.page * 10;
           this.assignmentList = response.body.data.assign
+          console.log("ass",this.assignmentList)
           // this.markers = response.body.data.orders
           // this.supportForm.reset();
           // this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')

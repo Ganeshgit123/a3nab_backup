@@ -74,7 +74,8 @@
 <td>
 <tr *ngFor="let customer of item.orders" >
 <td *ngIf = "customer.type == 'ORDER'">
-   <a routerLink="/order-details/{{ customer.orderId }}"> {{customer.orderIDs}} </a>
+   <a routerLink="/order-details/{{ customer.orderId }}"> {{customer.orderIDs}}</a><br>
+      <span *ngIf = "customer.fastDelivery === 1">Fast Delivery</span> 
 </td>
 </tr>
 </td>

@@ -60,7 +60,8 @@
 </tr>
 </td>
 <!-- <td class="red_color">#Store_ID</td> -->
-<td class="red_color"><a routerLink="/order-details/{{ item.orderId }}">{{item.orderIDs}}</a></td>
+<td class="red_color"><a routerLink="/order-details/{{ item.orderId }}">{{item.orderIDs}}</a><br>
+    <span *ngIf = "item.fastDelivery === 1">Fast Delivery</span></td>
 <td class="red_color"><a routerLink="/customer/{{ item.userId }}">{{item.customerID}}</a></td>
 <td class="red_color"><a routerLink="/drivers/{{item.drIds }}">{{item.drId}}</a></td>
 <td>SAR {{item.grand | number : '1.2-2'}}</td>
@@ -143,7 +144,8 @@
         <a routerLink="/view-store/{{ items.storeId }}">{{items.storeID}}</a>
     </tr>  
 </td>
-<td class="red_color"><a routerLink="/order-details/{{ item.orderId }}">{{item.orderIDs}}</a></td>
+<td class="red_color"><a routerLink="/order-details/{{ item.orderId }}">{{item.orderIDs}}</a><br>
+    <span *ngIf = "item.fastDelivery === 1">Fast Delivery</span></td>
 <td class="red_color"><a routerLink="/customer/{{ item.userId }}">{{item.customerID}}</a></td>
 <td class="red_color"><a routerLink="/drivers/{{item.drIds }}">{{item.drId}}</a></td>
 <td>SAR {{item.grand | number : '1.2-2'}}</td>
