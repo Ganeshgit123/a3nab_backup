@@ -81,6 +81,10 @@ export class FeedbackComponent implements OnInit {
     
                  var subtot = tt - ord.couponDiscount
                 var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
+                if(ord.off_types == '0'){
+                  ord.fastDelievryCharge = ord.couponDiscount
+                  // console.log("off",ord.fastDelievryCharge)
+                }
                 var subtot2 = subtot1 + ord.fastDelievryCharge
 
                 var subtot3 = subtot2 * (ord.taxValue / 100) 
@@ -144,6 +148,10 @@ export class FeedbackComponent implements OnInit {
     
                  var subtot = tt - ord.couponDiscount
                 var subtot1 = subtot -(ord.pointsAmount + ord.paidByWallet)
+                if(ord.off_types == '0'){
+                  ord.fastDelievryCharge = ord.couponDiscount
+                  // console.log("off",ord.fastDelievryCharge)
+                }
                 var subtot2 = subtot1 + ord.fastDelievryCharge
 
                 var subtot3 = subtot2 * (ord.taxValue / 100) 

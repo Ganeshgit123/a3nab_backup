@@ -33,6 +33,7 @@ export class MakeassignmentComponent implements OnInit {
   storeList = [];
   storeedList: any;
   distance: any;
+  oldDistance: any;
   new_check: any;
   originalArray: any;
   drop: any;
@@ -127,7 +128,6 @@ export class MakeassignmentComponent implements OnInit {
        (response: any) => {
          if (response.body.error === 'false') {
            this.orderList = response.body.data.orders
-           console.log("list",this.orderList)
            this.originalArray = response.body.data.orders
            this.markers = response.body.data.orders
 
@@ -242,9 +242,9 @@ export class MakeassignmentComponent implements OnInit {
     if(this.selection.length > 0){
       this.isShowDriver = true
 
-      this.selection = this.selection.filter((item)=>{
-        return item.isnew
-      })
+      // this.selection = this.selection.filter((item)=>{
+      //   return item.isnew
+      // })
 
       const object = { latitude: this.latitude, longitude: this.longitude, driverId: this.dID, orderId: JSON.stringify(this.selection) }
       
@@ -273,13 +273,13 @@ export class MakeassignmentComponent implements OnInit {
       this.apiCall.commonPostService(params).subscribe(
         (response: any) => {
           if (response.body.error === 'false') {
-            //  console.log("0th---->",response.body.data.store);
+            console.log("check", response.body.data);
             this.storeList = response.body.data.store
             this.drop = response.body.data.drop
             this.pickup = response.body.data.pickup
             this.total = response.body.data.total
             this.distance = response.body.data.distance  
-                 
+            this.oldDistance = response.body.data.olddistance  
           } else {
             this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
           }
@@ -394,7 +394,7 @@ export class MakeassignmentComponent implements OnInit {
     if(this.distance.length > 0 && this.latitude && this.longitude && this.dID){
       const object = {}
       if(this.isEdit){ 
-        console.log("ID---->", this.orderRouteId);
+        console.log("ID---->", this.distance);
         object['id'] = this.orderRouteId
         object['driverId'] = this.dID
         object['longitude'] = this.longitude
@@ -407,8 +407,6 @@ export class MakeassignmentComponent implements OnInit {
           url: 'admin/editassignOrder',
           data: object
         }
-        // console.log("edit length", JSON.stringify(this.distance).length);
-        // console.log("edit data", params.data);
       }else{
         object['driverId'] = this.dID
         object['longitude'] = this.longitude
@@ -421,8 +419,6 @@ export class MakeassignmentComponent implements OnInit {
           url: 'admin/assignOrder',
           data: object
         }
-        // console.log("original data", params.data);
-        // console.log("original length", JSON.stringify(this.distance).length);
       }
 
       this.apiCall.commonPostService(params).subscribe(

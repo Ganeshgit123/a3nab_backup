@@ -72,6 +72,7 @@ export class OrderDetailsComponent implements OnInit {
   driverId:any;
   drivRating:any;
   prodetail:any;
+  offType:any;
   showMap = false;
   zoom: number = 5;
   
@@ -148,7 +149,7 @@ export class OrderDetailsComponent implements OnInit {
     this.apiCall.commonPostService(params).subscribe(
       (response: any) => {
         if (response.body.error === 'false') {
-          // console.log("fe",response.body.data)
+          console.log("fe",response.body.data)
           // Success
           this.orderOn = response.body.data.orderInfo.orderOn
           this.orderIDs = response.body.data.orderInfo.orderIDs
@@ -212,19 +213,22 @@ export class OrderDetailsComponent implements OnInit {
           this.onWayToDelivery = response.body.data.orderInfo.onWayToDelivery
           this.orderStatus = response.body.data.orderInfo.orderStatus
           this.otherTotal = response.body.data.orderInfo.otherTotal
-          // console.log("oth",this.otherTotal)
+          this.offType = response.body.data.orderInfo.off_types
+          // console.log("oth",this.offType)
           // console.log("tot",this.totalAmount) 
 
 
-          this.subtot= ((this.totalAmount +  this.otherTotal) - this.discountAmount) 
-          // console.log("tot",this.subtot)
-           
+        this.subtot= ((this.totalAmount +  this.otherTotal) - this.discountAmount) 
+
           this.distot = this.subtot - this.couponDiscount 
           // console.log("dis",this.distot)
-
+       
           this.subtot1 = this.distot - (this.pointsAmount + this.paidByWallet)
           // console.log("subtot1",this.subtot1)
-          
+          if(this.offType == '0'){
+            this.fastDelievryCharge = this.couponDiscount
+          }
+  
           this.subtot2 = this.subtot1 + this.fastDelievryCharge
           // console.log("tot",this.subtot2)
 

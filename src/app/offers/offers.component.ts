@@ -138,7 +138,7 @@ add_off_click()
 }
 
 onChangeOfferTypes(det){
-  if(det == 'free_deli'){
+  if(det == '0'){
     this.off_type = true
   }else{
     this.off_type = false

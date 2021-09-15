@@ -240,9 +240,8 @@ _icon.svg'"></li>
     <div class="form-group">
     <label>Offer types</label>
     <select class="form-control" formControlName="off_types" (change)="onChangeOfferTypes($event.target.value)">
-        <option [selected]="true" value="">None</option>
-        <option value="discount" >Discount</option>
-        <option value="free_deli" >Free Delivery</option>
+        <option value="1" >Discount</option>
+        <option value="0" >Free Delivery</option>
     </select>
     <p *ngIf="!addOffers.controls.description.valid && submitted" class="error-val-pro">Please select offer type</p>
     </div>
@@ -267,7 +266,7 @@ _icon.svg'"></li>
 </div>
 </div>
 
-<div class="row" *ngIf="off_type == false">
+<div class="row">
 <div class="col-md-6">
 <div class="form-group">
 <label>Min. Order Value</label>

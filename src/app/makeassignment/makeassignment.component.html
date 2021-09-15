@@ -183,8 +183,8 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <tr *ngFor="let item of orderList | filter:searchord;let i = index">
 <td><span class="red_color">{{item.orderIDs}}</span><br>
 <span *ngFor="let store of item.storeList" class="light_color">{{store.storeName}},</span><br>
-<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span><br>
-<span *ngIf = "item.fastDelivery === 1">Fast Delivery</span>
+<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span>
+<!-- <span class="ligi_li_color">Latitude : {{item.latitude}} Longitude : {{item.longitude}}</span> -->
 </td>
 <td>
 <div class="mycheckbox">
@@ -225,8 +225,9 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <tr *ngFor="let item of merged_order | filter:mergeOrder;let i = index">
 <td><span class="red_color">{{item.orderIDs}}</span><br>
 <span *ngFor="let store of item.storeList" class="light_color">{{store.storeName}},</span><br>
-<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span><br>
-    <span *ngIf = "item.fastDelivery === 1">Fast Delivery</span></td>
+<span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span>
+<!-- <span class="ligi_li_color">Latitude : {{item.latitude}} Longitude : {{item.longitude}}</span> -->
+</td>
 <td>
 <div class="mycheckbox">
 <!-- <input type="text" value="{{checkorder(item)}}"> 
@@ -403,8 +404,8 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <p class="ligi_li_color">Delivery : 02:00PM - 05:00PM</p>
 </div> -->
 <p class="assing_route text-center">Assignment Route</p>
-<div class="row">
-<div class="col-md-12">
+<div class="row" *ngIf = "!isEdit" >
+    <div class="col-md-12">
 <div class="ass_sss">
 <ngx-sortable [items]="distance" (listSorted)="listOrderChanged($event)">
 <ng-template let-item>
@@ -416,25 +417,27 @@ Show Off Duty Drivers &nbsp;&nbsp;
 </div>
 </ng-template>
 </ngx-sortable>
+</div>
+</div>
+</div>
 
-<!-- <table class="table table-bordered table-striped table_datatable" id="customerTable">
-<tbody>
-<tr *ngFor="let item of distance;let i = index" >
-<td>
-<div class="assign_bord">
-<span *ngIf = "item.storeName" >{{item.storeName}}</span> <span *ngIf = "item.firstName" >{{item.firstName}}</span> <br>
-<span> {{ item.distance | number : '1.1-1'}} km from location</span>
-</div>
-</td>
-<td><img src="assets/img/delete_icon.svg"></td>
-<td><img src="assets/img/menu_icon.svg"></td>
-</tr>
+     <div class="row" *ngIf = "isEdit" >
+    <div class="col-md-12">
+    <div class="ass_sss">
+    <ngx-sortable [items]="oldDistance" (listSorted)="listOrderChanged($event)">
+    <ng-template let-item>
+    <div *ngIf = "item.storeName" class="sortable-list-item">
+    {{item.storeName}}
+    </div>
+    <div *ngIf = "item.firstName" class="sortable-list-item">
+    {{item.firstName}} - {{item.orderIDs}}
+    </div>
+    </ng-template>
+    </ngx-sortable>
+    </div>
+    </div>
+    </div>
 
-</tbody>
-</table> -->
-</div>
-</div>
-</div>
 <br>
 </div>
 </div>
