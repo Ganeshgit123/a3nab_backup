@@ -67,6 +67,8 @@ export class MakeassignmentComponent implements OnInit {
   mergeOrder;
   searchDriv;
   searchStore;
+  overallroute: any;
+
   constructor(
     private apiCall: ApiCallService,
     private router: Router,
@@ -372,8 +374,15 @@ export class MakeassignmentComponent implements OnInit {
  
 
 
+  // listOrderChanged(data){
+  //   this.distance = data
+  // }
+
   listOrderChanged(data){
-    this.distance = data
+    this.overallroute = data
+    if(!this.isEdit){
+      this.distance = data
+    }
   }
 
   searchOrders(value){
@@ -397,6 +406,7 @@ export class MakeassignmentComponent implements OnInit {
         console.log("ID---->", this.distance);
         object['id'] = this.orderRouteId
         object['driverId'] = this.dID
+        object['overallroute'] = this.overallroute
         object['longitude'] = this.longitude
         object['latitude'] = this.latitude
         object['pickup'] = this.pickup

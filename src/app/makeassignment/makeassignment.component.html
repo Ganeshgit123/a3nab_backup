@@ -63,6 +63,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
     <p class="text-center">{{m.addressPinDetails}}</p>
     <p class="text-center">Name : {{m.firstName}} {{m.lastName}}</p>
     <p class="text-center">Id : {{m.customerID}}</p>
+    <p class="text-center">order Id : {{m.orderIDs}}</p>
 </agm-info-window>
 </agm-marker>
 <div *ngFor="let mn of orderedList"> 
@@ -112,6 +113,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
     <p class="text-center">{{m.addressPinDetails}}</p>
     <p class="text-center">Name : {{m.firstName}} {{m.lastName}}</p>
     <p class="text-center">Id : {{m.customerID}}</p>
+    <p class="text-center">Order Id : {{m.orderIDs}}</p>
     
 </agm-info-window>
 </agm-marker>
@@ -182,6 +184,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <tbody>
 <tr *ngFor="let item of orderList | filter:searchord;let i = index">
 <td><span class="red_color">{{item.orderIDs}}</span><br>
+    <span class="red_color">{{item.customerID}}</span><br>
 <span *ngFor="let store of item.storeList" class="light_color">{{store.storeName}},</span><br>
 <span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span>
 <!-- <span class="ligi_li_color">Latitude : {{item.latitude}} Longitude : {{item.longitude}}</span> -->
@@ -224,6 +227,7 @@ Show Off Duty Drivers &nbsp;&nbsp;
 <tbody>
 <tr *ngFor="let item of merged_order | filter:mergeOrder;let i = index">
 <td><span class="red_color">{{item.orderIDs}}</span><br>
+    <span class="red_color">{{item.customerID}}</span><br>
 <span *ngFor="let store of item.storeList" class="light_color">{{store.storeName}},</span><br>
 <span class="ligi_li_color">Delivery : {{item.fromTime}} - {{item.toTime}}</span>
 <!-- <span class="ligi_li_color">Latitude : {{item.latitude}} Longitude : {{item.longitude}}</span> -->
