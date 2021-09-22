@@ -72,10 +72,10 @@ export class OrderDetailsComponent implements OnInit {
   driverId:any;
   drivRating:any;
   prodetail:any;
+  customerID:any;
   offType:any;
   showMap = false;
   zoom: number = 5;
-  
   // initial center position for the map
   lat: number = 24.774265;
   lng: number = 46.738586;
@@ -155,6 +155,7 @@ export class OrderDetailsComponent implements OnInit {
           this.orderIDs = response.body.data.orderInfo.orderIDs
           this.deliveryDate = response.body.data.orderInfo.deliveryDate
           this.userId = response.body.data.orderInfo.userId
+          this.customerID = response.body.data.orderInfo.customerID
           this.firstName = response.body.data.orderInfo.firstName
           this.lastName = response.body.data.orderInfo.lastName
           this.landmark = response.body.data.orderInfo.landmark
