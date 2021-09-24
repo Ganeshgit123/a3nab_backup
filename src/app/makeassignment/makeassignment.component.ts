@@ -282,6 +282,7 @@ export class MakeassignmentComponent implements OnInit {
             this.total = response.body.data.total
             this.distance = response.body.data.distance  
             this.oldDistance = response.body.data.olddistance  
+            this.overallroute = this.oldDistance
           } else {
             this.apiCall.showToast(response.body.message, 'Error', 'errorToastr')
           }
