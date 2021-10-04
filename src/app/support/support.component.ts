@@ -144,7 +144,7 @@ export class SupportComponent implements OnInit {
   }
 
   searchSuggestion(value){
-    if(value.length === 4){
+  
       const object = { orderId: value }
       var params = {
         url: 'admin/searchOrderId',
@@ -155,7 +155,7 @@ export class SupportComponent implements OnInit {
           if (response.body.error == 'false') {
             // Success
             // console.log(response.body.data.orders)
-            if(response.body.data.orders.length > 0){
+            if(response.body.data.orders.length >= 0){
               this.supportForm   = this.formBuilder.group({
                 // orderIds: [response.body.data.orders[0].id,  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
                 appUser: ['',  [ Validators.required, Validators.pattern(/^\S+(?: \S+)*$/)]],
@@ -180,7 +180,6 @@ export class SupportComponent implements OnInit {
           console.log('Error', error)
         }
       )
-    }
   }
 
   onFilterChange(id, type){
