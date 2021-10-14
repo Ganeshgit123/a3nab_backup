@@ -125,7 +125,7 @@ Map View &nbsp;&nbsp;
 </div> -->
 </td>
 <td>{{item.updatedAt}} - {{item.updatedAtTime}}</td>
-<td>{{item.signupDate}} - {{item.signupDateTime}}</td>
+<td>{{item.signupDate}} - {{item.newSisgnup}}</td>
 <td class="col_chan"><button type="button" (click)="viewUser(item.id,'','')" class="cust_view_btn" data-toggle="modal" data-target="#cust_btn">{{item.customerID}}</button></td>
 <td>{{item.firstName}}</td>
 <td>{{item.gender}}</td>
@@ -371,7 +371,8 @@ Trusty User &nbsp;&nbsp;
 <th>Stores</th>
 <th>Order</th>
 <th>Wallet Point<br><span class="red_color">Total = {{userPoints}}</span></th>
-<th>Wallet Balance<br><span class="red_color">Total = SAR {{walletAmount}}</span></th>
+<th>Wallet Point Amount</th>
+<th>Wallet Amount<br><span class="red_color">Total = SAR {{walletAmount}}</span></th>
 <th class="text-center">Price</th>
 <th>Product Rating</th>
 <th>Driver Rating</th>
@@ -390,7 +391,7 @@ Trusty User &nbsp;&nbsp;
 </td>
 <td>
 
-<span class="red_color">{{item.orderIDs}}</span> <br>
+<span class="red_color">{{item.orderIDs}}</span> <br> 
 Order Status : <span class="blue" *ngIf = "item.orderStatus == 'ONGOING'">{{item.orderStatus}}</span> 
 <span class="green" *ngIf = "item.orderStatus == 'COMPLETED'">{{item.orderStatus}}</span>
 <span class="red_color" *ngIf = "item.orderStatus == 'CANCELLED'">{{item.orderStatus}}</span>
@@ -404,6 +405,9 @@ Order Status : <span class="blue" *ngIf = "item.orderStatus == 'ONGOING'">{{item
 
 <td class="text-center"><span class="green" *ngIf = "item.pointsAmount !== 0"> {{item.pointsAmount}}</span>
     <span class="red_color" *ngIf = "item.pointsAmount == 0">{{item.pointsAmount}}</span></td>
+
+<td class="text-center"><span class="green" *ngIf = "item.paidByWallet !== 0"> {{item.paidByWallet}}</span>
+    <span class="red_color" *ngIf = "item.paidByWallet == 0">{{item.paidByWallet}}</span></td>
     
 <td class="text-center">SAR {{item.grand | number : '1.2-2'}} <br>
 <span *ngIf = "item.paytype == 'card'" class="online_btn">Paid Online</span>

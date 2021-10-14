@@ -467,6 +467,8 @@ async upload_btn_file(){
           ];
 
           this.storeDue = response.body.data.dueResult
+          this.storeDue.map(data=> data.commissionAmt = parseInt(data.commissionAmt).toPrecision(4))
+          console.log(this.storeDue)
 
           this.totalStoreOrder = response.body.data.totalOrders
           this.overAllRevenue = response.body.data.overAllRevenue.amount

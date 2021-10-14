@@ -204,7 +204,11 @@ isEdit = false;
           if(this.cusID == undefined){
           this.userList = response.body.data.users
           this.markers = response.body.data.users
-
+          this.userList.map(datas => {
+            var dt = new Date(datas.newSisgnup);
+            dt.setMinutes( dt.getMinutes() + 30 );
+            datas.newSisgnup = dt.toLocaleTimeString('en-US')
+          })
           // console.log("user",this.OveruserList)
 
           }
@@ -234,7 +238,12 @@ isEdit = false;
           this.pages = response.body.pages * 10;
           // Success
           if(this.cusID == undefined){
-          this.userList = response.body.data.users
+            this.userList = response.body.data.users
+            this.userList.map(datas => {
+              var dt = new Date(datas.newSisgnup);
+              dt.setMinutes( dt.getMinutes() + 30 );
+              datas.newSisgnup = dt.toLocaleTimeString('en-US')
+            })
           }
           // console.log(this.userList)
           if(response.body.data.users.length > 0){
