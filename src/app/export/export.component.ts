@@ -181,7 +181,7 @@ export class ExportComponent implements OnInit {
          
           if(response.body.data.support.length > 0){
             this.exportSupportData(response.body.data.support)
-          }else{
+          }else if(response.body.data.support.length = 0){
             this.apiCall.showToast("There is no Data", 'Error', 'errorToastr')
           }
 

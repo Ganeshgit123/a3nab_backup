@@ -152,14 +152,6 @@
 <form [formGroup]="supportForm" (ngSubmit)="onSubmit()" class="tick_form">
    <div class="row">
       <div class="col-md-6">
-         <div class="form-group">
-            <label>Order Ids</label>
-            <select>
-               <option *ngFor="let item of orderIdList">{{item.orderIDs}}</option>
-            </select>
-            </div>
-      </div>
-      <div class="col-md-6">
       <div class="form-group">
          <label>Type OrderID digits no. only</label><br>
      <input type="text" (input)="searchSuggestion($event.target.value)" class="form-control">

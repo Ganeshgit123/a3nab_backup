@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallService } from '../services/api-call.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-makeassignment',
@@ -73,6 +74,7 @@ export class MakeassignmentComponent implements OnInit {
     private apiCall: ApiCallService,
     private router: Router,
     private route: ActivatedRoute,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -401,10 +403,12 @@ export class MakeassignmentComponent implements OnInit {
 
 
   driverAssign(){
+    
     if(this.distance.length > 0 && this.latitude && this.longitude && this.dID){
       const object = {}
+    this.spinner.show();
       if(this.isEdit){ 
-        console.log("ID---->", this.distance);
+        // console.log("ID---->", this.distance);
         object['id'] = this.orderRouteId
         object['driverId'] = this.dID
         object['overallroute'] = this.overallroute
@@ -436,6 +440,7 @@ export class MakeassignmentComponent implements OnInit {
         (response: any) => {
           if (response.body.error === 'false') {
             this.ngOnInit();
+          this.spinner.hide();
             this.router.navigateByUrl('/assignment');
             this.apiCall.showToast(response.body.message, 'Success', 'successToastr')
           } else {

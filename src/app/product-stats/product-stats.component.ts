@@ -260,7 +260,12 @@ searchProduct;
     )
   }
 
-  
+  searchStoreProduct(value : any ){
+    const object = { pageNumber: this.page,text:value,category: this.categoryId,productCategory:this.subCategoryId,subSubCategory:this.subSubCategoryId,fromDate: this.fromDate, toDate: this.toDate}
+    this.getProductList(object)
+  }
+
+
   getProductList(object){
     var params = {
       url: 'admin/adminProducts',

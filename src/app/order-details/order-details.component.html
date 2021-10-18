@@ -103,8 +103,8 @@
 <tr *ngFor="let prod of item.products">
 <td style="text-align: center;">{{prod.productName}}</td>
 <td style="text-align: center;">{{prod.quantity}}</td>
-<td style="text-align: center;">{{prod.singlePrice}}</td>
-<td style="text-align: center;">{{prod.supplyPrice}}</td>
+<td style="text-align: center;">{{prod.singlePrice | number : '1.2-2'}}</td>
+<td style="text-align: center;">{{prod.supplyPrice | number : '1.2-2'}}</td>
 </tr>
 </tbody>
 </table>
@@ -222,10 +222,10 @@ Amount (SAR)
 <p>{{prod.quantity}}</p>
 </div>
 <div class="col-md-3" style="text-align: center;">
-<p>{{prod.singlePrice}}</p>
+<p>{{prod.singlePrice | number : '1.2-2'}}</p>
 </div>
 <div class="col-md-3" style="text-align: right;">
-<p>{{prod.supplyPrice}}</p>
+<p>{{prod.supplyPrice | number : '1.2-2'}}</p>
 </div>
 </span>
 </div>
@@ -424,7 +424,7 @@ My Super Mart<br>
 <td>{{prod.discount}} %</td>
 <td>
    
-    SAR {{prod.quantity * (prod.price + prod.cuttingStylePrice + prod.boxStylePrice - (prod.price * prod.discount /100))}}</td>
+    SAR {{prod.quantity * (prod.price + prod.cuttingStylePrice + prod.boxStylePrice - (prod.price * prod.discount /100)) | number : '1.2-2'}}</td>
 <td> 
     <!-- <a style="cursor: pointer;" ng-really-message="Are you sure?" ng-really-click="removeOrderItems(prod)"> <img src="assets/img/delete_icon.svg" style="width: 18px;height: 18px;"> </a> -->
     <a

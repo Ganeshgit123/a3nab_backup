@@ -12,7 +12,7 @@
     <label for="searchQuery">
     <span><img src="assets/img/search_icon.svg" width="18px"></span>
     </label>
-    <input type="search"  [(ngModel)]="searchProduct" id="searchQuery" name="searchQuery" placeholder="search"/>
+    <input type="search"  id="searchQuery" name="searchQuery" placeholder="search" (input)="searchStoreProduct($event.target.value)"/>
 </form>
 </div>
 </div>
@@ -102,7 +102,7 @@
 </tr>
 </thead>
 <tbody>
-<tr *ngFor="let item of productsList | filter:searchProduct" >
+<tr *ngFor="let item of productsList" >
 <td>
 <div class="container-category-switch">
 <label class="switch"><input  *ngIf="item.productStatus == 'active'"  checked type="checkbox" (change)="ChnageCategoryStatus($event.target.checked, 'Products', item.id)"/>

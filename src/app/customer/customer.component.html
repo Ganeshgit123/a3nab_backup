@@ -78,7 +78,8 @@ Map View &nbsp;&nbsp;
 [longitude]="m.longitude"
 >
 <agm-info-window #infowindow>
-<p><strong>Name: </strong> {{m.firstName}} {{m.lastName}}</p>
+<p><strong>Name: </strong> {{m.firstName}} {{m.lastName}}<br>
+{{m.customerID}}</p>
 </agm-info-window>
 </agm-marker>
 </agm-map>
@@ -127,7 +128,7 @@ Map View &nbsp;&nbsp;
 <td>{{item.updatedAt}} - {{item.updatedAtTime}}</td>
 <td>{{item.signupDate}} - {{item.newSisgnup}}</td>
 <td class="col_chan"><button type="button" (click)="viewUser(item.id,'','')" class="cust_view_btn" data-toggle="modal" data-target="#cust_btn">{{item.customerID}}</button></td>
-<td>{{item.firstName}}</td>
+<td>{{item.firstName}} {{item.lastName}}</td>
 <td>{{item.gender}}</td>
 <td>{{item.DOB}}</td>
 <td>+{{item.countryCode}} {{item.mobileNumber}}</td>

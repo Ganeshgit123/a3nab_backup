@@ -530,7 +530,18 @@
 </div>
 
 <div class="tab-pane" id="2b">
+    <br>
 <ul class="filter_cont">
+<li>
+    <div class="search-bar">
+        <form>
+        <label for="searchQuery">
+        <span><img src="assets/img/search_icon.svg" width="18px"></span>
+        </label>
+        <input type="search" id="searchQuery" name="searchQuery" placeholder="search" (input)="searchStoreProduct($event.target.value)"/>
+        </form>
+        </div>
+</li>
 <li>
 <p>
 Category Filter :
@@ -538,9 +549,6 @@ Category Filter :
 <option [selected]="true" value="">Select Category</option>
 <option *ngFor="let item of category;let i = index" value="{{item.id}}" >{{item.categoryName}}</option>
 </select>
-<!-- <select>
-<option>None</option>
-</select> -->
 </p>
 </li>
 <li>
@@ -585,7 +593,7 @@ Status Filter :
 </tr>
 </thead>
 <tbody>
-<tr *ngFor="let item of storeproducts; let i = index">
+<tr *ngFor="let item of storeproducts">
 <td>{{item.productName}}</td>
 <!-- <td class="text-center">1.25 Lt.</td> -->
 <td class="red_mar text-center">{{item.productCategoryName}}</td>

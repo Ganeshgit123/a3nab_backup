@@ -66,7 +66,7 @@ export class AddStoreComponent implements OnInit {
   pagno : Number =1;
   limitValue = 0;
   status = 'ALL';
-
+  searchProduct;
   storeOrderGraph: ChartType;
   revenueGraph: ChartType;
   netRevenueGraph: ChartType;
@@ -327,7 +327,10 @@ export class AddStoreComponent implements OnInit {
     const object = {storeId: this.storeId, categoryId: this.categoryId,pageNumber: 1, status: this.status,limit: this.limitValue }
     this.storeProductList(object)
   }
-
+  searchStoreProduct(value : any ){
+    const object = {storeId: this.storeId, categoryId: this.categoryId,pageNumber: this.page, status: this.status,limit: this.limitValue,text:value }
+    this.storeProductList(object)
+  }
   storeProductList(object){
     // console.log(object)
     var params = {
