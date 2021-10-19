@@ -189,21 +189,20 @@
 <ul class="variable_filter_ul">
 <li>
 <label>Variable 1 Range : </label>
-<select>
-  <option value="last_month">Last Month</option>
+<select (change)="lastClick($event.target.value)">
+<option value="">Last Month</option>
 <option value="last_week">Last Week</option>
-<option value="last_quarter">Last Quarter</option>
+<option value="last_qua">Last Quarter</option>
 <option value="last_year">Last Year</option>
-<option value="start_date">Start Date</option>
 </select>
 </li>
 <li>
 <label>Variable 2 Range : </label>
-<select>
-<option value="cur_month">Current Month</option>
-<option value="cur_week">Current Week</option>
-<option value="cur_quarter">Current Quarter</option>
-<option value="cur_year">Current Year</option>
+<select (change)="currentClick($event.target.value)">
+<option value="">Current Month</option>
+<option value="current_week">Current Week</option>
+<option value="current_qua">Current Quarter</option>
+<option value="current_year">Current Year</option>
 </select>
 </li>
 </ul>
@@ -350,7 +349,7 @@
 <p class="text-center" style="color: #62CA55;">Payment Type</p>
 </div>
 </div>
-<div class="row">
+<!-- <div class="row">
 <div class="col-md-12">
 <div class="custom_filt_bord">
 <div class="radiogroup">
@@ -386,7 +385,7 @@
 </div>
 </div>
 </div>
-</div>
+</div> -->
 </div>
 <div class="tab-pane" id="grossrev">
   <div class="row">
@@ -415,43 +414,6 @@
   [labels]="payDonutChart.labels" [legend]="payDonutChart.legend">
   </canvas>
   <p class="text-center" style="color: #62CA55;">Payment Type</p>
-  </div>
-  </div>
-  <div class="row">
-  <div class="col-md-12">
-  <div class="custom_filt_bord">
-  <div class="radiogroup">
-    <ul>
-    <li>
-    <label class="control control-radio" for="1">
-    <input type="radio" id="1" name="filt" value="current">
-    <span>Current Month</span>
-    <div class="control-indicator"></div>
-    </label>
-    </li>
-    <li>
-      <label class="control control-radio" for="1">
-      <input type="radio" id="2" name="filt" value="current">
-      <span>Last Month</span>
-      <div class="control-indicator"></div>
-      </label>
-      </li>
-      <li>
-        <label class="control control-radio" for="1">
-        <input type="radio" id="2" name="filt" value="current">
-        <span>Last Quarter</span>
-        <div class="control-indicator"></div>
-        </label>
-        </li>
-        <li>
-          <input type="text" bsDatepicker  placeholder="Start Date" (bsValueChange) ="valuefrom($event)"  [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
-      </li>
-      <li>
-          <input type="text" bsDatepicker  placeholder="End Date" (bsValueChange) ="valueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
-      </li>
-    </ul>
-  </div>
-  </div>
   </div>
   </div>
   </div>
@@ -484,43 +446,7 @@
     <p class="text-center" style="color: #62CA55;">Payment Type</p>
     </div>
     </div>
-    <div class="row">
-    <div class="col-md-12">
-    <div class="custom_filt_bord">
-    <div class="radiogroup">
-      <ul>
-      <li>
-      <label class="control control-radio" for="1">
-      <input type="radio" id="1" name="filt" value="current">
-      <span>Current Month</span>
-      <div class="control-indicator"></div>
-      </label>
-      </li>
-      <li>
-        <label class="control control-radio" for="1">
-        <input type="radio" id="2" name="filt" value="current">
-        <span>Last Month</span>
-        <div class="control-indicator"></div>
-        </label>
-        </li>
-        <li>
-          <label class="control control-radio" for="1">
-          <input type="radio" id="2" name="filt" value="current">
-          <span>Last Quarter</span>
-          <div class="control-indicator"></div>
-          </label>
-          </li>
-          <li>
-            <input type="text" bsDatepicker  placeholder="Start Date" (bsValueChange) ="valuefrom($event)"  [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
-        </li>
-        <li>
-            <input type="text" bsDatepicker  placeholder="End Date" (bsValueChange) ="valueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
-        </li>
-      </ul>
-    </div>
-    </div>
-    </div>
-    </div>
+    
     </div>
     <div class="tab-pane" id="regusers">
       <div class="row">
@@ -549,43 +475,6 @@
       [labels]="payDonutChart.labels" [legend]="payDonutChart.legend">
       </canvas>
       <p class="text-center" style="color: #62CA55;">Payment Type</p>
-      </div>
-      </div>
-      <div class="row">
-      <div class="col-md-12">
-      <div class="custom_filt_bord">
-      <div class="radiogroup">
-        <ul>
-        <li>
-        <label class="control control-radio" for="1">
-        <input type="radio" id="1" name="filt" value="current">
-        <span>Current Month</span>
-        <div class="control-indicator"></div>
-        </label>
-        </li>
-        <li>
-          <label class="control control-radio" for="1">
-          <input type="radio" id="2" name="filt" value="current">
-          <span>Last Month</span>
-          <div class="control-indicator"></div>
-          </label>
-          </li>
-          <li>
-            <label class="control control-radio" for="1">
-            <input type="radio" id="2" name="filt" value="current">
-            <span>Last Quarter</span>
-            <div class="control-indicator"></div>
-            </label>
-            </li>
-            <li>
-              <input type="text" bsDatepicker  placeholder="Start Date" (bsValueChange) ="valuefrom($event)"  [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
-          </li>
-          <li>
-              <input type="text" bsDatepicker  placeholder="End Date" (bsValueChange) ="valueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly   [outsideClick] = "true"  class="form-control datepicker">
-          </li>
-        </ul>
-      </div>
-      </div>
       </div>
       </div>
       </div>
