@@ -6,7 +6,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ChartOptions,  ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { DatePipe } from '@angular/common';
-import {ChartType,storeOrderGraph,revenueGraph,netRevenueGraph,growthChart} from './data';
+import {ChartType} from './data';
 declare var $:any;
 
 @Component({
@@ -71,24 +71,13 @@ export class AddStoreComponent implements OnInit {
   revenueGraph: ChartType;
   netRevenueGraph: ChartType;
   growthChart: ChartType;
-
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  public orderChartLabels: Label[] = [];
-  // public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
-
-  public orderChartData: ChartDataSets[] = [
-    { data: [], label: 'Orders' },
-  ];
-
-  public revenueChartLabels: Label[] = [];
-
-  public revenueChartData: ChartDataSets[] = [
-    { data: [], label: 'Orders' },
-  ];
+  stoOrderXaxis = [];
+  stoOrderData = [];
+  stoRevenXaxis = [];
+  stoRevenData = [];
+  stoNetRevenXaxis = [];
+  stoNetRevenData = [];
+  lastMonthStroeGrowData = [];
 
   constructor(
     private apiCall: ApiCallService,
@@ -149,14 +138,650 @@ export class AddStoreComponent implements OnInit {
     this.getVendorList(this.storeId)
     this.getCatgoryList();
     
-    this.fetchGraphData();
+    this.storeOrderGenGraph();
+    this.storeRevenGraph();
+    this.storeNetRevenGraph();
+    this.storeGrowthGraph();
+    this.lastClick('');
   }
 
-  fetchGraphData(){
-    this.storeOrderGraph = storeOrderGraph;
-    this.revenueGraph = revenueGraph;
-    this.netRevenueGraph = netRevenueGraph;
-    this.growthChart = growthChart;
+  lastClick(val){
+    var object = {filter: val,storeId: this.storeId}
+
+    var params = {
+      url: 'admin/lastMonthBarChart',
+      data: object
+    }
+    this.apiCall.commonPostService(params).subscribe((result: any) => {
+      if (result.body.error == "false") {
+        this.lastMonthStroeGrowData = result.body.data.lastMonthBarChart;
+      }
+
+
+    this.growthChart = {
+      chart: {
+          height: 350,
+          type: 'bar',
+          toolbar: {
+              show: false
+          }
+      },
+      plotOptions: {
+          bar: {
+              dataLabels: {
+                  position: 'top',  // top, center, bottom
+              },
+          }
+      },
+      stroke: {
+          show: true,
+          width: 4,
+          colors: ['transparent']
+      },
+      dataLabels: {
+          enabled: true,
+          formatter: (val) => {
+              return val;
+          },
+          offsetY: -20,
+          style: {
+              fontSize: '12px',
+              colors: ['#304758']
+          }
+      },
+      colors: ['#62CA55'],
+      series: [{
+          name: 'Last',
+          data: this.lastMonthStroeGrowData
+      }
+    ],
+      
+      xaxis: {
+          categories: ['Orders', 'Customers', 'Revenue', 'Net Revenue'],
+          position: 'bottom',
+          axisBorder: {
+              show: false
+          },
+          axisTicks: {
+              show: false
+          },
+          crosshairs: {
+              fill: {
+                  type: 'gradient',
+                  gradient: {
+                      colorFrom: '#D8E3F0',
+                      colorTo: '#BED1E6',
+                      stops: [0, 100],
+                      opacityFrom: 0.4,
+                      opacityTo: 0.5,
+                  }
+              }
+          },
+          tooltip: {
+              enabled: false,
+              offsetY: -35,
+          }
+      },
+      fill: {
+          gradient: {
+              shade: 'light',
+              type: 'horizontal',
+              shadeIntensity: 0.25,
+              gradientToColors: undefined,
+              inverseColors: false,
+              opacityFrom: 1,
+              opacityTo: 1,
+              stops: [50, 0, 100, 100]
+          },
+      },
+      yaxis: {
+          axisBorder: {
+              show: false
+          },
+          axisTicks: {
+              show: false,
+          },
+          labels: {
+              show: true,
+              formatter: (val) => {
+                  return val;
+              }
+          }
+      },
+      title: {
+          // text: 'Monthly Inflation in Argentina, 2002',
+          // floating: true,
+          offsetY: 320,
+          align: 'center',
+          style: {
+              color: '#444'
+          }
+      },
+      legend: {
+          offsetY: 7
+      }
+    };
+    });
+  }
+
+  storeOrderGenGraph(){
+    var params = {
+      url: 'admin/storeOrderGraph',
+      data: { "storeId": this.storeId }
+    }
+
+    this.storeOrderGraph = {
+      chart: {
+          height: 380,
+          type: 'line',
+          zoom: {
+              enabled: false
+          },
+          toolbar: {
+              show: false,
+          }
+      },
+      colors: ['#F14948'],
+      dataLabels: {
+          enabled: false
+      },
+      stroke: {
+          width: [3],
+          curve: 'straight',
+          dashArray: [0]
+      },
+      series: [{
+          name:'Orders',
+          data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+      }
+      ],
+      markers: {
+          size: 0,
+  
+          hover: {
+              sizeOffset: 6
+          }
+      },
+      xaxis: {
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May','Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+              'Nov', 'Dec',
+          ],
+      },
+      tooltip: {
+          y: [{
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }, {
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }, {
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }]
+      },
+      grid: {
+          borderColor: '#f1f1f1',
+      }
+  };
+
+  this.apiCall.commonPostService(params).subscribe((result: any) => {
+    if (result.body.error == "false") {
+
+      this.stoOrderXaxis = result.body.data.x_arr;
+      this.stoOrderData = result.body.data.store_order;
+      this.storeOrderGraph = {
+      chart: {
+          height: 380,
+          type: 'line',
+          zoom: {
+              enabled: false
+          },
+          toolbar: {
+              show: false,
+          }
+      },
+      colors: ['#F14948'],
+      dataLabels: {
+          enabled: false
+      },
+      stroke: {
+          width: [3],
+          curve: 'straight',
+          dashArray: [0]
+      },
+      series: [{
+          name:'Orders',
+          data: this.stoOrderData
+      }
+      ],
+      markers: {
+          size: 0,
+  
+          hover: {
+              sizeOffset: 6
+          }
+      },
+      xaxis: {
+          categories: this.stoOrderXaxis,
+      },
+      tooltip: {
+          y: [{
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }, {
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }, {
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }]
+      },
+      grid: {
+          borderColor: '#f1f1f1',
+      }
+  };
+    }
+  });
+  }
+
+  storeRevenGraph(){
+    var params = {
+      url: 'admin/storeRevenueGraph',
+      data: { "storeId": this.storeId }
+    }
+
+    this.revenueGraph = {
+  chart: {
+      height: 380,
+      type: 'line',
+      zoom: {
+          enabled: false
+      },
+      toolbar: {
+          show: false,
+      }
+  },
+  colors: ['#F14948'],
+  dataLabels: {
+      enabled: false
+  },
+  stroke: {
+      width: [3],
+      curve: 'straight',
+      dashArray: [0]
+  },
+  series: [{
+      name:'Revenue',
+      data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+  }
+  ],
+  markers: {
+      size: 0,
+
+      hover: {
+          sizeOffset: 6
+      }
+  },
+  xaxis: {
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May','Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+          'Nov', 'Dec',
+      ],
+  },
+  tooltip: {
+      y: [{
+          title: {
+              formatter: (val) => {
+                  return val;
+              }
+          }
+      }, {
+          title: {
+              formatter: (val) => {
+                  return val;
+              }
+          }
+      }, {
+          title: {
+              formatter: (val) => {
+                  return val;
+              }
+          }
+      }]
+  },
+  grid: {
+      borderColor: '#f1f1f1',
+  }
+};
+this.apiCall.commonPostService(params).subscribe((result: any) => {
+  if (result.body.error == "false") {
+
+    this.stoRevenXaxis = result.body.data.x_arr;
+    this.stoRevenData = result.body.data.store_revenue;
+    this.revenueGraph = {
+  chart: {
+      height: 380,
+      type: 'line',
+      zoom: {
+          enabled: false
+      },
+      toolbar: {
+          show: false,
+      }
+  },
+  colors: ['#F14948'],
+  dataLabels: {
+      enabled: false
+  },
+  stroke: {
+      width: [3],
+      curve: 'straight',
+      dashArray: [0]
+  },
+  series: [{
+      name:'Revenue',
+      data: this.stoRevenData
+  }
+  ],
+  markers: {
+      size: 0,
+
+      hover: {
+          sizeOffset: 6
+      }
+  },
+  xaxis: {
+      categories: this.stoRevenXaxis,
+  },
+  tooltip: {
+      y: [{
+          title: {
+              formatter: (val) => {
+                  return val;
+              }
+          }
+      }, {
+          title: {
+              formatter: (val) => {
+                  return val;
+              }
+          }
+      }, {
+          title: {
+              formatter: (val) => {
+                  return val;
+              }
+          }
+      }]
+  },
+  grid: {
+      borderColor: '#f1f1f1',
+  }
+};
+  }
+});
+  }
+
+  storeNetRevenGraph(){
+    var params = {
+      url: 'admin/storeNetRevenueGraph',
+      data: { "storeId": this.storeId }
+    }
+
+    this.netRevenueGraph = {
+      chart: {
+          height: 380,
+          type: 'line',
+          zoom: {
+              enabled: false
+          },
+          toolbar: {
+              show: false,
+          }
+      },
+      colors: ['#F14948'],
+      dataLabels: {
+          enabled: false
+      },
+      stroke: {
+          width: [3],
+          curve: 'straight',
+          dashArray: [0]
+      },
+      series: [{
+          name:'Net Revenue',
+          data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+      }
+      ],
+      markers: {
+          size: 0,
+  
+          hover: {
+              sizeOffset: 6
+          }
+      },
+      xaxis: {
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May','Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+              'Nov', 'Dec',
+          ],
+      },
+      tooltip: {
+          y: [{
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }, {
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }, {
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }]
+      },
+      grid: {
+          borderColor: '#f1f1f1',
+      }
+  };
+
+  this.apiCall.commonPostService(params).subscribe((result: any) => {
+    if (result.body.error == "false") {
+
+      this.stoNetRevenXaxis = result.body.data.x_arr;
+      this.stoNetRevenData = result.body.data.store_Netrevenue;
+    }
+    this.netRevenueGraph = {
+      chart: {
+          height: 380,
+          type: 'line',
+          zoom: {
+              enabled: false
+          },
+          toolbar: {
+              show: false,
+          }
+      },
+      colors: ['#F14948'],
+      dataLabels: {
+          enabled: false
+      },
+      stroke: {
+          width: [3],
+          curve: 'straight',
+          dashArray: [0]
+      },
+      series: [{
+          name:'Net Revenue',
+          data: this.stoNetRevenData
+      }
+      ],
+      markers: {
+          size: 0,
+  
+          hover: {
+              sizeOffset: 6
+          }
+      },
+      xaxis: {
+          categories: this.stoNetRevenXaxis,
+      },
+      tooltip: {
+          y: [{
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }, {
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }, {
+              title: {
+                  formatter: (val) => {
+                      return val;
+                  }
+              }
+          }]
+      },
+      grid: {
+          borderColor: '#f1f1f1',
+      }
+  };
+  });
+  }
+
+  storeGrowthGraph(){
+
+    this.growthChart = {
+  chart: {
+      height: 350,
+      type: 'bar',
+      toolbar: {
+          show: false
+      }
+  },
+  plotOptions: {
+      bar: {
+          dataLabels: {
+              position: 'top',  // top, center, bottom
+          },
+      }
+  },
+  stroke: {
+      show: true,
+      width: 4,
+      colors: ['transparent']
+  },
+  dataLabels: {
+      enabled: true,
+      formatter: (val) => {
+          return val;
+      },
+      offsetY: -20,
+      style: {
+          fontSize: '12px',
+          colors: ['#304758']
+      }
+  },
+  colors: ['#62CA55'],
+  series: [{
+      name: 'Last',
+      data: [2.5, 3.2, -5.0, 10.1]
+  }
+],
+  
+  xaxis: {
+      categories: ['Orders', 'Customers', 'Revenue', 'Net Revenue'],
+      position: 'bottom',
+      axisBorder: {
+          show: false
+      },
+      axisTicks: {
+          show: false
+      },
+      crosshairs: {
+          fill: {
+              type: 'gradient',
+              gradient: {
+                  colorFrom: '#D8E3F0',
+                  colorTo: '#BED1E6',
+                  stops: [0, 100],
+                  opacityFrom: 0.4,
+                  opacityTo: 0.5,
+              }
+          }
+      },
+      tooltip: {
+          enabled: false,
+          offsetY: -35,
+      }
+  },
+  fill: {
+      gradient: {
+          shade: 'light',
+          type: 'horizontal',
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: false,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100]
+      },
+  },
+  yaxis: {
+      axisBorder: {
+          show: false
+      },
+      axisTicks: {
+          show: false,
+      },
+      labels: {
+          show: true,
+          formatter: (val) => {
+              return val;
+          }
+      }
+  },
+  title: {
+      // text: 'Monthly Inflation in Argentina, 2002',
+      // floating: true,
+      offsetY: 320,
+      align: 'center',
+      style: {
+          color: '#444'
+      }
+  },
+  legend: {
+      offsetY: 7
+  }
+};
   }
 
   graphvalueFrom(event: any){
@@ -455,20 +1080,7 @@ async upload_btn_file(){
       (response: any) => {
         // console.log(response.body)
         if (response.body.error == 'false') {
-
-          // console.log(response.body.data.orderResult.year)
-          this.orderChartLabels = response.body.data.orderResult.year;
-
-          this.orderChartData = [
-            { data: response.body.data.orderResult.orders, label: 'Orders' },
-          ];
-
-          this.revenueChartLabels = response.body.data.revenueResult.year;
-
-          this.revenueChartData = [
-            { data: response.body.data.revenueResult.amount, label: 'Orders' },
-          ];
-
+ 
           this.storeDue = response.body.data.dueResult
           this.storeDue.map(data=> data.commissionAmt = parseInt(data.commissionAmt).toPrecision(4))
           console.log(this.storeDue)

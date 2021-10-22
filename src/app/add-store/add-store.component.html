@@ -169,29 +169,6 @@
 [yaxis]="storeOrderGraph.yaxis" [tooltip]="storeOrderGraph.tooltip"></apx-chart>
 </div>
 </div>
-<div class="row">
-<div class="col-md-12">
-<div class="custom_filt_bord">
-<div class="radiogroup">
-<ul>
-<li>
-<label class="control control-radio" for="1">
-<input type="radio" id="1" name="filt" value="current">
-<span>Current Month</span>
-<div class="control-indicator"></div>
-</label>
-</li>
-<li>
-<input type="text" bsDatepicker placeholder="From Date" (bsValueChange)="graphvalueFrom($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
-</li>
-<li>
-<input type="text" bsDatepicker placeholder="To Date" (bsValueChange)="graphvalueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="tab-pane" id="2a">
     <div class="row">
@@ -202,29 +179,6 @@
         [tooltip]="revenueGraph.tooltip" [plotOptions]="revenueGraph.plotOptions"
         [fill]="revenueGraph.fill" [markers]="revenueGraph.markers" [legend]="revenueGraph.legend"
         [yaxis]="revenueGraph.yaxis" [tooltip]="revenueGraph.tooltip"></apx-chart>
-        </div>
-        </div>
-        <div class="row">
-        <div class="col-md-12">
-        <div class="custom_filt_bord">
-        <div class="radiogroup">
-        <ul>
-        <li>
-        <label class="control control-radio" for="1">
-        <input type="radio" id="1" name="filt" value="current">
-        <span>Current Month</span>
-        <div class="control-indicator"></div>
-        </label>
-        </li>
-        <li>
-        <input type="text" bsDatepicker placeholder="From Date" (bsValueChange)="graphvalueFrom($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
-        </li>
-        <li>
-        <input type="text" bsDatepicker placeholder="To Date" (bsValueChange)="graphvalueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
-        </li>
-        </ul>
-        </div>
-        </div>
         </div>
         </div>
 </div>
@@ -239,48 +193,24 @@
         [yaxis]="netRevenueGraph.yaxis" [tooltip]="netRevenueGraph.tooltip"></apx-chart>
         </div>
         </div>
-        <div class="row">
-        <div class="col-md-12">
-        <div class="custom_filt_bord">
-        <div class="radiogroup">
-        <ul>
-        <li>
-        <label class="control control-radio" for="1">
-        <input type="radio" id="1" name="filt" value="current">
-        <span>Current Month</span>
-        <div class="control-indicator"></div>
-        </label>
-        </li>
-        <li>
-        <input type="text" bsDatepicker placeholder="From Date" (bsValueChange)="graphvalueFrom($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
-        </li>
-        <li>
-        <input type="text" bsDatepicker placeholder="To Date" (bsValueChange)="graphvalueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
-        </li>
-        </ul>
-        </div>
-        </div>
-        </div>
-        </div>
 </div>
 <div class="tab-pane" id="4a">
     <ul class="variable_filter_ul">
         <li>
         <label>Variable Range : </label>
-        <select>
-            <option value="last_month">Last Month</option>
-        <option value="last_week">Last Week</option>
-        <option value="last_quarter">Last Quarter</option>
-        <option value="last_year">Last Year</option>
-        <option value="custom_option">Custom</option>
+        <select (change)="lastClick($event.target.value)">
+            <option value="">Last Month</option>
+            <option value="last_week">Last Week</option>
+            <option value="last_qua">Last Quarter</option>
+            <option value="last_year">Last Year</option>
         </select>
         </li>
-        <li>
+        <!-- <li>
             <input type="text" bsDatepicker placeholder="From Date" (bsValueChange)="graphvalueFrom($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
             </li>
             <li>
             <input type="text" bsDatepicker placeholder="To Date" (bsValueChange)="graphvalueTo($event)" [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}" readonly [outsideClick]="true" class="form-control datepicker">
-            </li>
+            </li> -->
     </ul>
     <div class="row">
         <div class="col-md-12">
